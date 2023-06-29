@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Shopping Cart</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="images/icons/favicon.png" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/fonts/iconic/css/material-design-iconic-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/fonts/linearicons-v1.0.0/icon-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/animsition/css/animsition.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/css/util.css">
+  <link rel="stylesheet" type="text/css" href="/cartstyle/css/main.css">
+  <!--===============================================================================================-->
+ 
+</head>
+
+<body>
+  <% if(typeof user !="undefined" ){ %>
+    <%-include('userlogged') %>
+      <%}else{%>
+        <%-include('usernotlogged') %>
+          <%}%>
+  
+          <div class="container" style="background-color: white;font-family: 'Poppins Medium', sans-serif;margin-top: 86px;padding: 20px;">
+            <div class="card">
+              <div class="card-header">
+                <h2 style="text-align: center; color: #333;">Account Details</h2>
+              </div>
+              <div class="form-container" style="padding: 20px;">
+                <form method="post" action="/checkout-address">
+          
+                  <div class="form-group">
+                    <label for="inputUsername">Full Name</label>
+                    <input class="form-control" id="inputUsername" type="text" name="name" placeholder="Enter your full name" required>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="inputFirstName">Mobile</label>
+                        <input class="form-control" name="mobile" id="inputFirstName" type="text" placeholder="Enter your mobile number" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputLastName">State</label>
+                        <input class="form-control" id="inputLastName" name="state" type="text" placeholder="Enter your state" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="inputOrgName">Address</label>
+                        <input class="form-control" id="inputOrgName" name="address" type="text" placeholder="Enter your house name" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputLocation">City</label>
+                        <input class="form-control" id="inputLocation" name="city" type="text" placeholder="Enter your city" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="inputPhone">Email</label>
+                        <input class="form-control" name="email" id="inputPhone" type="email" placeholder="Enter your email" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputBirthday">ZIP</label>
+                        <input class="form-control" id="inputBirthday" type="number" name="pincode" placeholder="Enter your pincode" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group" style="text-align: center;">
+                    <button class="btn btn-primary" value="submit" type="submit" style="width: 150px;">Add Address</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+          
+</body>
+
+</html>

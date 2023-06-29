@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>OTP Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      margin-top: 10rem;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #4527a0;
+    }
+
+    .form {
+      margin: auto;
+      text-align: center;
+    }
+
+    .input {
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #555555;
+      border-radius: 4px;
+    }
+
+    .button {
+      width: 100%;
+      background-color: #4527a0;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .countdown {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff0000;
+      margin-top: 20px;
+    }
+
+    .resendButton {
+      width: 100%;
+      background-color: #4527a0;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      opacity: 0.5;
+    }
+
+    .resendButton:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">One-Time Password</h1>
+    <form action="/verify-otp" method="post">
+      <input type="otp" class="input" name="otp" placeholder="Enter your OTP" style="text-align: center;">
+      <input type="submit" class="button" value="Verify">
+    </form>
+
+    <div class="countdown">
+      <span id="timer">90</span> seconds remaining
+    </div>
+
+    <button id="resendButton" class="resendButton" disabled>Resend OTP</button>
+  </div>
+
+  <script>
+    var countdown = 90;
+    var timerElement = document.getElementById('timer');
+    var resendButton = document.getElementById('resendButton');
+
+    function startCountdown() {
+      resendButton.disabled = true;
+      var timer = setInterval(function() {
+        countdown--;
+        timerElement.textContent = countdown;
+        if (countdown <= 0) {
+          clearInterval(timer);
+          resendButton.disabled = false;
+        }
+      }, 1000);
+    }
+
+    resendButton.addEventListener('click', function() {
+      countdown = 90;
+      startCountdown();
+    });
+
+    startCountdown();
+  </script>
+</body>
+</html>

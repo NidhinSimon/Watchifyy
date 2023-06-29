@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/main/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/main/img/favicon.png">
+  <title>
+    USERS
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="/main/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/main/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/main/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+</head>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="fline">
+                <h2 class="text-center my-2">Create Offer for Category</h2>
+            </div>
+
+
+
+            <form action="/categoryoffercreate" method="post" class="mx-auto">
+                <div class="form-group">
+                    <label for="name">Offer Name</label>
+                    <input class="form-control" type="text" placeholder="Enter Offer Name" name="name" id="name">
+                    <span id="nameError" style="color: red;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="percentage">Offer Percentage</label>
+                    <input class="form-control" type="number" placeholder="Enter Offer Percentage" name="percentage" id="percentage" >
+                    <span id="percentageError" style="color: red;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select class="form-control" name="category">
+                        <% for (let i = 0; i < data.length; i++) { %>
+                            <option value="<%= data[i]._id %>"><%= data[i].category %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary btn-block" type="submit" id="submitButton" >ADD</button>
+            </form>
+        </div>
+    </div>
+</div>
+

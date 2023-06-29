@@ -1,0 +1,16 @@
+<div class="cupon_area">
+	<div class="check_title">
+	  <label for="couponSelect">Select Coupon:</label>
+	  <select id="couponSelect" name="couponSelect">
+		<option value="coupon1">Coupon 1</option>
+		<option value="coupon2">Coupon 2</option>
+		<option value="coupon3">Coupon 3</option>
+		<!-- Add more options if needed -->
+	  </select>
+	</div>
+	<input type="text" name="coupon" id="couponcode" class="w-75" placeholder="Enter coupon code">
+	<button class="btn bg-warning" onclick="checkCoupon()">Apply Coupon</button>
+	<button class="btn btn-danger" onclick="deleteCoupon()">Delete Coupon</button>
+	<span id="errorMessage"></span>
+  </div>
+  

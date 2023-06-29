@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pending Cancel Requests</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+    <style>
+        /* Custom table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Custom link styles */
+        a {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pending Cancel Requests</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <!-- Add additional table headers here -->
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% cancelRequests.forEach((request) => { %>
+                <tr>
+                    <td><%= request._id %></td>
+                    <td><%= request.product[0].name %></td>
+                    <td><%= request.product[0].price %></td>
+                    <!-- Add additional table cells here -->
+                    <td>
+                        <a href="/approvecancel/<%= request._id %>">Approve</a>
+                        <a href="/rejectcancel/<%= request._id %>">Reject</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

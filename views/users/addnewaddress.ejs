@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Shopping Cart</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="images/icons/favicon.png" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/fonts/iconic/css/material-design-iconic-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/fonts/linearicons-v1.0.0/icon-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/animsition/css/animsition.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/cartstyle/css/util.css">
+  <link rel="stylesheet" type="text/css" href="/cartstyle/css/main.css">
+
+
+
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .main {
+    max-width: 100%;
+    padding: 20px;
+    background-color: #000000;
+    box-shadow: 0 0 10px rgba(19, 17, 17, 0.377);
+  }
+
+  .profile {
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+
+  .profile h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .profile p {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .profile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .profile li {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .profile li strong {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  /* New styles for the form */
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .form-container .card-header {
+    background-color: #12100e;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .form-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-container input[type="text"],
+  .form-container input[type="tel"],
+  .form-container input[type="email"],
+  .form-container select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  .form-container button[type="submit"] {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+
+<body>
+
+  <section class="banner-area organic-breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+        <div class="col-first">
+          <h1>ADD NEW ADDRESS HERE</h1>
+          <nav class="d-flex align-items-center">
+            <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container main">
+    <div class="profile">
+      <div class="container">
+        <div class="card mb-4 p-5">
+          <div class="card-header">sssssssssssssssssssssssssssssAccount Details</div>
+          <div class="form-container">
+            <form method="post" action="/addnewaddress">
+              <label class="small mb-2">Select Delivery Point: </label>
+              <select class="mb-3" name="delivery_point" id="category">
+                <option>HOME</option>
+                <option>OFFICE</option>
+              </select>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="small mb-2">Full Name</label>
+                  <input class="form-control" id="inputUsername" type="text" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="small mb-2">Mobile</label>
+                  <input class="form-control" name="mobile" id="inputFirstName" type="tel" placeholder="Enter your mobile number" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="small mb-2">State</label>
+                  <input class="form-control" id="inputLastName" name="state" type="text" placeholder="Enter your state" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="small mb-2">City</label>
+                  <input class="form-control" id="inputLocation" name="city" type="text" placeholder="Enter your city" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="small mb-2">Email</label>
+                  <input class="form-control" name="email" id="inputPhone" type="email" placeholder="Enter your email" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="small mb-2">ZIP</label>
+                  <input class="form-control" id="inputBirthday" type="number" name="pincode" placeholder="Enter your pincode" required>
+                </div>
+              </div>
+              <button class="btn btn-primary" value="submit" type="submit">Add Address</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+  <script>
+   
+              
+                  const removeaddress = async (addressId) => {
+                    // Show a confirmation dialog using SweetAlert2
+                    Swal.fire({
+                      title: 'Are you sure?',
+                      text: 'This address will be removed from your checkout page!',
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonText: 'Yes, delete it!',
+                      cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                      // If the user confirms the deletion
+                      if (result.value) {
+                        // Send a POST request to remove the product from the backend
+                        fetch('/removeaddress-checkoutpage', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json'
+                          },
+                          body: JSON.stringify({
+                            addressId: addressId,
+                          })
+                        })
+                          .then(response => response.json())
+                          .then(result => {
+                            console.log(result); // Log the response to the console
+                            if (result.res == "success") {
+                              // Show a success message using SweetAlert2
+                              Swal.fire(
+                                'Deleted!',
+                                'This address has been removed from your checkout page.',
+                                'success'
+                              ).then(() => {
+                                // Reload the page after the success message is shown
+                                window.location.href = window.location.href;
+                              });
+                            } else {
+                              // If there is an error, show an error message using SweetAlert2
+                              Swal.fire(
+                                'Error',
+                                'There was an error removing the address from your checkout page.',
+                                'error'
+                              );
+                            }
+                          })
+                          .catch(error => {
+                            console.log(error); // Log any errors to the console
+                            // Show an error message using SweetAlert2
+                            Swal.fire(
+                              'Error',
+                              'There was an error removing the address from your checkout page.',
+                              'error'
+                            );
+                          });
+                      }
+                    })
+                  }
+  </script>

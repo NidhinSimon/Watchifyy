@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Product Detail</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="/proddetail/images/icons/favicon.png" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/bootstrap/css/bootstrap.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/fonts/iconic/css/material-design-iconic-font.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/fonts/linearicons-v1.0.0/icon-font.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/animate/animate.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/css-hamburgers/hamburgers.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/animsition/css/animsition.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/select2/select2.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/daterangepicker/daterangepicker.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/slick/slick.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/MagnificPopup/magnific-popup.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/perfect-scrollbar/perfect-scrollbar.css" />
+  <link rel="stylesheet" href="path/to/lightbox.css" />
+  <script src="path/to/lightbox.js"></script>
+  <link rel="stylesheet" href="path/to/elevatezoom.css" />
+  <script src="path/to/jquery.min.js"></script>
+  <script src="path/to/jquery.elevatezoom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="slick/slick.css">
+  <link rel="stylesheet" href="slick/slick-theme.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/css/util.css" />
+  <link rel="stylesheet" type="text/css" href="/proddetail/css/main.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+  <!--===============================================================================================-->
+</head>
+<style>
+  /* Add your custom styles here */
+  .product-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .product-image {
+    max-width: 500px;
+    margin-right: 20px;
+    position: relative;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    cursor: zoom-in;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .product-image img:hover {
+    transform: scale(1.2);
+  }
+
+  .zoom-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: none;
+  }
+
+  .zoom-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: zoom-out;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .product-image:hover .zoom-container {
+    display: block;
+  }
+
+  .product-description {
+    flex: 1;
+    max-width: 400px;
+  }
+
+  .product-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .product-price {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .product-add-to-cart,
+  .product-add-to-wishlist {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e7862b;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+
+  .product-add-to-wishlist {
+    background-color: #428bca;
+    margin-left: 10px;
+  }
+
+  .product-description p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+
+  /* for the discounto fffer */
+
+  .product-available {
+  display: inline-block;
+}
+
+.original-price {
+  color: #888888; /* Choose your desired color for the original price */
+  text-decoration: line-through;
+  margin-right: 4px;
+}
+
+.discount-text {
+  background-color: #ff5252; /* Choose your desired background color for the "SALE" text */
+  color: #ffffff; /* Choose your desired text color for the "SALE" text */
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+
+
+.zoom-image-container {
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+
+.zoom-image {
+  
+  position: relative;
+  
+}
+
+.zoom-image img {
+  
+  cursor: zoom-in;
+  
+  
+  box-shadow: 0 18px 5px -15px rgba( 0, 0, 0, .5 );
+  
+}
+
+/* zoom */
+.zoom-image-container {
+
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+
+}
+
+.zoom-image {
+
+position: relative;
+
+}
+
+.zoom-image img {
+
+cursor: zoom-in;
+
+
+box-shadow: 0 18px 5px -15px rgba( 0, 0, 0, .5 );
+
+}
+
+.hover-image {
+
+position: absolute;
+width:300px;
+height: 250px;
+
+border-radius: 10%;
+
+transform: translate( -0%, -20% );
+
+pointer-events: none;
+
+box-shadow: 0 0 10px rgba( 0, 0, 0,.1)
+
+}
+
+ 
+</style>
+
+
+<body class="animsition">
+  <% if(typeof user !="undefined" ){ %> <%-include('userlogged') %>
+      <%}else{%>
+        <%-include('usernotlogged') %>
+          <%}%>
+            <!-- Cart -->
+            <div class="wrap-header-cart js-panel-cart">
+              <div class="s-full js-hide-cart"></div>
+
+              <div class="header-cart flex-col-l p-l-65 p-r-25">
+                <div class="header-cart-title flex-w flex-sb-m p-b-8">
+                  <span class="mtext-103 cl2"> Your Cart </span>
+
+                  <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+                    <i class="zmdi zmdi-close"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
+				Men
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Lightweight Jacket
+			</span>
+		</div>
+	</div> -->
+
+            <!-- Product Detail -->
+            <section class="sec-product-detail bg0 p-t-65 p-b-60">
+              <br />
+              <br />
+              <br />
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-6 col-lg-7 p-b-30 zoom-image">
+                    <div class="p-l-25 p-r-30 p-lr-0-lg">
+                      <div class="wrap-slick3 flex-sb flex-w">
+                        <div class="wrap-slick3-dots"></div>
+                        <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                        <div class="slick3 gallery-lb ">
+                          <div class="item-slick3" data-thumb="/uploads/<%= prodetail.images[0] %>">
+                            <div class="wrap-pic-w pos-relative">
+                              <a href="/uploads/<%= prodetail.images[0] %>" data-lightbox="product-gallery">
+                                <img src="/uploads/<%= prodetail.images[0] %>" alt="IMG-PRODUCT"
+                                  data-zoom-image="/uploads/<%= prodetail.images[0] %>" />
+                              </a>
+                              <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                href="/uploads/<%= prodetail.images[0] %>">
+                                <i class="fa fa-expand"></i>
+                              </a>
+                            </div>
+                          </div>
+
+                          <div class="item-slick3" data-thumb="/uploads/<%= prodetail.images[1] %>">
+                            <div class="wrap-pic-w pos-relative">
+                              <img src="/uploads/<%= prodetail.images[1] %>" alt="IMG-PRODUCT"
+                                data-zoom-image="/uploads/<%= prodetail.images[1] %>" />
+
+                              <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                href="/uploads/<%= prodetail.images[1] %>">
+                                <i class="fa fa-expand"></i>
+                              </a>
+                            </div>
+                          </div>
+
+                          <div class="item-slick3" data-thumb="/uploads/<%= prodetail.images[2] %>">
+                            <div class="wrap-pic-w pos-relative">
+                              <img src="/uploads/<%= prodetail.images[2] %>" alt="IMG-PRODUCT"
+                                data-zoom-image="/uploads/<%= prodetail.images[2] %>" />
+
+                              <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                href="/uploads/<%= prodetail.images[2] %>">
+                                <i class="fa fa-expand"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-5 p-b-30">
+                    <div class="p-r-50 p-t-5 p-lr-0-lg">
+                      <h6 class="mtext-105 cl2 js-name-detail p-b-14" style="opacity: 60; color: lightgray;">
+                        <%=prodetail.brand%>
+                      </h6>
+                      
+                      <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                        <%=prodetail.productName%>
+                      </h4>
+
+                      <span class="mtext-106 cl2"> ₹<%=prodetail.price%> </span>
+                      <% if (prodetail.offerPercentage != 0) { %>
+                        <span class="product-available">
+                          <del class="original-price"><%= prodetail.offerPrice %> ₹</del>
+                          <span class="discount-text">SALE</span>
+                        </span>
+                      <% } %>
+
+                      <p class="stext-102 cl3 p-t-23">
+                        <%=prodetail.description%>
+                      </p>
+
+                      <!--  -->
+                      <div class="p-t-33">
+                        <div class="flex-w flex-r-m p-b-10">
+                          <div class="size-203 flex-c-m respon6" style="position: relative; right: 21.5rem">
+                           
+                          </div>
+                        </div>
+
+                        <div class="flex-w flex-r-m p-b-10">
+                          <div class="size-204 flex-w flex-m respon6-next">
+                           <button id="add-to-cart-<%= prodetail._id %>"
+  class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+  onclick='addToCart("<%= prodetail._id %>")'>
+  ADD TO CART
+</button>
+
+
+                            <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+                              style="margin-block-start: 1rem" onclick='addToWishlist("<%= prodetail._id %>")'>
+                              ADD TO WISHLIST
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--  -->
+                      <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                        <div class="flex-m bor9 p-r-10 m-r-11">
+                          <a href="#"
+                            class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                            data-tooltip="Add to Wishlist">
+                            <i class="zmdi zmdi-favorite"></i>
+                          </a>
+                        </div>
+
+                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                          data-tooltip="Facebook">
+                          <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                          data-tooltip="Twitter">
+                          <i class="fa fa-twitter"></i>
+                        </a>
+
+                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                          data-tooltip="Google Plus">
+                          <i class="fa fa-google-plus"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bor10 m-t-50 p-t-43 p-b-40">
+                  <!-- Tab01 -->
+                  <div class="tab01">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item p-b-10">
+                        <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+                      </li>
+
+                      <li class="nav-item p-b-10">
+                        <a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
+                      </li>
+
+                      <li class="nav-item p-b-10">
+                        <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+                      </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content p-t-43">
+                      <!-- - -->
+                      <div class="tab-pane fade show active" id="description" role="tabpanel">
+                        <div class="how-pos2 p-lr-15-md">
+                          <p class="stext-102 cl6">
+                            <%=prodetail.description%>
+                          </p>
+                        </div>
+                      </div>
+
+                      <!-- - -->
+                      <div class="tab-pane fade" id="information" role="tabpanel">
+                        <div class="row">
+                          <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                            <ul class="p-lr-28 p-lr-15-sm">
+                              <li class="flex-w flex-t p-b-7">
+                                <span class="stext-102 cl3 size-205"> Weight </span>
+
+                                <span class="stext-102 cl6 size-206"> 0.79 kg </span>
+                              </li>
+
+                              <li class="flex-w flex-t p-b-7">
+                                <span class="stext-102 cl3 size-205"> Dimensions </span>
+
+                                <span class="stext-102 cl6 size-206">
+                                  110 x 33 x 100 cm
+                                </span>
+                              </li>
+
+                              <li class="flex-w flex-t p-b-7">
+                                <span class="stext-102 cl3 size-205"> Materials </span>
+
+                                <span class="stext-102 cl6 size-206"> 60% cotton </span>
+                              </li>
+
+                              <li class="flex-w flex-t p-b-7">
+                                <span class="stext-102 cl3 size-205"> Color </span>
+
+                                <span class="stext-102 cl6 size-206">
+                                  Black, Blue, Grey, Green, Red, White
+                                </span>
+                              </li>
+
+                             
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- - -->
+                      <div class="tab-pane fade" id="reviews" role="tabpanel">
+                        <div class="row">
+                          <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                            <div class="p-b-30 m-lr-15-sm">
+                              <!-- Review -->
+                              <div class="flex-w flex-t p-b-68">
+                                <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+                                  <img src="images/avatar-01.jpg" alt="AVATAR" />
+                                </div>
+
+                                <div class="size-207">
+                                  <div class="flex-w flex-sb-m p-b-17">
+                                    <span class="mtext-107 cl2 p-r-20">
+                                      Ariana Grande
+                                    </span>
+
+                                    <span class="fs-18 cl11">
+                                      <i class="zmdi zmdi-star"></i>
+                                      <i class="zmdi zmdi-star"></i>
+                                      <i class="zmdi zmdi-star"></i>
+                                      <i class="zmdi zmdi-star"></i>
+                                      <i class="zmdi zmdi-star-half"></i>
+                                    </span>
+                                  </div>
+
+                                  <p class="stext-102 cl6">
+                                    Quod autem in homine praestantissimum atque optimum
+                                    est, id deseruit. Apud ceteros autem philosophos
+                                  </p>
+                                </div>
+                              </div>
+
+                              <!-- Add review -->
+                              <form class="w-full">
+                                <h5 class="mtext-108 cl2 p-b-7">Add a review</h5>
+
+                                <p class="stext-102 cl6">
+                                  Your email address will not be published. Required
+                                  fields are marked *
+                                </p>
+
+                                <div class="flex-w flex-m p-t-50 p-b-23">
+                                  <span class="stext-102 cl3 m-r-16">
+                                    Your Rating
+                                  </span>
+
+                                  <span class="wrap-rating fs-18 cl11 pointer">
+                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                    <input class="dis-none" type="number" name="rating" />
+                                  </span>
+                                </div>
+
+                                <div class="row p-b-25">
+                                  <div class="col-12 p-b-5">
+                                    <label class="stext-102 cl3" for="review">Your review</label>
+                                    <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review"
+                                      name="review"></textarea>
+                                  </div>
+
+                                  <div class="col-sm-6 p-b-5">
+                                    <label class="stext-102 cl3" for="name">Name</label>
+                                    <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text"
+                                      name="name" />
+                                  </div>
+
+                                  <div class="col-sm-6 p-b-5">
+                                    <label class="stext-102 cl3" for="email">Email</label>
+                                    <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text"
+                                      name="email" />
+                                  </div>
+                                </div>
+
+                                <button
+                                  class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+                                  Submit
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            
+            </section>
+
+            <!-- Related Products -->
+     
+
+            <!-- Footer -->
+            <footer class="bg3 p-t-75 p-b-32">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">Categories</h4>
+
+                    <ul>
+                      <li class="p-b-10">
+                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04"> Women </a>
+                      </li>
+
+                      <li class="p-b-10">
+                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04"> Men </a>
+                      </li>
+
+                      <li class="p-b-10">
+                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04"> Shoes </a>
+                      </li>
+
+                      <li class="p-b-10">
+                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04"> Watches </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">Help</h4>
+
+                    <ul>
+                      <li class="p-b-10">
+                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                          Track Order
+                        </a>
+                      </li>
+
+                      <li class="p-b-10">
+                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04"> Returns </a>
+                      </li>
+
+                      <li class="p-b-10">
+                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                          Shipping
+                        </a>
+                      </li>
+
+                      <li class="p-b-10">
+                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04"> FAQs </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">GET IN TOUCH</h4>
+
+                    <p class="stext-107 cl7 size-201">
+                      Any questions? Let us know in store at 8th floor, 379 Hudson St,
+                      New York, NY 10018 or call us on (+1) 96 716 6879
+                    </p>
+
+                    <div class="p-t-27">
+                      <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                        <i class="fa fa-facebook"></i>
+                      </a>
+
+                      <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                        <i class="fa fa-instagram"></i>
+                      </a>
+
+                      <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                        <i class="fa fa-pinterest-p"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">Newsletter</h4>
+
+                    <form>
+                      <div class="wrap-input1 w-full p-b-4">
+                        <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
+                          placeholder="email@example.com" />
+                        <div class="focus-input1 trans-04"></div>
+                      </div>
+
+                      <div class="p-t-18">
+                        <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+                          Subscribe
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                <div class="p-t-40">
+                  <div class="flex-c-m flex-w p-b-18">
+                    <a href="#" class="m-all-1">
+                      <img src="/proddetail/images/icons/icon-pay-01.png" alt="ICON-PAY" />
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                      <img src="/proddetail/images/icons/icon-pay-02.png" alt="ICON-PAY" />
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                      <img src="/proddetail/images/icons/icon-pay-03.png" alt="ICON-PAY" />
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                      <img src="/proddetail/images/icons/icon-pay-04.png" alt="ICON-PAY" />
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                      <img src="/proddetail/images/icons/icon-pay-05.png" alt="ICON-PAY" />
+                    </a>
+                  </div>
+
+                  <p class="stext-107 cl6 txt-center">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>
+                      document.write(new Date().getFullYear());
+                    </script>
+                    All rights reserved | Made with
+                    <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                    <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp;
+                    distributed by
+                    <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  </p>
+                </div>
+              </div>
+            </footer>
+
+            <!-- Back to top -->
+            <div class="btn-back-to-top" id="myBtn">
+              <span class="symbol-btn-back-to-top">
+                <i class="zmdi zmdi-chevron-up"></i>
+              </span>
+            </div>
+
+            <!-- Modal1 -->
+            <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+              <div class="overlay-modal1 js-hide-modal1"></div>
+
+              <div class="container">
+                <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+                  <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                    <img src="images/icons/icon-close.png" alt="CLOSE" />
+                  </button>
+
+                  <div class="row">
+                    <div class="col-md-6 col-lg-7 p-b-30">
+                      <div class="p-l-25 p-r-30 p-lr-0-lg">
+                        <div class="wrap-slick3 flex-sb flex-w">
+                          <div class="wrap-slick3-dots"></div>
+                          <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                          <div class="slick3 gallery-lb">
+                            <div class="item-slick3" data-thumb="images/product-detail-01.jpg">
+                              <div class="wrap-pic-w pos-relative">
+                                <img src="images/product-detail-01.jpg" alt="IMG-PRODUCT" />
+
+                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                  href="images/product-detail-01.jpg">
+                                  <i class="fa fa-expand"></i>
+                                </a>
+                              </div>
+                            </div>
+
+                            <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
+                              <div class="wrap-pic-w pos-relative">
+                                <img src="images/product-detail-02.jpg" alt="IMG-PRODUCT" />
+
+                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                  href="images/product-detail-02.jpg">
+                                  <i class="fa fa-expand"></i>
+                                </a>
+                              </div>
+                            </div>
+
+                            <div class="item-slick3" data-thumb="images/product-detail-03.jpg">
+                              <div class="wrap-pic-w pos-relative">
+                                <img src="images/product-detail-03.jpg" alt="IMG-PRODUCT" />
+
+                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                  href="images/product-detail-03.jpg">
+                                  <i class="fa fa-expand"></i>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-5 p-b-30">
+                      <div class="p-r-50 p-t-5 p-lr-0-lg">
+                        <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                          Lightweight Jacket
+                        </h4>
+
+                        <span class="mtext-106 cl2"> $58.79 </span>
+
+                        <p class="stext-102 cl3 p-t-23">
+                          Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus
+                          ligula. Mauris consequat ornare feugiat.
+                        </p>
+
+                        <!--  -->
+                        <div class="p-t-33">
+                          <div class="flex-w flex-r-m p-b-10">
+                            <div class="size-203 flex-c-m respon6">Size</div>
+
+                            <div class="size-204 respon6-next">
+                              <div class="rs1-select2 bor8 bg0">
+                                <select class="js-select2" name="time">
+                                  <option>Choose an option</option>
+                                  <option>Size S</option>
+                                  <option>Size M</option>
+                                  <option>Size L</option>
+                                  <option>Size XL</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="flex-w flex-r-m p-b-10">
+                            <div class="size-203 flex-c-m respon6">Color</div>
+
+                            <div class="size-204 respon6-next">
+                              <div class="rs1-select2 bor8 bg0">
+                                <select class="js-select2" name="time">
+                                  <option>Choose an option</option>
+                                  <option>Red</option>
+                                  <option>Blue</option>
+                                  <option>White</option>
+                                  <option>Grey</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="flex-w flex-r-m p-b-10">
+                            <div class="size-204 flex-w flex-m respon6-next">
+                              <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                  <i class="fs-16 zmdi zmdi-minus"></i>
+                                </div>
+
+                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product"
+                                  value="1" />
+
+                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                  <i class="fs-16 zmdi zmdi-plus"></i>
+                                </div>
+                              </div>
+
+                              <button
+                                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                Add to cart
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!--  -->
+                        <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                          <div class="flex-m bor9 p-r-10 m-r-11">
+                            <a href="#"
+                              class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                              data-tooltip="Add to Wishlist">
+                              <i class="zmdi zmdi-favorite"></i>
+                            </a>
+                          </div>
+
+                          <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                            data-tooltip="Facebook">
+                            <i class="fa fa-facebook"></i>
+                          </a>
+
+                          <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                            data-tooltip="Twitter">
+                            <i class="fa fa-twitter"></i>
+                          </a>
+
+                          <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                            data-tooltip="Google Plus">
+                            <i class="fa fa-google-plus"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+ 
+
+
+
+
+
+
+            </style>
+
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/jquery/jquery-3.2.1.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/animsition/js/animsition.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/bootstrap/js/popper.js"></script>
+            <script src="/proddetail/vendor/bootstrap/js/bootstrap.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/select2/select2.min.js"></script>
+            <script>
+              $(".js-select2").each(function () {
+                $(this).select2({
+                  minimumResultsForSearch: 20,
+                  dropdownParent: $(this).next(".dropDownSelect2"),
+                });
+              });
+            </script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/daterangepicker/moment.min.js"></script>
+            <script src="/proddetail/vendor/daterangepicker/daterangepicker.js"></script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/slick/slick.min.js"></script>
+            <script src="/proddetail/js/slick-custom.js"></script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/parallax100/parallax100.js"></script>
+            <script>
+              $(".parallax100").parallax100();
+            </script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+            <script>
+              $(".gallery-lb").each(function () {
+                // the containers for all your galleries
+                $(this).magnificPopup({
+                  delegate: "a", // the selector for gallery item
+                  type: "image",
+                  gallery: {
+                    enabled: true,
+                  },
+                  mainClass: "mfp-fade",
+                });
+              });
+            </script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/isotope/isotope.pkgd.min.js"></script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/sweetalert/sweetalert.min.js"></script>
+            <script>
+              $(".js-addwish-b2, .js-addwish-detail").on("click", function (e) {
+                e.preventDefault();
+              });
+
+              $(".js-addwish-b2").each(function () {
+                var nameProduct = $(this).parent().parent().find(".js-name-b2").html();
+                $(this).on("click", function () {
+                  swal(nameProduct, "is added to wishlist !", "success");
+
+                  $(this).addClass("js-addedwish-b2");
+                  $(this).off("click");
+                });
+              });
+
+              $(".js-addwish-detail").each(function () {
+                var nameProduct = $(this)
+                  .parent()
+                  .parent()
+                  .parent()
+                  .find(".js-name-detail")
+                  .html();
+
+                $(this).on("click", function () {
+                  swal(nameProduct, "is added to wishlist !", "success");
+
+                  $(this).addClass("js-addedwish-detail");
+                  $(this).off("click");
+                });
+              });
+
+              /*---------------------------------------------*/
+
+              $(".js-addcart-detail").each(function () {
+                var nameProduct = $(this)
+                  .parent()
+                  .parent()
+                  .parent()
+                  .parent()
+                  .find(".js-name-detail")
+                  .html();
+                $(this).on("click", function () {
+                  swal(nameProduct, "is added to cart !", "success");
+                });
+              });
+            </script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+            <script>
+              $(".js-pscroll").each(function () {
+                $(this).css("position", "relative");
+                $(this).css("overflow", "hidden");
+                var ps = new PerfectScrollbar(this, {
+                  wheelSpeed: 1,
+                  scrollingThreshold: 1000,
+                  wheelPropagation: false,
+                });
+
+                $(window).on("resize", function () {
+                  ps.update();
+                });
+              });
+              const addToCart = async (productId) => {
+  console.log("product id of the fetch00", productId);
+
+  
+  const response = await fetch("/check-login");
+  const data = await response.json();
+
+  if (!data.loggedIn) {
+    
+    Swal.fire({
+      title: "Login Required",
+      text: "Please login to add items to your cart.",
+      icon: "info",
+      showConfirmButton: true,
+      confirmButtonText: "Login",
+      showCancelButton: true,
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+      
+        window.location.href = "/login";
+      }
+    });
+  } else {
+    // User is logged in, proceed with adding to cart
+    const response = await fetch("/addtocart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ productId: productId }),
+    });
+    let res = await response.json();
+    if (res == "success") {
+      Swal.fire({
+    title: "Success",
+    text: "Item added to Cart!",
+    icon: "success",
+    showConfirmButton: false,
+    customClass: {
+      icon: "swal-icon--success",
+      iconHtml: "swal-icon--success__ring",
+    },
+    timer: 1000,
+  });
+    }
+  }
+};
+
+
+
+            
+
+const addToWishlist = async(productId)=>{
+	  const response = await fetch('/addwishlist',{
+		method: "POST",
+		headers: {
+		  "Content-Type": "application/json"
+		},
+		body: JSON.stringify({productId: productId})
+	  }).catch(error=>console.error(error))
+	  if(response.ok){
+		const data = await response.json();
+		Swal.fire({
+				    title: 'Success',
+                    text: "Item added to wishlist !",
+                    icon: 'success',
+					showConfirmButton: false, 
+					iconHtml: '<i class="fas fa-heart"></i>',
+				    timer: 1000 }); 
+		const wishlistContainer = document.getElementById('wishlist-container');
+		const itemElement = document.createElement("div");
+		wishlistContainer.appendChild(itemElement);
+	  }
+	  else{
+		alert("Error adding product to wishlist");
+	  }
+	}     
+            </script>
+            <!--===============================================================================================-->
+            <script src="/proddetail/js/main.js"></script>
+            <script></script>
+            <script>
+              $(document).ready(function () {
+                $('.item-slick3 img').elevateZoom({
+                  gallery: 'slick3',
+                  cursor: 'pointer',
+                  galleryActiveClass: 'active',
+                  responsive: true,
+                  zoomWindowWidth: 600,
+                  zoomWindowHeight: 400,
+                  zoomWindowPosition: 1,
+                  zoomWindowFadeIn: 500,
+                  zoomWindowFadeOut: 500,
+                  lensFadeIn: 500,
+                  lensFadeOut: 500
+                });
+              });
+            </script>
+
+
+<script>
+  	jQuery(document).ready(function ($) {
+
+$('.zoom-image img').click(function (event) {
+	var ix = $(this).offset().left;
+	var iy = $(this).offset().top;
+	console.log(ix + '-' + iy);
+
+	var mx = event.pageX;
+	var my = event.pageY;
+	console.log(mx + '-' + my);
+})
+
+$('.zoom-image img').hover(function () {
+
+	var img = $(this).attr('src');
+
+	$(this).after("<div class='hover-image' style='background-image: url(" + img + "); background-size: 300px;'></div>");
+
+	$(this).mousemove(function (event) {
+
+		// Mouse Position
+		var mx = event.pageX;
+		var my = event.pageY;
+
+		// Image Position
+		var ix = $(this).offset().left;
+		var iy = $(this).offset().top;
+
+		// Mouse Position Relavtive to Image
+		var x = mx - (ix);
+		var y = my - (iy);
+
+		// Image Height and Width
+		var w = $(this).width();
+		var h = $(this).height();
+
+		// Mouse Position Relative to Image, in %
+		var xp = (-x / w) * -100;
+		var yp = (-y / h) * -100;
+
+		$(this).parent().find('.hover-image').attr('style',
+
+			"background-image: url(" + img + "); background-size: 1000px; background-repeat: no-repeat; background-position: " + xp + "% " + yp + "%; top: " + y + "px; left: " + x + "px;");
+
+	});
+
+}, function () {
+
+	$(this).parent().find('.hover-image').remove();
+
+});
+
+});
+
+</script>
+
+</body>
+
+</html>

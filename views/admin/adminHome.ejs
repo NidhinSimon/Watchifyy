@@ -1,0 +1,754 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/main/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/main/img/favicon.png">
+  <title>
+    USERS
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="/main/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/main/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/main/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.7.0/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.41.0/apexcharts.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+</head>
+
+
+
+
+ 
+
+<style>
+    .chart-container {
+        height: auto;
+     width: 600px;
+     height: 400px;
+     /* border: 1px solid #0f0a0a; */
+     /* padding: 20px;
+     margin: 20px auto; */
+   }
+   
+   .chart-wrapper {
+     width: 100%;
+     height: 100%;
+     display: inline-block;
+     box-sizing: border-box;
+     padding: 10px;
+   }
+   
+   </style>
+   <style>
+     table {
+       border-collapse: collapse;
+       width: 100%;
+       margin-bottom: 20px;
+     }
+   
+     th, td {
+       text-align: left;
+       padding: 8px;
+       border-bottom: 1px solid #5ca2d1;
+     }
+   
+     th {
+       background-color: #292929;
+     }
+   
+     tr:hover {
+       background-color: #96a3a7;
+     }
+   
+   
+     #downloadCsvBtn:hover, #downloadPdfBtn:hover {
+       background-color: #3e8e41;
+     }
+   
+     .container {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+   }
+   
+   .row {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 20px;
+   }
+   
+   .chart-container {
+     flex: 1;
+     height: auto;
+     margin: 10px;
+     padding: 10px;
+     background-color: #f5f5f5;
+     border-radius: 5px;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   }
+   
+   .chart-wrapper {
+     height: 400px;
+   }
+   </style>
+
+
+<body class="g-sidenav-show  bg-gray-200">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
+        <img src="/main/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold text-white">HELLO NIDHIN</span>
+      </a>
+    </div>
+    <hr class="horizontal light mt-0 mb-2">
+    <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main" style="
+    overflow: hidden;
+    /* overflow-x: hidden; */
+">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white  active bg-gradient-primary" href="/adminHome">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/admin/users">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <span class="material-icons">
+                    people_outline
+                    </span>
+            </div>
+            <span class="nav-link-text ms-1">USERS</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/admin/category">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <span class="material-icons">
+                    category
+                    </span>
+            </div>
+            <span class="nav-link-text ms-1">CATEGORY</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/admin/products"">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <span class="material-icons">
+                    inventory
+                    </span>
+            </div>
+            <span class="nav-link-text ms-1">PRODUCT</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/coupons">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <span class="material-icons">
+                    local_offer
+                    </span>
+                    
+            </div>
+            <span class="nav-link-text ms-1">COUPONS</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/orders">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <span class="material-icons">
+                    local_shipping
+                    </span>
+            </div>
+            <span class="nav-link-text ms-1">ORDERS</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/banner">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <span class="material-icons">
+                    local_shipping
+                    </span>
+            </div>
+            <span class="nav-link-text ms-1">BANNER</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
+        </li>
+       
+        <li class="nav-item">
+          <a class="nav-link text-white " href="./pages/sign-in.html">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">login</i>
+            </div>
+            <span class="nav-link-text ms-1">Sign In</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="./pages/sign-up.html">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">assignment</i>
+            </div>
+            <span class="nav-link-text ms-1"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  
+  </aside>
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+          </ol>
+          <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group input-group-outline">
+              <label class="form-label">Type here...</label>
+              <input type="text" class="form-control">
+            </div>
+          </div>
+          <ul class="navbar-nav  justify-content-end">
+            <li class="nav-item d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Sign In</span>
+              </a>
+            </li>
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item px-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0">
+                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-bell cursor-pointer"></i>
+              </a>
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="/main/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New message</span> from Laur
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          13 minutes ago
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="/main/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New album</span> by Travis Scott
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          1 day
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
+                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <title>credit-card</title>
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                              <g transform="translate(1716.000000, 291.000000)">
+                                <g transform="translate(453.000000, 454.000000)">
+                                  <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                  <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          Payment successfully completed
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          2 days
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+<style>
+   .report-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .report-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    margin-right: 10px;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .data-table th {
+    font-weight: bold;
+  }
+
+  .data-table td {
+    font-size: 14px;
+  }
+
+  .data-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .chart-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .chart-wrapper {
+    width: 100%;
+    padding: 10px;
+  }
+
+
+
+
+
+/*  */
+
+
+
+
+
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="chart-container">
+        <h3>Orders Report</h3>
+        <div class="chart-wrapper">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="chart-container">
+        <h3>Sales Report</h3>
+        <div class="chart-wrapper">
+          <canvas id="sales-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="chart-container">
+        <h3>Monthly and Yearly Report</h3>
+        <div class="chart-wrapper">
+          <canvas id="ordersChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<h1 class="report-title">Sales Report</h1>
+<form class="report-form">
+  <div class="form-group">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" class="form-control">
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-success">Generate Report</button>
+   
+    
+  </div>
+</form>
+
+<div class="table-responsive">
+  <table id="orderTable" class="data-table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Payment Method</th>
+        <th>Status</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% order.forEach(o => { %>
+      <tr>
+        <td><%= o.orderId %></td>
+        <td><%= new Date(o.date).toLocaleDateString() %></td>
+        <td><%= o.payment_method === "1" ? "COD" : "Online Payment" %></td>
+        <td><%= o.status %></td>
+        <td><%= o.subtotal %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+      const salesChart = document.getElementById('sales-chart').getContext('2d');
+    async function generateSalesReport() {
+  try {
+    // Fetch the sales report data
+    const response = await fetch('/admin-dash');
+    const data = await response.json();
+  
+    // Create the line graph
+    const chart = new Chart(salesChart, {
+      type: 'line',
+      data: data.data,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+  }
+  
+  // Call the function to generate the line graph
+  generateSalesReport();
+  
+  fetch('/admin-dash')
+  .then(res => res.json())
+    .then(data => {
+      const chartData = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+          {
+            label: 'Delivered',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+            data: data.chart.delivered
+          },
+          {
+            label: 'Cancelled',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+            data: data.chart.cancelled
+          },
+          {
+            label: 'Returned',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+            data: data.chart.returned
+          }
+        ]
+      };
+  
+      const config = {
+        type: 'line',
+        data: chartData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      };
+  
+      const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+      );
+      const revenueData = data.revenue.map(item => ({ sum: item.total, month: item.month }));
+  
+  const chartData2 = {
+    labels: revenueData.map(item => item.month),
+    datasets: [{
+      label: "Revenue",
+      data: revenueData.map(item => item.sum),
+      borderColor: "#3e95cd",
+      fill: false
+    }]
+  };
+  
+  const ctx = document.getElementById("revenueChart").getContext("2d");
+  const revenueChart = new Chart(ctx, {
+    type: 'line',
+    data: chartData2,
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      }
+    }
+  });
+  })
+  .catch(err => console.error(err))
+  
+  </script>
+  
+   <!--Sales chart-->
+  <script>
+    fetch('/admin-dash?year=2023&month=3')
+    .then(response => response.json()) // parse the response as JSON
+    .then(dataa => {
+      // create a line chart using the data
+      const chartData = dataa.map(({ year, month, count }) => ({
+        x: new Date(year, month - 1),
+        y: count,
+      }));
+      const ctx = document.getElementById('SalesChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [
+            {
+              label: 'Orders',
+              data: chartData,
+              borderColor: 'rgb(255, 99, 132)',
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'time',
+              time: {
+                unit: 'month',
+              },
+            },
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    })
+    .catch(error => console.error(error));
+  </script>
+
+  
+  
+  
+  <!-- monthly and yearly sales report-->
+  <script>
+    fetch('/admin-dash')
+      .then(response => response.json())
+      .then(dataaa => {
+        const monthlyOrders = dataaa.monthlyOrders;
+        const yearlyOrders = dataaa.yearlyOrders;
+  
+        const monthlyData = {
+          label: 'Monthly Orders',
+          data: monthlyOrders.map(o => o.count),
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        };
+  
+        const yearlyData = {
+          label: 'Yearly Orders',
+          data: yearlyOrders.map(o => o.count),
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        };
+  
+        const ordersChart = new Chart('ordersChart', {
+          type: 'pie',
+          data: {
+            labels: monthlyOrders.map(o => o.month + '/' + o.year),
+            datasets: [monthlyData, yearlyData]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      })
+      .catch(err => console.error(err));
+
+
+
+      $('form').submit(async function (event) {
+      event.preventDefault();
+  
+      const startDate = $('#startDate').val();
+      const endDate = $('#endDate').val();
+  
+      try {
+        const response = await fetch(`/salesreport?startDate=${startDate}&endDate=${endDate}`);
+        const data = await response.json();
+  
+        // Clear the tables
+        $('#orderTable tbody').empty();
+        $('#productTable tbody').empty();
+  
+        // Populate the tables with data
+        data.orders.forEach(order => {
+          const { orderId, date, payment_method, status, subtotal } = order;
+  
+          $('#orderTable tbody').append(`
+           
+            <tr>
+              <td>${orderId}</td>
+              <td>${new Date(date).toLocaleDateString()}</td>
+              <td>${payment_method == "1" ? "COD" : "Online Payment"}</td>
+              <td>${status}</td>
+              <td>${subtotal}</td>
+            </tr>
+          `);
+  
+          const products = data.products.filter(product => product.orderId === orderId);
+          products.forEach(product => {
+            const { id, name, price, quantity } = product;
+  
+            $('#productTable tbody').append(`
+             
+              <tr>
+                <td>${orderId}</td>
+                <td>${new Date(date).toLocaleDateString()}</td>
+                <td>${name}</td>
+                <td>${price}</td>
+                <td>${quantity} </td>
+              </tr>
+            `);
+          });
+        });
+      } catch (error) {
+        console.error(error);
+        // handle error here
+      }
+    });
+
+
+
+// pdf
+
+
+
+$('#downloadPdfBtn').click(function () {
+  console.log('Generating PDF...');
+
+  // Clone the order and product tables and add them to the hidden div
+  const printableContent = $('#orderTable').clone();
+  printableContent.append($('#productTable').clone());
+
+  printableContent.find('button').remove();
+
+
+
+  console.log('PDF generation complete.');
+});
+
+
+
+      $(document).ready(function() {
+  $('.input-group.date').datepicker({
+    autoclose: true,
+    format: 'yyyy-mm-dd'
+  });
+});
+
+
+
+
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.7.0/jspdf.plugin.autotable.min.js"></script>

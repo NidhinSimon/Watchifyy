@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Shoping Cart</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/fonts/iconic/css/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/fonts/linearicons-v1.0.0/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/cartstyle/css/main.css">
+
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+   
+
+
+	<!--===============================================================================================-->
+</head>
+
+
+<% if(typeof user !="undefined" ){ %>
+  <%-include('userlogged') %>
+    <%}else{%>
+      <%-include('usernotlogged') %>
+        <%}%>
+
+
+
+
+
+        <style>
+      .container.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 80px; /* Add padding to create space for the navbar */
+}
+
+.profile {
+  width: 100%;
+}
+
+/* Style the table */
+.table-responsive {
+  margin-top: 20px;
+}
+
+/* Styling for the table headers */
+th {
+  background-color: #f5f5f5;
+  text-align: left;
+}
+
+/* Add some padding to the table cells */
+td {
+  padding: 8px;
+}
+
+/* Style the View link */
+.view-link {
+  color: #007bff;
+}
+
+/* Sticky navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Add margin to the card container */
+.card-container {
+  margin-top: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+  .card.mb-3 {
+    margin-bottom: 15px;
+  }
+
+  .container.main {
+    padding-top: 0; /* Remove the padding to avoid collision with navbar */
+  }
+}
+        </style>
+  </head>
+  <body>
+    <div class="container main">
+      <div class="profile">
+        <div class="container-xl px-4 mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Order details</h4>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <% order.forEach(function(orderItem) { %>
+                    <div class="col-md-6">
+                      <div class="card mb-4">
+                        <div class="card-body">
+                          <h5 class="card-title mb-3">
+                            Order ID: <%= orderItem.orderId %>
+                          </h5>
+                          <% var productNames = []; var totalQuantity = 0; %>
+                          <% orderItem.product.forEach(function(productItem) { %>
+                          <% productNames.push(productItem.name); %>
+                          <% totalQuantity += productItem.quantity; %>
+                          <% }); %>
+                          <p class="card-text">
+                            <strong>Name:</strong>
+                            <%= productNames.join(', ') %>
+                          </p>
+                          <p class="card-text">
+                            <strong>Price:</strong>
+                            <%= orderItem.total ? orderItem.total : orderItem.subtotal %>
+                          </p>
+                          <p class="card-text">
+                            <strong>Quantity:</strong>
+                            <%= totalQuantity %>
+                          </p>
+                          <p class="card-text">
+                            <strong>Status:</strong>
+                            <%= orderItem.status %>
+                          </p>
+                          <a href="/single-order?id=<%= orderItem.orderId %>" class="btn btn-primary">View</a>
+                        </div>
+                      </div>
+                    </div>
+                    <% }); %>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+</script>
+
+<!-- Back to top -->
+<div class="btn-back-to-top" id="myBtn">
+  <span class="symbol-btn-back-to-top">
+    <i class="zmdi zmdi-chevron-up"></i>
+  </span>
+</div>
+
+<!--===============================================================================================-->
+<script src="/cartstyle/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="/cartstyle/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="/cartstyle/vendor/bootstrap/js/popper.js"></script>
+<script src="/cartstyle/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="/cartstyle/vendor/select2/select2.min.js"></script>
+<script>
+  $(".js-select2").each(function () {
+    $(this).select2({
+      minimumResultsForSearch: 20,
+      dropdownParent: $(this).next('.dropDownSelect2')
+    });
+  })
+</script>
+<!--===============================================================================================-->
+<script src="/cartstyle/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+<!--===============================================================================================-->
+<script src="/cartstyle/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script>
+  $('.js-pscroll').each(function () {
+    $(this).css('position', 'relative');
+    $(this).css('overflow', 'hidden');
+    var ps = new PerfectScrollbar(this, {
+      wheelSpeed: 1,
+      scrollingThreshold: 1000,
+      wheelPropagation: false,
+    });
+
+    $(window).on('resize', function () {
+      ps.update();
+    })
+  });
+</script>
+<!--===============================================================================================-->
+<script src="/cartstyle/js/main.js"></script>
+
+</body>
+
+</html>

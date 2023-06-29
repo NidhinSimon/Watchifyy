@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>SIGNUP</title>
+	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
+	<link rel="stylesheet" href="/css/signup.css">
+
+</head>
+
+<body>
+	<style>
+		body {
+			background-color: #fff;
+			font-family: Arial, sans-serif;
+		}
+
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			background-color: #fff;
+		}
+
+		.screen {
+			height: auto;
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+			max-width: 400px;
+			width: 90%;
+			overflow: hidden;
+		}
+
+		.screen__content {
+			padding: 40px;
+		}
+
+		.headinnnn {
+			text-align: center;
+			margin-bottom: 20px;
+			color: #333;
+		}
+
+		.login__field {
+			position: relative;
+			margin-bottom: 20px;
+		}
+
+		.login__icon {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			left: 10px;
+			color: #999;
+			pointer-events: none;
+		}
+
+		.login__field input:focus+.login__icon {
+			color: #4CAF50;
+		}
+
+		.login__input {
+			width: 100%;
+			padding: 12px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			font-size: 14px;
+			padding-left: 30px;
+			background-color: #fff;
+		}
+
+		.field-error {
+			display: block;
+			color: rgb(255, 0, 0);
+			margin-top: 5px;
+		}
+
+		.login__submit {
+			display: block;
+			width: 100%;
+			padding: 12px;
+			background-color: #4CAF50;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.login__submit:hover {
+			background-color: #45a049;
+		}
+
+		.button__text {
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 5px;
+		}
+
+		.button__icon {
+			vertical-align: middle;
+		}
+
+		.social-login {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.social-login h5 {
+			margin-bottom: 10px;
+			color: #666;
+		}
+
+		.social-login a {
+			color: #4CAF50;
+		}
+
+		.screen__background {
+			display: none;
+		}
+	</style>
+	<div class="container">
+		<div class="screen">
+			<div class="screen__content">
+				<form class="signup" method="post" onsubmit="return validateForm()">
+					<h3 class="headinnnn">SIGN UP</h3>
+					<div class="login__field">
+						<!-- <i class="login__icon fas fa-user"></i> -->
+						<input type="text" class="login__input" name="name" placeholder="Enter your name" required
+							oninput="validateField(this)">
+						<br>
+						<span class="field-error" id="name-error"></span>
+					</div>
+					<div class="login__field">
+						<!-- <i class="login__icon fas fa-envelope"></i> -->
+						<input type="email" class="login__input" name="email" placeholder="Enter your email" required
+							oninput="validateField(this)">
+						<br>
+						<span class="field-error" id="email-error"></span>
+					</div>
+					<div class="login__field">
+						<!-- <i class="login__icon fas fa-lock"></i> -->
+						<input type="password" class="login__input" name="password" placeholder="Enter your password"
+							required oninput="validateField(this)">
+						<br>
+						<span class="field-error" id="password-error"></span>
+					</div>
+					<div class="login__field">
+						<!-- <i class="login__icon fas fa-lock"></i> -->
+						<input type="password" class="login__input" name="confirmPassword"
+							placeholder="Confirm password" required oninput="validateField(this)">
+						<br>
+						<span class="field-error" id="confirmPassword-error"></span>
+					</div>
+					<div class="login__field">
+						<!-- <i class="login__icon fas fa-phone"></i> -->
+						<input type="text" class="login__input" name="mobile" placeholder="Enter your mobile number"
+							required oninput="validateField(this)">
+						<br>
+						<span class="field-error" id="mobile-error"></span>
+					</div>
+					<div class="login__field">
+						<!-- <i class="login__icon fas fa-map-marker-alt"></i> -->
+						<input type="text" class="login__input" name="city" placeholder="Enter your city" required
+							oninput="validateField(this)">
+						<br>
+						<span class="field-error" id="city-error"></span>
+					</div>
+					<div class="login__field">
+						<!-- <i class="login__icon fas fa-map-marker-alt"></i> -->
+						<input type="text" class="login__input" id="referral" name="referral" placeholder="Referral Code (Optional)">
+						<br>
+						<span class="field-error" id="city-error"></span>
+					</div>
+					
+					<button class="login__submit" type="submit">
+						<span class="button__text">Sign Up Now</span>
+						<i class="button__icon fas fa-chevron-right"></i>
+					</button>
+				</form>
+				<p style="color:rgb(254, 0, 0);">
+					<% if(typeof message !=='undefined' ) { %>
+						<%- message %>
+							<% } %>
+				</p>
+
+				<a href="/login" class="huuuu">LOGIN HERE</a>
+
+			</div>
+			<div class="screen__background">
+				<span class="screen__background__shape screen__background__shape4"></span>
+				<span class="screen__background__shape screen__background__shape3"></span>
+				<span class="screen__background__shape screen__background__shape2"></span>
+				<span class="screen__background__shape screen__background__shape1"></span>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		function validateField(input) {
+		  const fieldName = input.name;
+		  const fieldValue = input.value.trim();
+		  const errorElement = document.getElementById(`${fieldName}-error`);
+	  
+		  errorElement.textContent = "";
+	  
+		  if (fieldName === "email") {
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(fieldValue)) {
+			  errorElement.textContent = "Please enter a valid email address.";
+			}
+		  } else if (fieldName === "confirmPassword") {
+			const passwordInput = document.querySelector('input[name="password"]');
+			const password = passwordInput.value.trim();
+			if (fieldValue !== password) {
+			  errorElement.textContent = "Password and confirm password do not match.";
+			}
+		  } else if (fieldName === "mobile") {
+			const mobileRegex = /^\d{10}$/;
+			if (!mobileRegex.test(fieldValue)) {
+			  errorElement.textContent = "Please enter a valid 10-digit mobile number.";
+			}
+		  } else if (fieldName === "city") {
+			if (fieldValue === "") {
+			  errorElement.textContent = "This field is required.";
+			}
+		  } else if (fieldName === "name") {
+			const nameRegex = /^[A-Za-z\s]+$/;
+			if (!nameRegex.test(fieldValue)) {
+			  errorElement.textContent = "Name should not contain numbers.";
+			} else if (fieldValue === "") {
+			  errorElement.textContent = "Please enter your name.";
+			}
+		  } else if (fieldName === "password") {
+			const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+			if (!passwordRegex.test(fieldValue)) {
+			  errorElement.textContent = "Password should contain at least 8 characters, including uppercase and lowercase letters.";
+			}
+		  } else {
+			if (fieldValue === "") {
+			  errorElement.textContent = "This field is required.";
+			}
+		  }
+		}
+	  </script>
+	  
+
+
+</body>
+
+</html>

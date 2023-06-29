@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-pzjw8b+UqyDvKAfMf8Fyu4YT3pRfi4JqXkg4f7jwH/l5kr4PZ+2y4g4Yf5XspX3R" crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="76x76" href="/main/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/main/img/favicon.png">
+    <title>
+        USERS
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Nucleo Icons -->
+    <link href="/main/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/main/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/main/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+
+    <title>Add New Coupon</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card-registration {
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-cont {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .login-cont h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: #4e73df;
+            border-color: #4e73df;
+        }
+
+        .btn-primary:hover {
+            background-color: #2653d4;
+            border-color: #2653d4;
+        }
+
+        .btn-primary:focus {
+            box-shadow: none;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .text-muted {
+            color: #6c757d;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+
+
+<body class="g-sidenav-show  bg-gray-200">
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+      <div class="sidenav-header">
+        <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
+          <img src="/main/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+          <span class="ms-1 font-weight-bold text-white">HELLO NIDHIN</span>
+        </a>
+      </div>
+      <hr class="horizontal light mt-0 mb-2">
+      <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-white " href="/adminHome">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons opacity-10">dashboard</i>
+              </div>
+              <span class="nav-link-text ms-1">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white " href="/admin/users">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <span class="material-icons">
+                      people_outline
+                      </span>
+              </div>
+              <span class="nav-link-text ms-1">USERS</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white " href="/admin/category">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <span class="material-icons">
+                      category
+                      </span>
+              </div>
+              <span class="nav-link-text ms-1">CATEGORY</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white " href="/admin/products"">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <span class="material-icons">
+                      inventory
+                      </span>
+              </div>
+              <span class="nav-link-text ms-1">PRODUCT</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white  active bg-gradient-primary " href="/coupons">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <span class="material-icons">
+                      local_offer
+                      </span>
+                      
+              </div>
+              <span class="nav-link-text ms-1">COUPONS</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white " href="/orders">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <span class="material-icons">
+                      local_shipping
+                      </span>
+              </div>
+              <span class="nav-link-text ms-1">ORDERS</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white " href="/banner">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <span class="material-icons">
+                      local_shipping
+                      </span>
+              </div>
+              <span class="nav-link-text ms-1">BANNER</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white " href="/offer">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <span class="material-icons">
+                      local_shipping
+                      </span>
+              </div>
+              <span class="nav-link-text ms-1">OFFER</span>
+            </a>
+          </li>
+          <li class="nav-item mt-3">
+            <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link text-white " href="./pages/sign-in.html">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons opacity-10">login</i>
+              </div>
+              <span class="nav-link-text ms-1">Sign In</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white " href="./pages/sign-up.html">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons opacity-10">assignment</i>
+              </div>
+              <span class="nav-link-text ms-1"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    
+    </aside>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+      <!-- Navbar -->
+      <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+        <div class="container-fluid py-1 px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+              <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+            </ol>
+            <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+          </nav>
+          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+              <div class="input-group input-group-outline">
+                <label class="form-label">Type here...</label>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            <ul class="navbar-nav  justify-content-end">
+              <li class="nav-item d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                  <i class="fa fa-user me-sm-1"></i>
+                  <span class="d-sm-inline d-none">Sign In</span>
+                </a>
+              </li>
+              <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item px-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-body p-0">
+                  <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                </a>
+              </li>
+              <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-bell cursor-pointer"></i>
+                </a>
+                <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex py-1">
+                        <div class="my-auto">
+                          <img src="/main/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            <span class="font-weight-bold">New message</span> from Laur
+                          </h6>
+                          <p class="text-xs text-secondary mb-0">
+                            <i class="fa fa-clock me-1"></i>
+                            13 minutes ago
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex py-1">
+                        <div class="my-auto">
+                          <img src="/main/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            <span class="font-weight-bold">New album</span> by Travis Scott
+                          </h6>
+                          <p class="text-xs text-secondary mb-0">
+                            <i class="fa fa-clock me-1"></i>
+                            1 day
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex py-1">
+                        <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
+                          <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>credit-card</title>
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                <g transform="translate(1716.000000, 291.000000)">
+                                  <g transform="translate(453.000000, 454.000000)">
+                                    <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                    <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                  </g>
+                                </g>
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            Payment successfully completed
+                          </h6>
+                          <p class="text-xs text-secondary mb-0">
+                            <i class="fa fa-clock me-1"></i>
+                            2 days
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+
+
+
+
+
+        <body>
+
+
+<style>
+  .alert-success-custom {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+</style>
+
+
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <!-- Content wrapper -->
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <section class="h-100 h-custom">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+              <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                <div class="card-body p-0">
+                  <div class="row g-0">
+                    <div class="col-lg-12">
+                      <div class="p-1">
+                        <div class="container-fluid">
+                          <div class="sub-container thehome">
+                            <div class="p-3">
+                              <h1 class="thenewarrival">Coupon Management</h1>
+  
+                              <div class="row" id="but">
+                                <a href="/addcoupon" class="btn btn-success btn-sm" style="width: 100px;">Add Coupon</a>
+                              </div>
+                              <% if (messages.success && messages.success.length > 0) { %>
+                              <div class="alert alert-success-custom">
+                                <% messages.success.forEach(function(message) { %>
+                                <p><%= message %></p>
+                                <% }); %>
+                              </div>
+                              <% } %>
+  
+                              <div class="theArea">
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Code</th>
+                                      <th scope="col">Date</th>
+                                      <th scope="col">Off Percentage</th>
+                                      <th scope="col">Status</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <% coupon.forEach(function(coupon) { %>
+                                    <tr>
+                                      <td><%= coupon.code %></td>
+                                      <td><%= coupon.date %></td>
+                                      <td><%= coupon.percentage %></td>
+                                      <td>
+                                        <select onchange="updatecouponStatus(event, '<%= coupon._id %>')">
+                                          <option value="Active" <%= coupon.status === 'Active' ? 'selected' : '' %>>Active</option>
+                                          <option value="Inactive" <%= coupon.status === 'Inactive' ? 'selected' : '' %>>Inactive</option>
+                                        </select>
+                                      </td>
+                                    </tr>
+                                    <% }); %>
+                                  </tbody>
+                                </table>
+                                
+                                <!-- Pagination -->
+                                <nav>
+                                  <ul class="pagination justify-content-center">
+                                    <% if (currentPage > 1) { %>
+                                    <li class="page-item">
+                                      <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
+                                    </li>
+                                    <% } %>
+                                    <% for (let i = 1; i <= totalPages; i++) { %>
+                                    <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                                      <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                    </li>
+                                    <% } %>
+                                    <% if (currentPage < totalPages) { %>
+                                    <li class="page-item">
+                                      <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
+                                    </li>
+                                    <% } %>
+                                  </ul>
+                                </nav>
+                                <!-- End Pagination -->
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <hr class="my-5" />
+    </div>
+  </div>
+  
+              
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <footer class="content-footer footer bg-footer-theme">
+                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                        <div class="mb-2 mb-md-0">
+                            ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>
+                          
+                         
+                        </div>
+                    </div>
+                </footer>
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+            </div>
+
+            <!-- Overlay -->
+            <div class="layout-overlay layout-menu-toggle"></div>
+            </div>
+            <!-- / Layout wrapper -->
+
+            <!-- Core JS -->
+            <!-- build:js assets/vendor/js/core.js -->
+
+
+
+
+
+
+<script>
+  function updatecouponStatus(event, id) {
+    console.log("id of the fetch",id);
+      fetch('/updatecouponStatus', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ statusvalue: event.target.value, id: id })
+      })
+          .then(function (response) {
+              if (response.ok) {
+                  console.log('Status updated successfully');
+              } else {
+                  console.error('Failed to update status');
+              }
+          })
+          .catch(function (error) {
+              console.error('Error:', error);
+          });
+  }
+</script>
+
+        </body>
+
+</html>

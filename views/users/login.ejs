@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .field-error {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+      display: block;
+    }
+
+    .links-container {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .links-container a {
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: #3498db;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+ 
+  <div class="screen">
+    <div class="screen__content">
+     
+      <form class="login" method="post" action="/login" onsubmit="return validateForm()">
+        <% if (typeof message !== 'undefined') { %>
+          <div class="error-message" style="color: red;">
+            <%= message %>
+          </div>
+        <% } %>
+       
+        <div class="login__field">
+          
+          <i class="login__icon fas fa-user"></i>
+          
+          <input type="text" class="login__input" placeholder="Email" name="email" required oninput="validateField(this)">
+        </div>
+        <span class="field-error" id="email-error"></span>
+        <div class="login__field">
+          <i class="login__icon fas fa-lock"></i>
+          <input type="password" class="login__input" placeholder="Password" name="password" required oninput="validateField(this)">
+        </div>
+        <span class="field-error" id="password-error"></span>
+        <button class="button login__submit" type="submit">
+          <span class="button__text">Log In Now</span>
+          <i class="button__icon fas fa-chevron-right"></i>
+        </button>
+      </form>
+      <div class="links-container">
+        <a href="/signup">Sign Up</a>
+        <a href="/reset-password">Forgot Password</a>
+      </div>
+    </div>
+
+    
+    
+    
+    <div class="screen__background">
+      <span class="screen__background__shape screen__background__shape4"></span>
+      <span class="screen__background__shape screen__background__shape3"></span>
+      <span class="screen__background__shape screen__background__shape2"></span>
+      <span class="screen__background__shape screen__background__shape1"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+function validateField(input) {
+  const fieldName = input.name;
+  const fieldValue = input.value.trim();
+  const errorElement = document.getElementById(`${fieldName}-error`);
+
+  // Remove previous error message
+  errorElement.textContent = "";
+
+  // Perform specific field validation
+  if (fieldName === "email") {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(fieldValue)) {
+      errorElement.textContent = "Please enter a valid email address.";
+    }
+  }
+}
+
+function validateForm() {
+  const emailInput = document.querySelector('input[name="email"]');
+  const passwordInput = document.querySelector('input[name="password"]');
+  const emailValue = emailInput.value.trim();
+  const passwordValue = passwordInput.value.trim();
+  const emailError = document.getElementById("email-error");
+  const passwordError = document.getElementById("password-error");
+
+  // Remove previous error messages
+  emailError.textContent = "";
+  passwordError.textContent = "";
+
+  // Perform form validation
+  let isValid = true;
+
+  if (!emailValue) {
+    emailError.textContent = "Email is required.";
+    isValid = false;
+  }
+
+  return isValid;
+}
+</script>
+
+</body>
+</html>

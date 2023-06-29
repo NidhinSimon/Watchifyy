@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url("https://example.com/background-image.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .profile {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      animation: slideIn 0.8s ease-in-out;
+    }
+
+    .confirmation-message {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .breadcrumb-banner {
+      padding-top: 0px;
+      padding-bottom: 30px;
+    }
+
+    .breadcrumb-banner h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .breadcrumb-banner a {
+      color: #333;
+      font-size: 16px;
+    }
+
+    .order-details-section {
+      margin-top: 30px;
+    }
+
+    .order-details-section h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .order-info {
+      margin-top: 30px;
+    }
+
+    .order-info h4 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .order-info ul.list {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .order-info ul.list li {
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .order-details-table {
+      margin-top: 30px;
+    }
+
+    .order-details-table h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .table {
+      font-size: 14px;
+      border: 1px solid #dee2e6;
+      border-collapse: collapse;
+      color: #555;
+    }
+
+    .table thead th,
+    .table tbody td {
+      border: 1px solid #dee2e6;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .table thead th {
+      background-color: #f8f9fa;
+    }
+
+    .table tbody tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+
+    .table tbody td:last-child {
+      font-weight: bold;
+    }
+
+    .table tbody td:first-child,
+    .table tbody td:last-child {
+      text-align: left;
+    }
+
+    .total-row {
+      background-color: #f8f9fa;
+    }
+
+    .total-row td {
+      font-weight: bold;
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="profile">
+      <section class="breadcrumb-banner">
+        <div class="container">
+         
+          <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="order-details-section">
+        <div class="container">
+          <h3 class="title-confirmation">Thank you! Your order has been received.</h3>
+         
+
+          <div class="order-details-table">
+            <h2>Order Details</h2>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% order.forEach(function(orderItem) { %>
+                    <% var totalPrice = 0 %>
+                    <% orderItem.product.forEach(function(productItem) { %>
+                      <tr>
+                        <td><%= productItem.name %></td>
+                        <td><%= productItem.quantity %></td>
+                        <td><%= productItem.price * productItem.quantity %></td>
+                      </tr>
+                      <% totalPrice += productItem.price * productItem.quantity %>
+                    <% }) %>
+                    <tr class="total-row">
+                      <td colspan="2">Subtotal:</td>
+                      <td><strong><%= totalPrice %></strong></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Discount total:</td>
+                      <td><%= orderItem.total ? orderItem.total : orderItem.subtotal %></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Shipping:</td>
+                      <td>Free</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td colspan="2">Total:</td>
+                      <td><%= orderItem.total ? orderItem.total : orderItem.subtotal %></td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <% for (let i = 0; i < order.length; i++) { %>
+            <div class="order-info">
+              <h4>Order Info</h4>
+              <ul class="list">
+                <li><span>Order number:</span> <%= order[i].orderId %></li>
+                <li><span>Date:</span> <%= order[i].date.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'}) %> <%= order[i].date.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'}) %></li>
+                <li><span>Total:</span> <%= order[i].total ? order[i].total : order[i].subtotal %></li>
+                <% if (order[i].payment_method === 1) { %>
+                  <li><span>Payment method:</span> CASH ON DELIVERY</li>
+                <% } %>
+                <% if (order[i].payment_method === 2) { %>
+                  <li><span>Payment method:</span> RazorPay</li>
+                <% } %>
+              </ul>
+            </div>
+          <% } %>
+        </div>
+      </section>
+    </div>
+  </div>
+  <li class="breadcrumb-item"><a href="/">CONTINUE SHOPPING</a></li>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

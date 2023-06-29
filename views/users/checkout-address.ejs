@@ -1,0 +1,6 @@
+  <!-- Page Preloder -->
+  <% if(typeof user !="undefined" ){ %>
+    <%-include('userlogged') %>
+      <%}else{%>
+        <%-include('usernotlogged') %>
+          <%}%>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Shoping Cart</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/fonts/iconic/css/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/fonts/linearicons-v1.0.0/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cartstyle/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/cartstyle/css/main.css">
+	<!--===============================================================================================-->
+</head>
+
+
+<body>
+  <% if(typeof user !="undefined" ){ %>
+    <%-include('userlogged') %>
+      <%}else{%>
+        <%-include('usernotlogged') %>
+          <%}%>
+  <div class="container" style="background-color: white; font-family: 'Poppins Medium', sans-serif; margin-top: 90px; padding: 20px;">
+    <div class="card">
+      <div class="card-header" style="text-align: center; color: #333; font-weight: bold; font-size: 24px;">Account Details</div>
+      <div class="form-container" style="padding: 20px;">
+        <form method="post" action="">
+  
+          
+          <div class="form-group">
+            <label for="full-name" style="font-weight: bold;">Full Name</label>
+            <input class="form-control" id="full-name" type="text" name="name" placeholder="Enter your full name" value="<%= address.address[0].name%>" required>
+          </div>
+          <div class="form-group">
+            <label for="mobile" style="font-weight: bold;">Mobile</label>
+            <input class="form-control" id="mobile" name="mobile" type="text" placeholder="Enter your mobile number"  value="<%= address.address[0].mobile%>" required>
+          </div>
+          <div class="form-group">
+            <label for="state" style="font-weight: bold;">State</label>
+            <input class="form-control" id="state" name="state" type="text" placeholder="Enter your state"  value="<%= address.address[0].state%>" required>
+          </div>
+          <div class="form-group">
+            <label for="city" style="font-weight: bold;">City</label>
+            <input class="form-control" id="city" name="city" type="text" placeholder="Enter your city"  value="<%= address.address[0].city%>" required>
+          </div>
+          <div class="form-group">
+            <label for="email" style="font-weight: bold;">Email</label>
+            <input class="form-control" id="email" name="email" type="email" placeholder="Enter your email"  value="<%= address.address[0].email%>" required>
+          </div>
+          <div class="form-group">
+            <label for="zip" style="font-weight: bold;">ZIP</label>
+            <input class="form-control" id="zip" type="number" name="pincode" placeholder="Enter your pincode"  value="<%= address.address[0].pincode%>" required>
+          </div>
+          <div class="form-group" style="text-align: center;">
+            <button class="btn btn-primary" value="submit" type="submit" style="width: 150px;">UPDATE Address</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  </body>
+  </html>
