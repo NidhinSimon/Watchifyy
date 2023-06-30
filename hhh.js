@@ -1,7 +1,7 @@
 // function frequencySort(nums) {
 //     var freq = [];
 
-const { count } = require("./model/categoryModel");
+// const { count } = require("./model/categoryModel");
 
 //     for (var i = 0; i < nums.length; i++) {
 //       var num = nums[i];
@@ -245,17 +245,39 @@ const { count } = require("./model/categoryModel");
 //    }
 //  }
 
-function sum(num) {
-    let count = 0;
-    while (num !== 0) {
-      if (num % 2 === 0) {
-        num =num/2
-      } else {
-        num =num-1
-      }
-      count++;
-    }
-    return count;
-  }
-  console.log(sum(14))
+// function sum(num) {
+//     let count = 0;
+//     while (num !== 0) {
+//       if (num % 2 === 0) {
+//         num =num/2
+//       } else {
+//         num =num-1
+//       }
+//       count++;
+//     }
+//     return count;
+//   }
+//   console.log(sum(14))
   
+
+
+
+let numbers=[7,5,6,8,3]
+let g=Math.min(...numbers)
+let s=Math.max(...numbers)
+
+function gcd(a, b) {
+  {
+    let temp = b;
+    b = a % b;;
+    a = temp;
+  }
+
+  return a;
+  
+}
+let result=gcd(g,s)
+console.log(result);
+
+
+

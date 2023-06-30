@@ -864,9 +864,11 @@ async function checkCoupon() {
     let offer = Number(document.getElementById("offer").innerHTML) || 0;
     let subtotal = Number(document.getElementById("subtotal").value) || 0;
     let gtotal = Number(document.getElementById("gtotal").innerHTML) || 0;
-
+console.log(gtotal,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     if (offer > 0) {
+      console.log("subtotototootot",subtotal);
       subtotal = subtotal - offer;
+      console.log("afterrrrrr",subtotal);
       document.getElementById("subtotal").value = subtotal.toFixed(2);
       document.getElementById("offer").innerHTML = "0.00";
     }

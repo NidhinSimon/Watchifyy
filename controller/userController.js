@@ -1193,62 +1193,62 @@ const deleteAddress = async (req, res) => {
     console.log(error.message)
   }
 };
-const invoicedownload = async (req, res) => {
-  try {
-    const orderId = req.query.id;
-    console.log("req.query", req.query);
-    console.log("invoideeeeeee", orderId);
-    const browser = await puppeteer.launch({ headless: "new" });
-    const page = await browser.newPage();
-    const url = `${req.protocol}://${req.get('host')}/invoice?orderId=${orderId}`;
+// const invoicedownload = async (req, res) => {
+//   try {
+//     const orderId = req.query.id;
+//     console.log("req.query", req.query);
+//     console.log("invoideeeeeee", orderId);
+//     const browser = await puppeteer.launch({ headless: "new" });
+//     const page = await browser.newPage();
+//     const url = `${req.protocol}://${req.get('host')}/invoice?orderId=${orderId}`;
 
-    await page.goto(url, {
-      waitUntil: "networkidle2"
-    });
+//     await page.goto(url, {
+//       waitUntil: "networkidle2"
+//     });
 
-    await page.setViewport({ width: 1680, height: 1050 });
-    const todayDate = new Date();
-    const pdfPath = path.join(__dirname, '../public/files', todayDate.getTime() + ".pdf");
+//     await page.setViewport({ width: 1680, height: 1050 });
+//     const todayDate = new Date();
+//     const pdfPath = path.join(__dirname, '../public/files', todayDate.getTime() + ".pdf");
 
-    await page.pdf({
-      path: pdfPath,
-      printBackground: true,
-      format: "A4"
-    });
+//     await page.pdf({
+//       path: pdfPath,
+//       printBackground: true,
+//       format: "A4"
+//     });
 
-    await browser.close();
+//     await browser.close();
 
-    // res.set({
-    //   "Content-Type": "application/pdf",
-    //   "Content-Length": pdfPath.length
-    // });
+//     // res.set({
+//     //   "Content-Type": "application/pdf",
+//     //   "Content-Length": pdfPath.length
+//     // });
 
-    // res.sendFile(pdfPath);
-    res.download(pdfPath, function (error) {
-      if (error) {
-        console.log(error);
-      }
-    })
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+//     // res.sendFile(pdfPath);
+//     res.download(pdfPath, function (error) {
+//       if (error) {
+//         console.log(error);
+//       }
+//     })
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 
 
-const invoice = async (req, res) => {
-  try {
+// const invoice = async (req, res) => {
+//   try {
 
-    const orderId = req.query.orderId
-    console.log("orderid", orderId);
-    const orderData = await Order.find({ orderId: orderId }).lean();
-    console.log("invoice data", orderData);
+//     const orderId = req.query.orderId
+//     console.log("orderid", orderId);
+//     const orderData = await Order.find({ orderId: orderId }).lean();
+//     console.log("invoice data", orderData);
 
-    res.render("orderDetailspdf", { order: orderData });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+//     res.render("orderDetailspdf", { order: orderData });
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 
 
