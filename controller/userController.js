@@ -8,7 +8,7 @@ const { ObjectId } = require('mongodb');
 const Order = require('../model/orderModel');
 const Coupon = require('../model/couponModel')
 const moment = require("moment");
-const puppeteer = require('puppeteer')
+
 const path = require('path')
 
 
@@ -280,11 +280,11 @@ const loadHome = async (req, res) => {
 
 const categorydetails = async (req, res) => {
   try {
-    const usersession = new ObjectId(req.session.user)
-
+    const usersession = new ObjectId(req.session.user);
+    const sortOption = req.query.sort || 'default';
 
     const userData = await User.findById(usersession);
-    const id = req.params.id
+    const id = req.params.id;
 
     const productData = await Products.aggregate([
       {
@@ -303,12 +303,19 @@ const categorydetails = async (req, res) => {
       }
     ]);
 
-    res.render('products', { catdetails: productData, user: userData, userdata: userData })
+    if (sortOption === 'lowToHigh') {
+      productData.sort((a, b) => a.price - b.price);
+    } else if (sortOption === 'highToLow') {
+      productData.sort((a, b) => b.price - a.price);
+    }
+
+    res.render('products', { catdetails: productData, user: userData, userdata: userData, sortOption });
 
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
-}
+};
+
 const productdetails = async (req, res) => {
   try {
     const usersession = req.session.user
@@ -1406,8 +1413,6 @@ module.exports = {
   checklogin,
   sortedProductList,
   checkincart,
-  invoicedownload,
-  invoice,
   walletupdate,
   productssort
 

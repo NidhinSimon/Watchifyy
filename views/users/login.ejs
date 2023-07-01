@@ -6,118 +6,282 @@
   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
   <link rel="stylesheet" href="/css/style.css">
+  <!DOCTYPE html>
+  <link rel="icon" type="image/png" href="/proddetail/images/icons/favicon.png" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/fonts/iconic/css/material-design-iconic-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/fonts/linearicons-v1.0.0/icon-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/animsition/css/animsition.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/daterangepicker/daterangepicker.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/slick/slick.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/MagnificPopup/magnific-popup.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/vendor/perfect-scrollbar/perfect-scrollbar.css">
+  <link rel="stylesheet" href="path/to/lightbox.css">
+  <script src="path/to/lightbox.js"></script>
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/proddetail/css/util.css">
+  <link rel="stylesheet" type="text/css" href="/proddetail/css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <title>Checkout</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Profile</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+ 
   <style>
-    .field-error {
-      color: red;
-      font-size: 12px;
-      margin-top: 5px;
-      display: block;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .links-container {
-      margin-top: 20px;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .screen {
+      position: relative;
+      width: 380px;
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .screen__content {
+      padding: 60px 30px;
+    }
+
+    .screen__content form {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .links-container a {
+    .screen__content .error-message {
+      color: red;
       margin-bottom: 10px;
-      text-decoration: none;
-      color: #3498db;
-      font-weight: bold;
+      text-align: center;
     }
+
+    .screen__content .login__field {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .screen__content .login__field i {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    .screen__content .login__input {
+      width: 100%;
+      padding: 12px 40px 12px 50px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .screen__content .field-error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .screen__content .login__submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px 20px;
+      margin-top: 20px;
+      border-radius: 25px;
+      background-color: #6c63ff;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .screen__content .login__submit:hover {
+      background-color: #524dff;
+    }
+
+    .screen__content .login__submit .button__text {
+      margin-right: 10px;
+    }
+
+    .screen__content .login__submit .button__icon {
+      margin-left: 10px;
+    }
+
+    .screen__content .links-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .screen__content .links-container a {
+      color: #999;
+      font-size: 14px;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .screen__background {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(135deg, #fff 0%, #f2f2f2 100%);
+      clip-path: circle(120% at right 65%);
+    }
+
+    .screen__background__shape1,
+    .screen__background__shape2,
+    .screen__background__shape3,
+    .screen__background__shape4 {
+      position: absolute;
+      display: block;
+      background-color: #fff;
+    }
+
+    .screen__background__shape1 {
+      top: -60px;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+
+    .screen__background__shape2 {
+      top: 50%;
+      left: 50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+    }
+
+    .screen__background__shape3 {
+      bottom: 50px;
+      left: -80px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+    }
+
+    .screen__background__shape4 {
+      bottom: 0;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+    }
+
+    @media (max-width: 480px) {
+      .screen {
+        width: 100%;
+      }
+    }
+    .screen__background__shape2 {
+  top: 50%;
+  left: 50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-image: url("path/to/your/watch-image.png");
+  background-size: cover;
+}
+
+
   </style>
 </head>
 <body>
-<div class="container">
- 
-  <div class="screen">
-    <div class="screen__content">
-     
-      <form class="login" method="post" action="/login" onsubmit="return validateForm()">
-        <% if (typeof message !== 'undefined') { %>
-          <div class="error-message" style="color: red;">
-            <%= message %>
+  <div class="container">
+    <div class="screen">
+      <div class="screen__background">
+        <span class="screen__background__shape1"></span>
+        <span class="screen__background__shape2"></span>
+        <span class="screen__background__shape3"></span>
+        <span class="screen__background__shape4"></span>
+      </div>
+      <div class="screen__content">
+        <form id="loginForm">
+          <h2>Login</h2>
+          <div class="login__field">
+            <i class="fas fa-user"></i>
+            <input type="text" class="login__input" placeholder="Username" name="username" required>
           </div>
-        <% } %>
-       
-        <div class="login__field">
-          
-          <i class="login__icon fas fa-user"></i>
-          
-          <input type="text" class="login__input" placeholder="Email" name="email" required oninput="validateField(this)">
-        </div>
-        <span class="field-error" id="email-error"></span>
-        <div class="login__field">
-          <i class="login__icon fas fa-lock"></i>
-          <input type="password" class="login__input" placeholder="Password" name="password" required oninput="validateField(this)">
-        </div>
-        <span class="field-error" id="password-error"></span>
-        <button class="button login__submit" type="submit">
-          <span class="button__text">Log In Now</span>
-          <i class="button__icon fas fa-chevron-right"></i>
-        </button>
-      </form>
-      <div class="links-container">
-        <a href="/signup">Sign Up</a>
-        <a href="/reset-password">Forgot Password</a>
+          <div class="login__field">
+            <i class="fas fa-lock"></i>
+            <input type="password" class="login__input" placeholder="Password" name="password" required>
+          </div>
+          <div class="error-message" id="loginError"></div>
+          <button type="submit" class="login__submit">
+            <span class="button__text">Sign In</span>
+            <i class="fas fa-arrow-right button__icon"></i>
+          </button>
+          <div class="links-container">
+            <a href="/reset-password">Forgot password?</a>
+            <a href="/signup">Create account</a>
+          </div>
+        </form>
       </div>
     </div>
-
-    
-    
-    
-    <div class="screen__background">
-      <span class="screen__background__shape screen__background__shape4"></span>
-      <span class="screen__background__shape screen__background__shape3"></span>
-      <span class="screen__background__shape screen__background__shape2"></span>
-      <span class="screen__background__shape screen__background__shape1"></span>
-    </div>
   </div>
-</div>
 
-<script>
-function validateField(input) {
-  const fieldName = input.name;
-  const fieldValue = input.value.trim();
-  const errorElement = document.getElementById(`${fieldName}-error`);
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const loginError = document.getElementById("loginError");
 
-  // Remove previous error message
-  errorElement.textContent = "";
+    loginForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const username = event.target.elements.username.value;
+      const password = event.target.elements.password.value;
 
-  // Perform specific field validation
-  if (fieldName === "email") {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(fieldValue)) {
-      errorElement.textContent = "Please enter a valid email address.";
-    }
-  }
-}
-
-function validateForm() {
-  const emailInput = document.querySelector('input[name="email"]');
-  const passwordInput = document.querySelector('input[name="password"]');
-  const emailValue = emailInput.value.trim();
-  const passwordValue = passwordInput.value.trim();
-  const emailError = document.getElementById("email-error");
-  const passwordError = document.getElementById("password-error");
-
-  // Remove previous error messages
-  emailError.textContent = "";
-  passwordError.textContent = "";
-
-  // Perform form validation
-  let isValid = true;
-
-  if (!emailValue) {
-    emailError.textContent = "Email is required.";
-    isValid = false;
-  }
-
-  return isValid;
-}
-</script>
-
+      if (username === "admin" && password === "admin") {
+        loginError.textContent = "Login successful.";
+      } else {
+        loginError.textContent = "Invalid username or password.";
+      }
+    });
+  </script>
 </body>
 </html>

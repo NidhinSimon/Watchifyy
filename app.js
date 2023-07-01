@@ -30,6 +30,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+
+
+
+
 app.use(function (req, res, next) {
   res.header("Cache-Control", "no-cache, no-store");
   next();

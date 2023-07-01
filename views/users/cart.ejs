@@ -361,7 +361,7 @@
 																		</button>
 																	</div>
 																</div>
-																<% }) %>
+															<% }) %>
 															<% } else { %>
 															<img src="/uploads/c.png" alt="" style="width: 10vw; height: 10vh;">
 															<span>CART IS EMPTY</span>
@@ -381,27 +381,19 @@
 															<h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
 															<hr class="my-4">
 															<div class="d-flex justify-content-between mb-4">
-																<h5 class="text-uppercase">Items : <%= length %></h5>
+																<h5 class="text-uppercase">Items: <%= length %></h5>
 																<h3 id="subtotal" class="fw-normal subtotal-text"><%= subtotal %></h3>
-
-																<h5></h5>
 															</div>
-															<h5 class="text-uppercase mb-3">SHIPPING FREE </h5>
-		
+															<h5 class="text-uppercase mb-3">SHIPPING FREE</h5>
 															<hr class="my-4">
 															<div class="d-flex justify-content-between mb-5">
-																
 																<h5 class="text-uppercase">Total price</h5>
 																<h2 id="sub" class="fw-normal total-price-text"><%= subtotal %></h2>
-
-
 															</div>
 															<% if (!subtotal) { %>
-															<button type="button"
-																class="btn btn-primary btn-lg btn-block disabled">Checkout</button>
+															<button type="button" class="btn btn-primary btn-lg btn-block disabled">Checkout</button>
 															<% } else { %>
-															<button type="submit" class="btn btn-primary btn-lg btn-block">Checkout
-															</button>
+															<button type="submit" class="btn btn-primary btn-lg btn-block">Checkout</button>
 															</form>
 															<% } %>
 														</div>
@@ -412,32 +404,48 @@
 									</div>
 								</div>
 							</div>
-					
-							<style>
-								.remove-item {
-									color: #ff0000;
-									cursor: pointer;
-									text-decoration: none;
-								}
-					
-								.remove-item:hover {
-									text-decoration: underline;
-								}
-					
-								.remove-button {
-									color: #ffffff;
-									background-color: #ff0000;
-									cursor: pointer;
-									padding: 10px 20px;
-									border-radius: 5px;
-									transition: background-color 0.3s ease;
-								}
-					
-								.remove-button:hover {
-									background-color: #cc0000;
-								}
-							</style>
 						</section>
+						
+						<style>
+							.remove-item {
+								color: #ff0000;
+								cursor: pointer;
+								text-decoration: none;
+							}
+						
+							.remove-item:hover {
+								text-decoration: underline;
+							}
+						
+							.remove-button {
+								color: #ffffff;
+								background-color: #ff0000;
+								cursor: pointer;
+								padding: 10px 20px;
+								border-radius: 5px;
+								transition: background-color 0.3s ease;
+							}
+						
+							.remove-button:hover {
+								background-color: #cc0000;
+							}
+						
+							/* Responsive Styles */
+							@media (max-width: 992px) {
+								.card-registration {
+									border-radius: 0;
+								}
+						
+								.card-registration-2 .row.g-0 .col-lg-8 {
+									padding-right: 0;
+								}
+						
+								.card-registration-2 .row.g-0 .col-lg-4 {
+									padding-left: 0;
+								}
+							}
+						</style>
+						
 					</div>
 					
 					<style>

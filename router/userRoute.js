@@ -108,8 +108,8 @@ user_route.get('/sortfilter', userController.sortedProductList);
 
 user_route.post('/cart/update/:productId', userauth.userLogin, userController.updateCartQuantity);
 
-user_route.get('/reportgenerate', userauth.userLogin, userController.invoicedownload)
-user_route.get('/invoice', userController.invoice)
+// user_route.get('/reportgenerate', userauth.userLogin, userController.invoicedownload)
+// user_route.get('/invoice', userController.invoice)
 
 
 user_route.post('/deduct-amount',userController.walletupdate)
