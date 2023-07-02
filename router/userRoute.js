@@ -117,7 +117,9 @@ user_route.post('/deduct-amount',userController.walletupdate)
 
 user_route.get('/products',userController.productssort)
 
+user_route.get('/invoice/:orderId',userController.generateInvoicePDF)
 
+// Route to generate and download the invoice PDF
 
 
 

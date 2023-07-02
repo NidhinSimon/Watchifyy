@@ -8,8 +8,56 @@ const { ObjectId } = require('mongodb');
 const Order = require('../model/orderModel');
 const Coupon = require('../model/couponModel')
 const moment = require("moment");
-
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
 const path = require('path')
+
+
+
+
+
+
+
+const generateInvoicePDF = async (orderId, res) => {
+  try {
+    const orderData = await Order.find({ orderId: orderId }).lean();
+
+    // Create a new PDF document
+    const doc = new PDFDocument();
+
+    // Set the response headers for PDF file
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="invoice_${orderId}.pdf"`);
+
+    // Create a write stream for PDF file
+    const pdfPath = `./public/files/invoice_${orderId}.pdf`;
+    const writeStream = fs.createWriteStream(pdfPath);
+
+    // Pipe the PDF document to the write stream
+    doc.pipe(writeStream);
+
+    // Add content to the PDF document
+    doc.font('Helvetica-Bold').fontSize(20).text('Invoice', { align: 'center' });
+    doc.moveDown(0.5);
+    doc.font('Helvetica').fontSize(12).text(`Order ID: ${orderId}`);
+    // Add more content to the PDF document based on your invoice data
+
+    // Finalize the PDF document
+    doc.end();
+
+    // Download the PDF file
+    res.download(pdfPath, function (error) {
+      if (error) {
+        console.log(error);
+      }
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+
+
 
 
 
@@ -278,15 +326,38 @@ const loadHome = async (req, res) => {
   }
 };
 
+
+
+
+
 const categorydetails = async (req, res) => {
   try {
     const usersession = new ObjectId(req.session.user);
     const sortOption = req.query.sort || 'default';
+    const currentPage = parseInt(req.query.page) || 1;
+    const pageSize = 8; // Number of products per page
 
     const userData = await User.findById(usersession);
     const id = req.params.id;
+    const categoryData = await Category.findById(id);
 
-    const productData = await Products.aggregate([
+    const totalProducts = await Products.countDocuments({
+      isDeleted: false,
+      category: new ObjectId(id)
+    });
+
+    const totalPages = Math.ceil(totalProducts / pageSize);
+    const skip = (currentPage - 1) * pageSize;
+
+    let sortQuery = {};
+
+    if (sortOption === 'lowToHigh') {
+      sortQuery = { price: 1 };
+    } else if (sortOption === 'highToLow') {
+      sortQuery = { price: -1 };
+    }
+
+    const pipeline = [
       {
         $lookup: {
           from: "categories",
@@ -300,21 +371,35 @@ const categorydetails = async (req, res) => {
           isDeleted: false,
           "category._id": new ObjectId(id)
         }
-      }
-    ]);
+      },
+    ];
 
-    if (sortOption === 'lowToHigh') {
-      productData.sort((a, b) => a.price - b.price);
-    } else if (sortOption === 'highToLow') {
-      productData.sort((a, b) => b.price - a.price);
+    if (Object.keys(sortQuery).length > 0) {
+      pipeline.push({ $sort: sortQuery });
     }
 
-    res.render('products', { catdetails: productData, user: userData, userdata: userData, sortOption });
+    pipeline.push(
+      { $skip: skip },
+      { $limit: pageSize }
+    );
+
+    const productData = await Products.aggregate(pipeline);
+
+    res.render('products', {
+      catdetails: productData,
+      user: userData,
+      userdata: userData,
+      sortOption,
+      currentPage,
+      totalPages
+    });
 
   } catch (error) {
     console.log(error.message);
   }
-};
+}
+
+
 
 const productdetails = async (req, res) => {
   try {
@@ -1414,8 +1499,8 @@ module.exports = {
   sortedProductList,
   checkincart,
   walletupdate,
-  productssort
-
+  productssort,
+  generateInvoicePDF
 
 
 

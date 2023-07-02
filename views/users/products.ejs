@@ -85,7 +85,9 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/finalcss/css/util.css" />
     <link rel="stylesheet" type="text/css" href="/finalcss/css/main.css" />
-    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   </head>
 
   <body class="animsition">
@@ -107,16 +109,11 @@
           <img src="/finalcss/images/icons/icon-close2.png" alt="CLOSE" />
         </button>
 
-        <form class="wrap-search-header flex-w p-l-15">
-          <button class="flex-c-m trans-04">
+        <form class="wrap-search-header flex-w p-l-15" onsubmit="searchProducts(event)">
+          <button class="flex-c-m trans-04" type="submit">
             <i class="zmdi zmdi-search"></i>
           </button>
-          <input
-            class="plh3"
-            type="text"
-            name="search"
-            placeholder="Search..."
-          />
+          <input class="plh3" type="text" name="search" placeholder="Search..." />
         </form>
       </div>
     </div>
@@ -233,7 +230,7 @@
                     </button> -->
           </div>
 
-          <div class="flex-w flex-c-m m-tb-10">
+          <!-- <div class="flex-w flex-c-m m-tb-10">
             <div
               class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter"
             >
@@ -257,10 +254,10 @@
               ></i>
               Search
             </div>
-          </div>
+          </div> -->
 
           <!-- Search product -->
-          <div class="dis-none panel-search w-full p-t-10 p-b-15">
+          <!-- <div class="dis-none panel-search w-full p-t-10 p-b-15">
             <div class="bor8 dis-flex p-l-15">
               <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
                 <i class="zmdi zmdi-search"></i>
@@ -273,34 +270,135 @@
                 placeholder="Search"
               />
             </div>
-          </div>
+          </div> -->
 
           <!-- Filter -->
-          <div class="dis-none panel-filter w-full p-t-10">
-            <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-              <div class="filter-col1 p-r-15 p-b-27">
-                <div class="mtext-102 cl2 p-b-15">Sort By</div>
-                <ul>
-                  <li>
-                    <a href="#" class="sort-option" data-sort="default">Default</a>
-                  </li>
-                  <li>
-                    <a href="#" class="sort-option" data-sort="lowToHigh">Low to High</a>
-                  </li>
-                  <li>
-                    <a href="#" class="sort-option" data-sort="highToLow">High to Low</a>
-                  </li>
-                </ul>
+          <div class="panel-filter">
+            <div class="filter-heading">Sort By</div>
+            <div class="dropdown">
+              <button class="btn btn-dropdown <%= sortOption === 'default' ? 'default' : 'active' %>">
+                <% if (sortOption === 'default') { %>
+                  Default
+                <% } else if (sortOption === 'lowToHigh') { %>
+                  Price: Low to High <i class="fas fa-long-arrow-alt-up"></i>
+                <% } else if (sortOption === 'highToLow') { %>
+                  Price: High to Low <i class="fas fa-long-arrow-alt-down"></i>
+                <% } %>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="#" class="sort-option <%= sortOption === 'default' ? 'active' : '' %>" data-sort="default">Default</a>
+                <a href="#" class="sort-option <%= sortOption === 'lowToHigh' ? 'active' : '' %>" data-sort="lowToHigh">Price: Low to High <i class="fas fa-long-arrow-alt-up"></i></a>
+                <a href="#" class="sort-option <%= sortOption === 'highToLow' ? 'active' : '' %>" data-sort="highToLow">Price: High to Low <i class="fas fa-long-arrow-alt-down"></i></a>
               </div>
             </div>
           </div>
           
+          
+          
+          
+          
+          
         </div>
 
 
+
+
+
+
+        <script>
+
+  // JavaScript code to handle sorting
+  const sortOptions = document.querySelectorAll('.sort-option');
+  sortOptions.forEach(option => {
+    option.addEventListener('click', (event) => {
+      event.preventDefault();
+      const selectedSort = event.target.getAttribute('data-sort');
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('sort', selectedSort);
+      window.location.href = currentUrl.href;
+    });
+  });
+
+
+          
+        </script>
         <!-- sale discount style -->
 
 <style>
+
+
+.panel-filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .filter-heading {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .btn-dropdown {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .btn-dropdown i {
+    margin-left: 5px;
+  }
+
+  .btn-dropdown.active,
+  .btn-dropdown.default {
+    background-color: #f8f8f8;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    display: none;
+  }
+
+  .dropdown-content a {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .dropdown-content a.active,
+  .dropdown-content a:hover {
+    background-color: #f8f8f8;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
 
 
 
@@ -362,12 +460,13 @@
   <% catdetails.forEach(function(x, i) { %>
     <!-- Product item -->
     <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women"
-    onclick="window.location.href='/login/productdetail/<%= x._id %>'">
+      onclick="window.location.href='/login/productdetail/<%= x._id %>'">
       <!-- Block2 -->
       <div class="block2">
         <div class="block2-pic hov-img0">
           <img src="/uploads/<%= x.images[0] %>" alt="IMG-PRODUCT" />
         </div>
+        <!-- Product label -->
         <div class="product-label">
           <% if (x.offerPercentage != 0) { %>
             <span class="discount-badge">
@@ -376,6 +475,7 @@
             </span>
           <% }; %>
         </div>
+        <!-- Product details -->
         <div class="block2-txt flex-w flex-t p-t-14">
           <div class="block2-txt-child1 flex-col-l">
             <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
@@ -385,14 +485,14 @@
             <% if (x.offerPercentage != 0) { %>
               <span class="product-available">
                 <del class="original-price"><%= x.offerPrice %> ₹</del>
-                <span class="discount-text">SALE</span>
+                <span class="offer-price"> <%= x.price %> ₹</span>
               </span>
             <% } %>
           </div>
           <div class="block2-txt-child2 flex-r p-t-3">
-            <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-              <img class="icon-heart1 dis-block trans-04" src="/finalcss/images/icons/icon-heart-01.png" alt="ICON" />
-              <img class="icon-heart2 dis-block trans-04 ab-t-l" src="/finalcss/images/icons/icon-heart-02.png" alt="ICON" />
+            <a href="/addtocart/<%= x._id %>" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+              <img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON" />
+              <img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON" />
             </a>
           </div>
         </div>
@@ -400,6 +500,75 @@
     </div>
   <% }); %>
 </div>
+
+<!-- Pagination -->
+<div class="text-center">
+  <nav>
+    <ul class="pagination justify-content-center pagination-custom">
+      <% if (currentPage > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
+        </li>
+      <% } %>
+      
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <li class="page-item <% if (currentPage === i) { %>active<% } %>">
+          <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+        </li>
+      <% } %>
+
+      <% if (currentPage < totalPages) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+</div>
+
+
+<style>
+  .pagination-custom {
+    margin-top: 20px;
+  }
+  
+  .pagination-custom .page-item {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .pagination-custom .page-item .page-link {
+    color: #333;
+    border: none;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 6px 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  
+  .pagination-custom .page-item.active .page-link,
+  .pagination-custom .page-item:hover .page-link {
+    color: #fff;
+    background-color: #333;
+  }
+  
+  .pagination-custom .page-item:first-child .page-link,
+  .pagination-custom .page-item:last-child .page-link {
+    padding: 7px 12px;
+  }
+  
+  .pagination-custom .page-item:first-child .page-link {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+  
+  .pagination-custom .page-item:last-child .page-link {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+  </style>
 
 
         <!-- Load more -->
@@ -757,9 +926,10 @@
 
 
 <script>
-  
-</script>
 
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
     <script src="/finalcss/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->

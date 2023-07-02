@@ -3,8 +3,10 @@ const Category = require('../model/categoryModel')
 const Product = require('../model/poductModel')
 const { products } = require('./admincontroller')
 const moment = require('moment');
+const express = require('express');
 
 const cron = require('node-cron');
+const app=express()
 
 
 cron.schedule('0 0 * * *', () => {
@@ -35,46 +37,47 @@ const productoffercreate = async (req, res) => {
 
 const addproductoffer = async (req, res) => {
     try {
-        const offerName = req.body.name;
-        const offerPercentage = parseInt(req.body.percentage, 10);
-
-        const product = req.body.product;
-
-        const lowerOfferName = offerName.toLowerCase();
-        const offerExist = await Offer.findOne({ name: lowerOfferName });
-        if (!offerExist) {
-
-            const existingProduct = await Product.findById({ _id: product });
-
-            const originalProductPrice = existingProduct.offerPrice
-
-            const newPrice = Math.round(originalProductPrice * ((100 - (existingProduct.offerPercentage + offerPercentage)) / 100))
-            console.log("new priceeeee", newPrice);
-            const duration = req.body.duration;
-            const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + duration);
-
-            await Product.findByIdAndUpdate({ _id: product }, { $set: { price: newPrice } });
-            await Product.findByIdAndUpdate({ _id: product }, { $set: { offerPercentage: existingProduct.offerPercentage + offerPercentage } });
-            const newOffer = new Offer({
-                name: offerName,
-                percentage: offerPercentage,
-                product: product,
-                duration: duration,
-                expiryDate: expiryDate,
-                status: 'Active',
-            });
-            await newOffer.save();
-
-            res.redirect("/offer");
-        } else {
-            res.redirect("/productOfferCreate");
-        }
+      const offerName = req.body.name;
+      const offerPercentage = parseInt(req.body.percentage, 10);
+      const product = req.body.product;
+  
+      const lowerOfferName = offerName.toLowerCase();
+      const offerExist = await Offer.findOne({ name: lowerOfferName });
+  
+      if (!offerExist) {
+        const existingProduct = await Product.findById({ _id: product });
+        const originalProductPrice = existingProduct.offerPrice;
+        const newPrice = Math.round(
+          originalProductPrice * ((100 - (existingProduct.offerPercentage + offerPercentage)) / 100)
+        );
+        console.log("new priceeeee", newPrice);
+  
+        const duration = req.body.duration;
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + duration);
+  
+        await Product.findByIdAndUpdate({ _id: product }, { $set: { price: newPrice } });
+        await Product.findByIdAndUpdate({ _id: product }, { $set: { offerPercentage: existingProduct.offerPercentage + offerPercentage } });
+  
+        const newOffer = new Offer({
+          name: offerName,
+          percentage: offerPercentage,
+          product: product,
+          duration: duration,
+          expiryDate: expiryDate,
+          status: 'Active',
+        });
+        await newOffer.save();
+  
+        res.redirect("/offer");
+      } else {
+        res.redirect("/productOfferCreate");
+      }
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
     }
-};
-
+  };
+  
 
 const categoryoffercreate = async (req, res) => {
     try {
@@ -141,6 +144,7 @@ const handleexpiredoffers = async (req, res) => {
       res.status(500).send('Error handling expired offers: ' + error.message);
     }
   };
+  app.get('/handleexpiredoffers', handleexpiredoffers);
   
 module.exports = {
     offerLoad,
