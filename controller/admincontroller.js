@@ -19,27 +19,44 @@ const securePass = async (password) => {
 }
 
 
-const approvecancel=async(req,res)=>{
+
+
+
+
+
+const approvecancel = async (req, res) => {
   try {
     const id = req.params.id;
-console.log(id,"{{{{{{{{{{{{{{{{{{{{{{{{{{");
     const cancelRequest = await Order.findByIdAndUpdate(
       id,
       { $set: { status: "Approved" } },
       { new: true }
     );
 
-    console.log("cancel requestt",cancelRequest);
+    if (cancelRequest.status === "Approved") {
+      const userWallet = await User.findOne({ _id: cancelRequest.userId });
 
-    // Perform any additional actions or notifications upon approval
+      if (userWallet) {
+        await User.updateOne(
+          { _id: cancelRequest.userId },
+          { $inc: { wallet: cancelRequest.total } }
+        );
+      } else {
+        // Handle the case when user wallet is not found
+        // For example, display an error message or take appropriate action
+      }
 
-    res.redirect("/cancelrequests");
+      // Perform any additional actions or notifications upon approval
+
+      res.redirect("/cancelrequests");
+    } else {
+      res.redirect("/cancelrequests");
+    }
   } catch (error) {
     console.log(error.message);
     res.redirect("/cancelrequests");
   }
-}
-
+};
 
 const rejectcancel=async(req,res)=>{
   try {
@@ -250,7 +267,7 @@ const verifyadmin = async (req, res) => {
 const cancelrequests = async (req, res) => {
   try {
     const cancelRequests = await Order.find({ status: "Pending" }).lean();
-    res.render("cancelrequests", { cancelRequests }); // Use the correct variable name here
+    res.render("cancelrequests", { cancelRequests }); 
   } catch (error) {
     console.log(error.message);
   }
@@ -263,7 +280,7 @@ const loadDashboard = async (req, res) => {
       _id: -1,
     });
     const details = await User.find()
-    res.render('cancelrequests', { detail: details, order: orderData });
+    res.render('adminHom', { detail: details, order: orderData });
 
   } catch (error) {
     console.log(error.message)

@@ -1,134 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Error 404</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .header {
+      background-color: #f8f9fa;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .navigation {
+      display: flex;
+    }
+
+    .navigation a {
+      color: #333;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 16px;
+    }
+
+    .order-confirmation {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      animation: slideIn 0.8s ease-in-out;
+    }
+
+    .title-confirmation {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .order-details-table {
+      margin-top: 30px;
+    }
+
+    .order-details-table h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .table {
+      font-size: 14px;
+      border: 1px solid #dee2e6;
+      border-collapse: collapse;
+      color: #555;
+    }
+
+    .table thead th,
+    .table tbody td {
+      border: 1px solid #dee2e6;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .table thead th {
+      background-color: #f8f9fa;
+    }
+
+    .table tbody tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+
+    .table tbody td:last-child {
+      font-weight: bold;
+    }
+
+    .table tbody td:first-child,
+    .table tbody td:last-child {
+      text-align: left;
+    }
+
+    .total-row {
+      background-color: #f8f9fa;
+    }
+
+    .total-row td {
+      font-weight: bold;
+    }
+
+    .buttons {
+      margin-top: 30px;
+    }
+
+    .buttons a {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="content">
-            <h1>Oops! Error 404</h1>
-            <p>Looks like the page you are looking for doesn't exist.</p>
-            <a href="/">Go back to homepage</a>
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <img src="/uploads/logo finalll.png" alt="Logo">
+      </div>
+      <nav class="navigation">
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="/cart">Cart</a>
+        <a href="/profile">Profile</a>
+      </nav>
+    </header>
+
+    <div class="order-confirmation">
+      <h2 class="title-confirmation">Thank you! Your order has been received.</h2>
+
+      <div class="order-details-table">
+        <h2>Order Details</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% order.forEach(function(orderItem) { %>
+                <% var totalPrice = 0 %>
+                <% orderItem.product.forEach(function(productItem) { %>
+                  <tr>
+                    <td><%= productItem.name %></td>
+                    <td><%= productItem.quantity %></td>
+                    <td><%= productItem.price * productItem.quantity %></td>
+                  </tr>
+                  <% totalPrice += productItem.price * productItem.quantity %>
+                <% }) %>
+                <tr class="total-row">
+                  <td colspan="2">Subtotal:</td>
+                  <td><strong><%= totalPrice %></strong></td>
+                </tr>
+                <tr>
+                  <td colspan="2">Discount total:</td>
+                  <td><%= orderItem.total ? orderItem.total : orderItem.subtotal %></td>
+                </tr>
+                <tr>
+                  <td colspan="2">Shipping:</td>
+                  <td>Free</td>
+                </tr>
+                <tr class="total-row">
+                  <td colspan="2">Total:</td>
+                  <td><%= orderItem.total ? orderItem.total : orderItem.subtotal %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
         </div>
-        <div class="animation">
-            <div class="cube">
-                <div class="face front"></div>
-                <div class="face back"></div>
-                <div class="face top"></div>
-                <div class="face bottom"></div>
-                <div class="face left"></div>
-                <div class="face right"></div>
-            </div>
+      </div>
+
+      <% for (let i = 0; i < order.length; i++) { %>
+        <div class="order-info">
+          <h2>Order Info</h2>
+          <ul>
+            <li><span>Order number:</span> <%= order[i].orderId %></li>
+            <li><span>Date:</span> <%= order[i].date.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'}) %> <%= order[i].date.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'}) %></li>
+            <li><span>Total:</span> <%= order[i].total ? order[i].total : order[i].subtotal %></li>
+            <% if (order[i].payment_method === 1) { %>
+              <li><span>Payment method:</span> CASH ON DELIVERY</li>
+            <% } %>
+            <% if (order[i].payment_method === 2) { %>
+              <li><span>Payment method:</span> RazorPay</li>
+            <% } %>
+          </ul>
         </div>
+      <% } %>
+      
+      <div class="buttons">
+        <a href="/orders" class="btn btn-primary">My Orders</a>
+        <a href="/" class="btn btn-primary">Continue Shopping</a>
+      </div>
+      
     </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
+
 </html>
-
-<style>
-
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    perspective: 800px;
-}
-
-.cube {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    transform-style: preserve-3d;
-    animation: rotateCube 8s linear infinite;
-}
-
-.side {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    background-color: #333399;
-    color: #fff;
-    font-size: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #fff;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-}
-
-.front {
-    transform: translateZ(100px);
-}
-
-.back {
-    transform: rotateY(180deg) translateZ(100px);
-}
-
-.top {
-    transform: rotateX(90deg) translateZ(100px);
-}
-
-.bottom {
-    transform: rotateX(-90deg) translateZ(100px);
-}
-
-.left {
-    transform: rotateY(-90deg) translateZ(100px);
-}
-
-.right {
-    transform: rotateY(90deg) translateZ(100px);
-}
-
-.content {
-    text-align: center;
-    z-index: 1;
-}
-
-h1 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    color: #333399;
-}
-
-p {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    color: #666;
-}
-
-a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2rem;
-    padding: 0.8rem 2rem;
-    background-color: #333399;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-a:hover {
-    background-color: #666;
-}
-
-@keyframes rotateCube {
-    0% {
-        transform: rotateY(0);
-    }
-    100% {
-        transform: rotateY(360deg);
-    }
-}
-
-
-
-</style>

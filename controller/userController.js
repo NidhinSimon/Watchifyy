@@ -806,14 +806,14 @@ const addNewAddressCheckout = async (req, res) => {
 
 
 let user;
-let couponCode
-let couponamount
+let couponCode;
+let couponAmount;
+
 const placeOrder = async (req, res) => {
   try {
     console.log("place order started");
     const userId = req.session.user;
     user = await User.findById(userId);
-    
 
     // Retrieve the address based on the addressId
     const addressId = req.body.addressId;
@@ -837,21 +837,14 @@ const placeOrder = async (req, res) => {
     const id = Math.floor(100000 + Math.random() * 900000);
     const orderId = result + id;
 
-    const shoeProduct = await Promise.all(
-      productid.map(async (item, i) => {
-        const product = await Products.findById(item); // Access the productid from the map function
-        return {
-          id: item, // Use the current item from the map function
-          name: productname[i],
-          price: price[i],
-          quantity: quantity[i],
-          image: product ? product.images : '', // Populate the image field from the fetched product
-        };
-      })
-    );
-    
-    
-console.log("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo",shoeProduct);
+    const shoeProduct = productid.map((item, i) => ({
+      id: productid[i],
+      name: productname[i],
+      price: price[i],
+      quantity: quantity[i],
+    }));
+
+    console.log("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo", shoeProduct);
     let total = subtotal;
     let remainingAmount = total;
 
@@ -880,7 +873,7 @@ console.log("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo",shoeProduct);
       }
     }
 
-    let data = {
+    const orderData = {
       userId: userId,
       product: shoeProduct,
       orderId: orderId,
@@ -896,22 +889,33 @@ console.log("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo",shoeProduct);
     };
 
     // Save the order
-    const orderPlacement = await Order.insertMany(data);
+    const orderPlacement = new Order(orderData);
 
-    if (orderPlacement) {
-      user.cart=[]
-      await user.save()
-      req.session.page = "fghnjm";
-      return res.json({ res: "success", data: data });
-
-    } else {
-      throw new Error("Order placement failed.");
+    try {
+      const savedOrder = await orderPlacement.save();
+      if (savedOrder) {
+        user.cart = [];
+        await user.save();
+        req.session.page = "fghnjm";
+        return res.json({ res: "success", data: orderData });
+      } else {
+        throw new Error("Order placement failed.");
+      }
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ error: "An error occurred. Please try again." });
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "An error occurred. Please try again." });
+    return res
+      .status(500)
+      .json({ error: "An error occurred. Please try again." });
   }
 };
+
+
 
 const loadcheckoutpage = async (req, res) => {
   try {
@@ -1014,22 +1018,30 @@ const cancelOrder = async (req, res) => {
   try {
     const id = req.query.id;
     const orderData = await Order.findById({ _id: id }).lean();
-    
-    // Check if the order is already cancelled or returned
+
     if (orderData.status === "Cancelled" || orderData.status === "Returned") {
       res.redirect("/order");
       return;
     }
-    
-    // Check if the order is already approved by the admin
+
     if (orderData.status === "Approved") {
-      // Proceed with cancellation
+      const userWallet = await User.findOne({ _id: orderData.userId });
+
+      if (userWallet && (orderData.payment_method === 2 && orderData.payment_method === 3)) {
+        await User.updateOne(
+          { _id: orderData.userId },
+          { $inc: { wallet: orderData.total } }
+        );
+      } else {
+        // Handle the case when user wallet is not found or payment method is not 1 or 2
+        // For example, display an error message or take appropriate action
+      }
+
       await cancelOrderAndUpdateStock(orderData, id);
       res.redirect("/order");
       return;
     }
-    
-    // Set the order status to "Pending" for admin approval
+
     const updateOrder = await Order.findOneAndUpdate(
       { _id: id },
       {
@@ -1038,18 +1050,13 @@ const cancelOrder = async (req, res) => {
         },
       }
     );
-    
-    // Notify the admin about the cancellation request (send a notification or email)
-    // ... your code to notify the admin ...
-    
+
     res.redirect("/order");
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
     res.redirect("/order");
   }
 };
-
-
 
 
 
@@ -1431,23 +1438,22 @@ const productssort=async(req,res)=>{
     let sortQuery = {};
 
     if (sortParam === 'lowToHigh') {
-      // Sort products in ascending order of price
+     
       sortQuery = { price: 1 };
     } else if (sortParam === 'highToLow') {
-      // Sort products in descending order of price
+     
       sortQuery = { price: -1 };
     } else {
-      // Invalid sorting parameter
+
       return res.status(400).json({ error: 'Invalid sorting parameter' });
     }
 
-    // Retrieve and sort products based on the sortQuery
+    
     const products = await Products.find().sort(sortQuery).exec();
 
-    // Return the sorted products as the response
     return res.json(products);
   } catch (error) {
-    // Handle any errors that occur during the database query
+   
     return res.status(500).json({ error: 'An error occurred' });
   }
 }

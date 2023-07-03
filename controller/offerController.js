@@ -94,7 +94,7 @@ const addcategoryoffer = async (req, res) => {
         const category = req.body.category
         const upperoffername = offerName.toUpperCase()
         const offerExist = await Offer.findOne({ name: upperoffername })
-        console.log("offfer exiissiisiisiiting categoryyy", offerExist);
+       
         if (!offerExist) {
             await Product.find({ category: category })
                 .then((products) => {
@@ -104,14 +104,14 @@ const addcategoryoffer = async (req, res) => {
                         product.save();
                     })
                 })
-            console.log("productssssssssssssssss", products);
+          
             const newOffer = new Offer({
                 name: offerName,
                 percentage: offerPercentage,
                 category: category,
             })
             await newOffer.save()
-            console.log("newofferrr>>>>>>>>>>>>>>>", newOffer)
+           
             res.redirect('/offer')
         } else {
             res.redirect('/categoryoffercreate')
@@ -124,15 +124,14 @@ const addcategoryoffer = async (req, res) => {
 
 const handleexpiredoffers = async (req, res) => {
     try {
-      // Find all expired offers
-      const now = moment(); // Get the current date and time
+     
+      const now = moment();
       const expiredOffers = await Offer.find({
-        expirationDate: { $lt: now.toDate() } // Convert current date to a valid Date object
+        expirationDate: { $lt: now.toDate() } 
       });
   
-      // Perform actions on expired offers
+      
       expiredOffers.forEach(async (offer) => {
-        // Update offer status or perform any other actions
         offer.status = 'expired';
         await offer.save();
       });

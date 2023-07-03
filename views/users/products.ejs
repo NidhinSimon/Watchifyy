@@ -473,7 +473,10 @@
               <span class="discount-percentage">-<%= x.offerPercentage %>%</span>
               <span class="discount-text">OFF</span>
             </span>
-          <% }; %>
+          <% } %>
+          <% if (x.isExpired) { %>
+            <span class="expired-badge">Expired</span>
+          <% } %>
         </div>
         <!-- Product details -->
         <div class="block2-txt flex-w flex-t p-t-14">
@@ -500,6 +503,7 @@
     </div>
   <% }); %>
 </div>
+
 
 <!-- Pagination -->
 <div class="text-center">

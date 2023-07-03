@@ -118,42 +118,46 @@ td {
               <h4>Order details</h4>
               <div class="card">
                 <div class="card-body">
-                  <div class="row">
-                    <% order.forEach(function(orderItem) { %>
-                    <div class="col-md-6">
-                      <div class="card mb-4">
-                        <div class="card-body">
-                          <h5 class="card-title mb-3">
-                            Order ID: <%= orderItem.orderId %>
-                          </h5>
-                          <% var productNames = []; var totalQuantity = 0; %>
-                          <% orderItem.product.forEach(function(productItem) { %>
-                          <% productNames.push(productItem.name); %>
-                          <% totalQuantity += productItem.quantity; %>
-                          <% }); %>
-                          <p class="card-text">
-                            <strong>Name:</strong>
-                            <%= productNames.join(', ') %>
-                          </p>
-                          <p class="card-text">
-                            <strong>Price:</strong>
-                            <%= orderItem.total ? orderItem.total : orderItem.subtotal %>
-                          </p>
-                          <p class="card-text">
-                            <strong>Quantity:</strong>
-                            <%= totalQuantity %>
-                          </p>
-                          <p class="card-text">
-                            <strong>Status:</strong>
-                            <%= orderItem.status %>
-                          </p>
-                          <a href="/single-order?id=<%= orderItem.orderId %>" class="btn btn-primary">View</a>
+                  <% if (order.length === 0) { %>
+                    <p>No orders have been made.</p>
+                    <a href="/" class="btn btn-primary">Continue Shopping</a>
+                  <% } else { %>
+                    <div class="row">
+                      <% order.forEach(function(orderItem) { %>
+                        <div class="col-md-6">
+                          <div class="card mb-4">
+                            <div class="card-body">
+                              <h5 class="card-title mb-3">
+                                Order ID: <%= orderItem.orderId %>
+                              </h5>
+                              <% var productNames = []; var totalQuantity = 0; %>
+                              <% orderItem.product.forEach(function(productItem) { %>
+                                <% productNames.push(productItem.name); %>
+                                <% totalQuantity += productItem.quantity; %>
+                              <% }); %>
+                              <p class="card-text">
+                                <strong>Name:</strong>
+                                <%= productNames.join(', ') %>
+                              </p>
+                              <p class="card-text">
+                                <strong>Price:</strong>
+                                <%= orderItem.total ? orderItem.total : orderItem.subtotal %>
+                              </p>
+                              <p class="card-text">
+                                <strong>Quantity:</strong>
+                                <%= totalQuantity %>
+                              </p>
+                              <p class="card-text">
+                                <strong>Status:</strong>
+                                <%= orderItem.status %>
+                              </p>
+                              <a href="/single-order?id=<%= orderItem.orderId %>" class="btn btn-primary">View</a>
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                      <% }); %>
                     </div>
-                    <% }); %>
-                    
-                  </div>
+                  <% } %>
                 </div>
               </div>
             </div>
@@ -161,55 +165,53 @@ td {
         </div>
       </div>
     </div>
-    
-</script>
-
-<!-- Back to top -->
-<div class="btn-back-to-top" id="myBtn">
-  <span class="symbol-btn-back-to-top">
-    <i class="zmdi zmdi-chevron-up"></i>
-  </span>
-</div>
-
-<!--===============================================================================================-->
-<script src="/cartstyle/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="/cartstyle/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-<script src="/cartstyle/vendor/bootstrap/js/popper.js"></script>
-<script src="/cartstyle/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="/cartstyle/vendor/select2/select2.min.js"></script>
-<script>
-  $(".js-select2").each(function () {
-    $(this).select2({
-      minimumResultsForSearch: 20,
-      dropdownParent: $(this).next('.dropDownSelect2')
-    });
-  })
-</script>
-<!--===============================================================================================-->
-<script src="/cartstyle/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-<!--===============================================================================================-->
-<script src="/cartstyle/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script>
-  $('.js-pscroll').each(function () {
-    $(this).css('position', 'relative');
-    $(this).css('overflow', 'hidden');
-    var ps = new PerfectScrollbar(this, {
-      wheelSpeed: 1,
-      scrollingThreshold: 1000,
-      wheelPropagation: false,
-    });
-
-    $(window).on('resize', function () {
-      ps.update();
-    })
-  });
-</script>
-<!--===============================================================================================-->
-<script src="/cartstyle/js/main.js"></script>
-
-</body>
+  
+    <!-- Back to top -->
+    <div class="btn-back-to-top" id="myBtn">
+      <span class="symbol-btn-back-to-top">
+        <i class="zmdi zmdi-chevron-up"></i>
+      </span>
+    </div>
+  
+    <!--===============================================================================================-->
+    <script src="/cartstyle/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/cartstyle/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/cartstyle/vendor/bootstrap/js/popper.js"></script>
+    <script src="/cartstyle/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/cartstyle/vendor/select2/select2.min.js"></script>
+    <script>
+      $(".js-select2").each(function () {
+        $(this).select2({
+          minimumResultsForSearch: 20,
+          dropdownParent: $(this).next('.dropDownSelect2')
+        });
+      })
+    </script>
+    <!--===============================================================================================-->
+    <script src="/cartstyle/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/cartstyle/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script>
+      $('.js-pscroll').each(function () {
+        $(this).css('position', 'relative');
+        $(this).css('overflow', 'hidden');
+        var ps = new PerfectScrollbar(this, {
+          wheelSpeed: 1,
+          scrollingThreshold: 1000,
+          wheelPropagation: false,
+        });
+  
+        $(window).on('resize', function () {
+          ps.update();
+        })
+      });
+    </script>
+    <!--===============================================================================================-->
+    <script src="/cartstyle/js/main.js"></script>
+  </body>
+  
 
 </html>
