@@ -8,6 +8,7 @@ const addcategory = async (req, res) => {
         res.render('addcategory')
     } catch (error) {
         console.log(error.message);
+        res.render('error')
     }
 }
 const category = async (req, res) => {
@@ -24,6 +25,7 @@ const category = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+        res.render('error')
     }
 }
 const categoryLoad = async (req, res) => {
@@ -47,6 +49,7 @@ const categoryLoad = async (req, res) => {
         }
     } catch (error) {
         console.error(error.message)
+        res.render('error')
     }
 };
 const editcategory = async (req, res) => {
@@ -57,6 +60,7 @@ const editcategory = async (req, res) => {
         res.render("editcategory", { data: categoryData, message: "" });
     } catch (error) {
         console.error(error.message)
+        res.render('error')
     }
 }
 const updateCategory = async (req, res) => {
@@ -85,6 +89,7 @@ const updateCategory = async (req, res) => {
         res.redirect("/admin/category");
     } catch (error) {
         console.error(error.message)
+        res.render('error')
     }
 }
 const deletecategory = async (req, res) => {
@@ -102,6 +107,7 @@ const deletecategory = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render('error')
     }
 }
 

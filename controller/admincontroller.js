@@ -74,6 +74,7 @@ const rejectcancel=async(req,res)=>{
   } catch (error) {
     console.log(error.message);
     res.redirect("/cancelrequests");
+    res.render('error')
   }
 }
 
@@ -218,6 +219,7 @@ const dashboardData = async (req, res, next) => {
     console.error(error);
     next(error);
     res.status(500).send("Server error");
+    res.render('error')
   }
 };
 
@@ -232,6 +234,7 @@ const loadadmin = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 const verifyadmin = async (req, res) => {
@@ -259,6 +262,7 @@ const verifyadmin = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 }
 
@@ -270,6 +274,7 @@ const cancelrequests = async (req, res) => {
     res.render("cancelrequests", { cancelRequests }); 
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 }
 
@@ -284,6 +289,7 @@ const loadDashboard = async (req, res) => {
 
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 
@@ -316,6 +322,7 @@ const salesreport = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to retrieve sales report data" });
+    res.render('error')
   }
 };
 
@@ -325,6 +332,7 @@ const loadUsers = async (req, res) => {
     res.render('users', { detail: details });
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 
@@ -361,6 +369,7 @@ const addproducts = async (req, res) => {
     res.render('addproduct', { category: categoryData });
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 
@@ -431,6 +440,7 @@ const updateProduct = async (req, res) => {
     res.redirect('/admin/products');
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 const deleteProduct = async (req, res) => {
@@ -440,6 +450,7 @@ const deleteProduct = async (req, res) => {
     res.redirect('/admin/products');
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 }
 
@@ -450,6 +461,7 @@ const listProduct = async (req, res) => {
     res.redirect('/admin/products');
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -467,6 +479,7 @@ const blockUnblockUser = (req, res) => {
     })
     .catch((err) => {
       console.log(err.message);
+      res.render('error')
     });
 
 }
@@ -485,6 +498,7 @@ const loadviewproduct = async (req, res) => {
     res.render("orderpage", { order: orderData });
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -499,6 +513,7 @@ const updateStatus = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.sendStatus(500);
+    res.render('error')
   }
 };
 

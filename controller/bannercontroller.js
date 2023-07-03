@@ -6,6 +6,7 @@ const createBanner = async (req, res) => {
         res.render('bannercreate')
     } catch (error) {
         console.log(error.message)
+        res.render('error')
     }
 
 
@@ -20,6 +21,7 @@ const loadbanner = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
+        res.render('error')
     }
 }
 
@@ -44,6 +46,7 @@ const addnewbanner = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message)
+        res.render('error')
     }
 }
 
@@ -59,6 +62,7 @@ const deleteBanner = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render('error')
     }
 };
 

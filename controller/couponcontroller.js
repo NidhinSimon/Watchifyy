@@ -29,6 +29,7 @@ const addcoupon = async (req, res) => {
     res.render("addcoupon");
   } catch (error) {
     console.log(error);
+    res.render('error')
   }
 };
 const insertCoupon = async (req, res) => {
@@ -54,6 +55,7 @@ const insertCoupon = async (req, res) => {
     console.log(error);
     req.flash("error", "An error occurred while adding the coupon.");
     res.redirect("/addcoupon");
+    res.render('error')
   }
 };
 
@@ -67,10 +69,11 @@ const updateCouponStatus = async (req, res) => {
     const filter = { _id: couponId };
     const update = { $set: { status: statusvalue } };
     await Coupon.updateOne(filter, update);
-    res.sendStatus(200); // Send a success status code
+    res.sendStatus(200); 
   } catch (error) {
     console.log(error.message);
-    res.sendStatus(500); // Send an error status code
+    res.sendStatus(500);
+    res.render('error')
   }
 };
 

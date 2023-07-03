@@ -145,6 +145,7 @@ const sendotp = async (req, res) => {
     }
   } catch (error) {
     res.status(500).send('Error sending OTP');
+    
   }
 };
 
@@ -186,6 +187,7 @@ const verifyotp = async (req, res) => {
         }
       } catch (error) {
         console.log(error.message);
+        res.render('error')
       }
     }
     else {
@@ -216,6 +218,7 @@ const verifyotp = async (req, res) => {
       res.render('login', { message: "Account created successfully" })
     } else {
       res.render('otpverify', { error: "invalid opt" })
+      res.render('error')
     }
   }
 
@@ -247,6 +250,7 @@ const loadSignup = async (req, res) => {
 
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -301,6 +305,7 @@ const verifyLogin = async (req, res) => {
     res.render('login', { message: message, email: email });
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -323,6 +328,7 @@ const loadHome = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -396,6 +402,7 @@ const categorydetails = async (req, res) => {
 
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 }
 
@@ -475,6 +482,7 @@ const removeCartProduct = async (req, res) => {
     res.json("success");
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -496,6 +504,7 @@ const checkincart = async (req, res) => {
     res.json({ inCart });
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
+    res.render('error')
   }
 }
 
@@ -516,6 +525,7 @@ const addToCart = async (req, res) => {
     res.json("success");
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
+    res.render('error')
   }
 };
 
@@ -541,6 +551,7 @@ const loadWishlist = async (req, res) => {
 
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 const addWishlist = async (req, res) => {
@@ -556,6 +567,7 @@ const addWishlist = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Error adding product to wishlist!" });
+    res.render('error')
   }
 };
 const removefromWishlist = async (req, res) => {
@@ -578,6 +590,7 @@ const removefromWishlist = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Server error" });
+    res.render('error')
   }
 
 }
@@ -595,6 +608,7 @@ const loadForgot = async (req, res) => {
     res.render('forgetpassword');
   } catch (error) {
     console.log(error.message);
+    res.render('error')
 
   }
 };
@@ -626,6 +640,7 @@ const sendResetMail = async (email, token) => {
   } catch (error) {
     console.log(error.message);
     throw new Error('Error sending password reset email');
+    res.render('error')
   }
 };
 
@@ -659,6 +674,7 @@ const forgotPassword = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.render('error')
     return res.render('forgetpassword', {
       message: 'An error occurred. Please try again.',
     });
@@ -676,6 +692,7 @@ const forgetpasswordload = async (req, res) => {
 
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 const resetpassword = async (req, res) => {
@@ -689,6 +706,7 @@ const resetpassword = async (req, res) => {
     res.redirect('/login')
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 
@@ -703,6 +721,7 @@ const addadress = async (req, res) => {
     res.redirect("/profile");
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 };
 
@@ -730,13 +749,14 @@ const coupon = async (req, res, next) => {
         const gtotal = total - amount;
         res.json({ offerPrice, gtotal });
         
-        console.log(gtotal,"???????????????????coupojnn???????????????????/");
+       
       }
     } else {
       res.json("fail");
     }
   } catch (error) {
     next(error);
+    res.render('error')
   }
 
 };
@@ -756,6 +776,7 @@ const loadeditaddresscheckoutpage = async (req, res) => {
     res.render("checkoutEditAddress", { address: userAddress, user, userdata: userData });
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -772,6 +793,7 @@ const editAddressCheckout = async (req, res) => {
     res.redirect("/profile");
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -788,6 +810,7 @@ const addAddressCheckout = async (req, res) => {
     res.redirect("/loadcheckout");
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -800,6 +823,7 @@ const addNewAddressCheckout = async (req, res) => {
     res.render("addNewAddressCheckout", { user, userdata: userData });
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -811,11 +835,11 @@ let couponAmount;
 
 const placeOrder = async (req, res) => {
   try {
-    console.log("place order started");
+    
     const userId = req.session.user;
     user = await User.findById(userId);
 
-    // Retrieve the address based on the addressId
+    
     const addressId = req.body.addressId;
     const address = user.address;
 
@@ -844,11 +868,10 @@ const placeOrder = async (req, res) => {
       quantity: quantity[i],
     }));
 
-    console.log("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo", shoeProduct);
     let total = subtotal;
     let remainingAmount = total;
 
-    // Calculate total amount after applying coupon
+ 
     if (req.body.coupon) {
       const couponCode = req.body.coupon;
       const appliedCoupon = await Coupon.findOne({ code: couponCode });
@@ -881,7 +904,7 @@ const placeOrder = async (req, res) => {
       status: "processing",
       payment_method: String(payment),
       addressId: addressId,
-      address: address, // Assign the fetched address to the user's address field
+      address: address, 
       subtotal: subtotal,
       total: total,
       remainingAmount: remainingAmount,
@@ -1010,6 +1033,7 @@ const checkOut = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -1055,6 +1079,7 @@ const cancelOrder = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.redirect("/order");
+    res.render('error')
   }
 };
 
@@ -1066,6 +1091,7 @@ const logout = async (req, res) => {
     res.redirect('/login')
   } catch (error) {
     error.message
+    res.render('error')
   }
 }
 
@@ -1086,6 +1112,7 @@ const updateCartQuantity = async (req, res) => {
     res.status(200).json({ success: true });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+    res.render('error')
   }
 };
 
@@ -1127,6 +1154,7 @@ const walletupdate=async(req,res)=>{
   });
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 }
 
@@ -1135,6 +1163,7 @@ const addnewaddress = async (req, res) => {
     res.render('addnewaddress')
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 
@@ -1147,6 +1176,7 @@ const loadprofile = async (req, res) => {
     res.render('profile', { userData: id, address: id.address, user, userdata: userData })
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 
@@ -1161,6 +1191,7 @@ const profileEdit = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -1181,6 +1212,7 @@ const updateProfile = async (req, res) => {
     res.redirect("/profile");
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -1229,6 +1261,7 @@ const decrementOrIncrementCart = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
@@ -1245,6 +1278,7 @@ const successorder = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 }
 
@@ -1273,6 +1307,7 @@ const loadorder = async (req, res) => {
     res.render("order", { order: orderData, user: usersession, userdata: userData });
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 }
 
@@ -1290,6 +1325,7 @@ const deleteAddress = async (req, res) => {
     res.redirect("/profile");
   } catch (error) {
     console.log(error.message)
+    res.render('error')
   }
 };
 // const invoicedownload = async (req, res) => {
@@ -1367,6 +1403,7 @@ const loadSingleOrder = async (req, res) => {
 
   } catch (error) {
     console.log(error.message);
+    res.render('error')
   }
 };
 
