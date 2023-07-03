@@ -280,7 +280,7 @@ const loadDashboard = async (req, res) => {
       _id: -1,
     });
     const details = await User.find()
-    res.render('adminHom', { detail: details, order: orderData });
+    res.render('adminHome', { detail: details, order: orderData });
 
   } catch (error) {
     console.log(error.message)
