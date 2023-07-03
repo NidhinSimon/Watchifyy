@@ -47,6 +47,6 @@ app.use(user_route);
 app.use(admin_route);
 app.use(morgan('tiny'));
 
-app.listen(5000, function () {
-  console.log('server is running on http://localhost:5000');
+app.listen(3000, function () {
+  console.log('server is running on http://localhost:3000');
 });
