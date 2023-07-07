@@ -94,10 +94,139 @@
     <!-- Header -->
 
     <% if(typeof user !="undefined" ){ %> <%-include('userlogged') %> <%}else{%>
-    <%-include('usernotlogged') %> <%}%>
+    <%-include('usernotlogged') %>
+     <%}%>
 
     <!-- Header Mobile -->
+    <style>
 
+
+      .panel-filter {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+      
+        .filter-heading {
+          font-size: 16px;
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      
+        .dropdown {
+          position: relative;
+        }
+      
+        .btn-dropdown {
+          display: flex;
+          align-items: center;
+          background-color: #ffffff;
+          border: 1px solid #dddddd;
+          border-radius: 4px;
+          padding: 8px 12px;
+          cursor: pointer;
+          font-size: 16px;
+        }
+      
+        .btn-dropdown i {
+          margin-left: 5px;
+        }
+      
+        .btn-dropdown.active,
+        .btn-dropdown.default {
+          background-color: #f8f8f8;
+        }
+      
+        .dropdown-content {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background-color: #ffffff;
+          border: 1px solid #dddddd;
+          border-top: none;
+          border-radius: 0 0 4px 4px;
+          padding: 10px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1;
+          display: none;
+        }
+      
+        .dropdown-content a {
+          display: flex;
+          align-items: center;
+          padding: 8px 12px;
+          text-decoration: none;
+          color: #333333;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          white-space: nowrap;
+        }
+      
+        .dropdown-content a.active,
+        .dropdown-content a:hover {
+          background-color: #f8f8f8;
+        }
+      
+        .dropdown:hover .dropdown-content {
+          display: block;
+        }
+      
+      
+      
+      
+      
+      .product-label {
+        display: inline-block;
+      }
+      
+      .discount-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ff5252; /* Choose your desired background color */
+        color: #ffffff; /* Choose your desired text color */
+        font-weight: bold;
+        font-size: 14px;
+        padding: 6px 12px;
+        border-radius: 4px;
+        text-transform: uppercase;
+      }
+      
+      .discount-percentage {
+        margin-right: 6px;
+      }
+      
+      .discount-text {
+        font-size: 12px;
+        opacity: 0.8;
+        margin-left: 6px;
+      }
+      
+      
+      </style>
+      
+      
+      <style>
+        .product-available {
+        display: inline-block;
+      }
+      
+      .original-price {
+        color: #888888; /* Choose your desired color for the original price */
+        text-decoration: line-through;
+        margin-right: 4px;
+      }
+      
+      .discount-text {
+        background-color: #ff5252; /* Choose your desired background color for the "SALE" text */
+        color: #ffffff; /* Choose your desired text color for the "SALE" text */
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      
+      </style>
     <!-- Menu Mobile -->
 
     <!-- Modal Search -->
@@ -325,136 +454,17 @@
         </script>
         <!-- sale discount style -->
 
-<style>
 
 
-.panel-filter {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .filter-heading {
-    font-size: 16px;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-
-  .dropdown {
-    position: relative;
-  }
-
-  .btn-dropdown {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 4px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  .btn-dropdown i {
-    margin-left: 5px;
-  }
-
-  .btn-dropdown.active,
-  .btn-dropdown.default {
-    background-color: #f8f8f8;
-  }
-
-  .dropdown-content {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-    padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    display: none;
-  }
-
-  .dropdown-content a {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #333333;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .dropdown-content a.active,
-  .dropdown-content a:hover {
-    background-color: #f8f8f8;
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-
-
-
-
-.product-label {
-  display: inline-block;
-}
-
-.discount-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ff5252; /* Choose your desired background color */
-  color: #ffffff; /* Choose your desired text color */
-  font-weight: bold;
-  font-size: 14px;
-  padding: 6px 12px;
-  border-radius: 4px;
-  text-transform: uppercase;
-}
-
-.discount-percentage {
-  margin-right: 6px;
-}
-
-.discount-text {
-  font-size: 12px;
-  opacity: 0.8;
-  margin-left: 6px;
-}
-
-
-</style>
-
-
-<style>
-  .product-available {
-  display: inline-block;
-}
-
-.original-price {
-  color: #888888; /* Choose your desired color for the original price */
-  text-decoration: line-through;
-  margin-right: 4px;
-}
-
-.discount-text {
-  background-color: #ff5252; /* Choose your desired background color for the "SALE" text */
-  color: #ffffff; /* Choose your desired text color for the "SALE" text */
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-</style>
-
+        <form class="search-model-form" method="GET">
+          <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="search" value="<%= searchKeyword %>" />
+          <button type="submit" class="btn btn-outline-primary">Search</button>
+        </form>
+        
+        
+<br>
+<br><br>
+<br>
 
 <div class="row isotope-grid" id="product-container">
   <% catdetails.forEach(function(x, i) { %>
@@ -473,10 +483,7 @@
               <span class="discount-percentage">-<%= x.offerPercentage %>%</span>
               <span class="discount-text">OFF</span>
             </span>
-          <% } %>
-          <% if (x.isExpired) { %>
-            <span class="expired-badge">Expired</span>
-          <% } %>
+          <% }; %>
         </div>
         <!-- Product details -->
         <div class="block2-txt flex-w flex-t p-t-14">
@@ -488,7 +495,7 @@
             <% if (x.offerPercentage != 0) { %>
               <span class="product-available">
                 <del class="original-price"><%= x.offerPrice %> ₹</del>
-                <span class="offer-price"> <%= x.price %> ₹</span>
+                <!-- <span class="offer-price"> <%= x.price %> ₹</span> -->
               </span>
             <% } %>
           </div>
@@ -503,7 +510,6 @@
     </div>
   <% }); %>
 </div>
-
 
 <!-- Pagination -->
 <div class="text-center">

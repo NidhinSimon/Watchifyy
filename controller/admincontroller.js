@@ -33,7 +33,7 @@ const approvecancel = async (req, res) => {
       { new: true }
     );
 
-    if (cancelRequest.status === "Approved") {
+    if (cancelRequest.status === "Approved" && cancelRequest.payment_method!=="1") {
       const userWallet = await User.findOne({ _id: cancelRequest.userId });
 
       if (userWallet) {
@@ -46,7 +46,7 @@ const approvecancel = async (req, res) => {
         // For example, display an error message or take appropriate action
       }
 
-      // Perform any additional actions or notifications upon approval
+     
 
       res.redirect("/cancelrequests");
     } else {
@@ -513,7 +513,7 @@ const updateStatus = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.sendStatus(500);
-    res.render('error')
+    
   }
 };
 

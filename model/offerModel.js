@@ -12,7 +12,7 @@ const offerSchema = mongoose.Schema({
     },
     product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Prodcut",
+        ref: "Product",
     },
     percentage: {
         type: Number,

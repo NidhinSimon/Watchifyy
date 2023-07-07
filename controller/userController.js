@@ -11,6 +11,7 @@ const moment = require("moment");
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path')
+const Offer=require('../model/offerModel')
 
 
 
@@ -283,7 +284,7 @@ const verifyLogin = async (req, res) => {
             message = 'Email is incorrect';
           } else {
             const categoryData = await Category.find({ isDeleted: false });
-            const productData = await Products.find({ isDeleted: false });
+            const productData = await Products.find({ isDeleted: false, });
             if (categoryData.length > 0) {
               req.session.user = userData._id;
               res.redirect("/");
@@ -313,18 +314,19 @@ const loadHome = async (req, res) => {
   try {
     const categoryData = await Category.find({ isDeleted: false });
     const productData = await Products.find({ isDeleted: false });
-
+// console.log("cat", categoryData, "prod",productData)
     if (req.session.user) {
       const user = new ObjectId(req.session.user)
 
-      const userdata = await User.findById({ _id: user })
+      const userdata = await User.findById(user)
+      console.log("data",categoryData);
 
-      res.render("userHome", { data: categoryData, product: productData, user: user, userdata });
+      res.render("userHome", { data: categoryData, product: productData, user: user, userdata:userdata });
 
     }
     else {
 
-      res.render("userHome", { data: categoryData, product: productData, });
+      res.render("userHome", { data: categoryData, product: productData });
     }
   } catch (error) {
     console.log(error.message);
@@ -335,26 +337,22 @@ const loadHome = async (req, res) => {
 
 
 
-
 const categorydetails = async (req, res) => {
   try {
-    const usersession = new ObjectId(req.session.user);
+   
+    const user = new ObjectId(req.session.user);
+    const userdata = await User.findById(user);
     const sortOption = req.query.sort || 'default';
     const currentPage = parseInt(req.query.page) || 1;
     const pageSize = 8; // Number of products per page
-
-    const userData = await User.findById(usersession);
     const id = req.params.id;
-    const categoryData = await Category.findById(id);
-
+    const categoryData = await Category.find();
     const totalProducts = await Products.countDocuments({
       isDeleted: false,
-      category: new ObjectId(id)
+      category: id
     });
-
     const totalPages = Math.ceil(totalProducts / pageSize);
     const skip = (currentPage - 1) * pageSize;
-
     let sortQuery = {};
 
     if (sortOption === 'lowToHigh') {
@@ -363,7 +361,16 @@ const categorydetails = async (req, res) => {
       sortQuery = { price: -1 };
     }
 
+    const searchKeyword = req.query.search || '';
+
     const pipeline = [
+      {
+        $match: {
+          isDeleted: false,
+          category: new ObjectId(id),
+          productName: { $regex: searchKeyword, $options: 'i' }
+        }
+      },
       {
         $lookup: {
           from: "categories",
@@ -373,11 +380,8 @@ const categorydetails = async (req, res) => {
         }
       },
       {
-        $match: {
-          isDeleted: false,
-          "category._id": new ObjectId(id)
-        }
-      },
+        $unwind: "$category"
+      }
     ];
 
     if (Object.keys(sortQuery).length > 0) {
@@ -393,18 +397,20 @@ const categorydetails = async (req, res) => {
 
     res.render('products', {
       catdetails: productData,
-      user: userData,
-      userdata: userData,
+      user: user,
+      userdata: userdata,
       sortOption,
       currentPage,
-      totalPages
+      totalPages,
+      data: categoryData,
+      searchKeyword
     });
 
   } catch (error) {
     console.log(error.message);
-    res.render('error')
+    res.render('error');
   }
-}
+};
 
 
 
@@ -533,6 +539,75 @@ const addToCart = async (req, res) => {
 
 
 
+const loadallproducts = async (req, res) => {
+  try {
+    const categoryData=await Category.find()
+    const page = parseInt(req.query.page) || 1;
+    const limit = 12;
+    const skip = (page - 1) * limit;
+    const sortOption = req.query.sort || 'default';
+    const categoryId = req.query.category || '';
+
+    let categoryQuery = {};
+
+    if (categoryId) {
+      categoryQuery = { category: categoryId };
+    }
+
+    let sortQuery = {};
+
+    if (sortOption === 'lowToHigh') {
+      sortQuery = { price: 1 };
+    } else if (sortOption === 'highToLow') {
+      sortQuery = { price: -1 };
+    }
+
+    const totalProducts = await Products.countDocuments(categoryQuery);
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    let productData;
+
+    if (sortOption === 'category') {
+      productData = await Products.find(categoryQuery)
+        .populate('category')
+        .sort({ 'category.name': 1 })
+        .skip(skip)
+        .limit(limit);
+    } else {
+      productData = await Products.find(categoryQuery)
+        .sort(sortQuery)
+        .skip(skip)
+        .limit(limit);
+    }
+
+    res.render('allproducts', {
+      productData,
+      totalPages,
+      currentPage: page,
+      sortOption,
+      selectedCategory: categoryId,
+      categories:categoryData
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.render('error');
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const loadWishlist = async (req, res) => {
   try {
     const usersession = req.session.user
@@ -625,12 +700,12 @@ const sendResetMail = async (email, token) => {
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER, // Replace with your Gmail email address
+      from: process.env.EMAIL_USER, 
       to: email,
       subject: 'Reset Password',
       html: `<p>Hello,</p>
                <p>Click the link below to reset your password:</p>
-               <a href="http://localhost:5000/reset-password?token=${token}">Reset Password</a>
+               <a href="http://localhost:3000/reset-password?token=${token}">Reset Password</a>
                `,
     };
 
@@ -835,7 +910,7 @@ let couponAmount;
 
 const placeOrder = async (req, res) => {
   try {
-    
+    console.log("jhdsjajdhjdsjdsahkjadjkjgggggggggggggggggggggggggggggggggggggggggggggggggggg");
     const userId = req.session.user;
     user = await User.findById(userId);
 
@@ -1042,24 +1117,16 @@ const cancelOrder = async (req, res) => {
   try {
     const id = req.query.id;
     const orderData = await Order.findById({ _id: id }).lean();
-
+    
     if (orderData.status === "Cancelled" || orderData.status === "Returned") {
       res.redirect("/order");
       return;
     }
+  
 
-    if (orderData.status === "Approved") {
+    if (orderData.status == "Approved") {
       const userWallet = await User.findOne({ _id: orderData.userId });
 
-      if (userWallet && (orderData.payment_method === 2 && orderData.payment_method === 3)) {
-        await User.updateOne(
-          { _id: orderData.userId },
-          { $inc: { wallet: orderData.total } }
-        );
-      } else {
-        // Handle the case when user wallet is not found or payment method is not 1 or 2
-        // For example, display an error message or take appropriate action
-      }
 
       await cancelOrderAndUpdateStock(orderData, id);
       res.redirect("/order");
@@ -1118,44 +1185,44 @@ const updateCartQuantity = async (req, res) => {
 
 
 const walletupdate=async(req,res)=>{
-  try {
-    console.log("walllet update route");
-    const { amount } = req.body;
+//   try {
+//     console.log("walllet update route");
+//     const { amount } = req.body;
 
   
- await User.findOne({ _id: req.user.id }, (err, user) => {
-    if (err) {
+//  await User.findOne({ _id: req.user.id }, (err, user) => {
+//     if (err) {
       
-      return res.json({ success: false, message: "Error occurred while deducting amount from the wallet." });
-    }
+//       return res.json({ success: false, message: "Error occurred while deducting amount from the wallet." });
+//     }
 
-    if (!user) {
+//     if (!user) {
      
-      return res.json({ success: false, message: "User not found." });
-    }
+//       return res.json({ success: false, message: "User not found." });
+//     }
 
-    if (user.wallet >= amount) {
+//     if (user.wallet >= amount) {
      
-      user.wallet -= amount;
+//       user.wallet -= amount;
 
 
-      user.save((err) => {
-        if (err) {
+//       user.save((err) => {
+//         if (err) {
           
-          return res.json({ success: false, message: "Error occurred while deducting amount from the wallet." });
-        }
+//           return res.json({ success: false, message: "Error occurred while deducting amount from the wallet." });
+//         }
 
-        return res.json({ success: true, message: "Amount deducted from the wallet successfully." });
-      });
-    } else {
+//         return res.json({ success: true, message: "Amount deducted from the wallet successfully." });
+//       });
+//     } else {
       
-      return res.json({ success: false, message: "Insufficient balance in the wallet." });
-    }
-  });
-  } catch (error) {
-    console.log(error.message);
-    res.render('error')
-  }
+//       return res.json({ success: false, message: "Insufficient balance in the wallet." });
+//     }
+//   });
+//   } catch (error) {
+//     console.log(error.message);
+//     res.render('error')
+//   }
 }
 
 const addnewaddress = async (req, res) => {
@@ -1543,7 +1610,8 @@ module.exports = {
   checkincart,
   walletupdate,
   productssort,
-  generateInvoicePDF
+  generateInvoicePDF,
+  loadallproducts
 
 
 

@@ -9,6 +9,7 @@ const flash = require('express-flash');
 const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
+const cron = require('node-cron');
 
 
 
@@ -47,7 +48,15 @@ app.use(function (req, res, next) {
 
 app.use(user_route);
 app.use(admin_route);
-app.use(morgan('tiny'));
+app.use(morgan('tiny'
+
+));
+
+cron.schedule('0 0 * * *', () => {
+  handleexpiredoffers()
+});
+
+
 
 app.listen(3000, function () {
   console.log('server is running on http://localhost:3000');

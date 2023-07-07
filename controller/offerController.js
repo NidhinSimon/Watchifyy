@@ -16,6 +16,7 @@ cron.schedule('0 0 * * *', () => {
 const offerLoad = async (req, res) => {
     try {
         const offerdata = await Offer.find()
+        console.log(offerdata,"^%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         if (offerdata.length > 0) {
             res.render("adminofferlist", { data: offerdata, text: "" })
         } else {
@@ -34,7 +35,6 @@ const productoffercreate = async (req, res) => {
     }
 }
 
-
 const addproductoffer = async (req, res) => {
     try {
       const offerName = req.body.name;
@@ -46,18 +46,29 @@ const addproductoffer = async (req, res) => {
   
       if (!offerExist) {
         const existingProduct = await Product.findById({ _id: product });
-        const originalProductPrice = existingProduct.offerPrice;
+        const originalProductPrice = existingProduct.price;
         const newPrice = Math.round(
-          originalProductPrice * ((100 - (existingProduct.offerPercentage + offerPercentage)) / 100)
+          originalProductPrice *
+            ((100 - (existingProduct.offerPercentage + offerPercentage)) / 100)
         );
-        console.log("new priceeeee", newPrice);
   
         const duration = req.body.duration;
-        const expiryDate = new Date();
-        expiryDate.setDate(expiryDate.getDate() + duration);
+        const expiryDate = moment().add(duration, 'days').toDate();
+
+
+       
+
+// Example output: July 15th, 2023
+
   
-        await Product.findByIdAndUpdate({ _id: product }, { $set: { price: newPrice } });
-        await Product.findByIdAndUpdate({ _id: product }, { $set: { offerPercentage: existingProduct.offerPercentage + offerPercentage } });
+        await Product.findByIdAndUpdate(
+          { _id: product },
+          { $set: { price: newPrice } }
+        );
+        await Product.findByIdAndUpdate(
+          { _id: product },
+          { $set: { offerPercentage: existingProduct.offerPercentage + offerPercentage } }
+        );
   
         const newOffer = new Offer({
           name: offerName,
@@ -65,9 +76,14 @@ const addproductoffer = async (req, res) => {
           product: product,
           duration: duration,
           expiryDate: expiryDate,
-          status: 'Active',
+          status: "Active",
         });
         await newOffer.save();
+
+        await Product.findByIdAndUpdate(
+            { _id: product },
+            { $set: { isActiveOffer: true } }
+          );
   
         res.redirect("/offer");
       } else {
@@ -77,6 +93,7 @@ const addproductoffer = async (req, res) => {
       console.log(error.message);
     }
   };
+  
   
 
 const categoryoffercreate = async (req, res) => {
@@ -120,30 +137,84 @@ const addcategoryoffer = async (req, res) => {
         console.log(error.message)
     }
 }
-
-
-const handleexpiredoffers = async (req, res) => {
+const deleteCategoryOffer = async (req, res) => {
     try {
-     
-      const now = moment();
-      const expiredOffers = await Offer.find({
-        expirationDate: { $lt: now.toDate() } 
-      });
-  
-      
-      expiredOffers.forEach(async (offer) => {
-        offer.status = 'expired';
-        await offer.save();
-      });
-  
-      console.log('Expired offers handled:', expiredOffers.length);
-      res.send('Expired offers handled: ' + expiredOffers.length);
+      const offerDoc = await Offer.findById(req.params.id);
+      await Product.find({ category: offerDoc.category })
+        .then((products) => {
+          products.forEach((product) => {
+            const newOffer = product.offerPercentage - offerDoc.percentage
+            const newPrice = (100 - newOffer) * product.offerPrice / 100
+            product.price = newPrice;
+            product.offerPercentage = newOffer;
+            product.save();
+          });
+        })
+      await Offer.deleteOne({ _id: req.params.id });
+      const offerData = await Offer.find();
+      if (offerData.length > 0) {
+        res.render("adminOfferList", { data: offerData, text: "" });
+      } else {
+        res.render("adminOfferList", { data: offerData, text: "All offers have been deleted" });
+      }
     } catch (error) {
-      console.error('Error handling expired offers:', error.message);
-      res.status(500).send('Error handling expired offers: ' + error.message);
+      console.log(error.message);
     }
   };
+
+  const deleteProductOffer = async (req, res) => {
+    try {
+      const offerDoc = await Offer.findById(req.params.id);
+      const offerValidProductId = offerDoc.product;
+      const productData = await Product.findById({ _id: offerValidProductId });
+      const newOffer = productData.offerPercentage - offerDoc.percentage
+      const newPrice = (100 - newOffer) * productData.offerPrice / 100
+      const previousProductPrice = productData.offerPrice
+      await Product.findByIdAndUpdate({ _id: offerValidProductId }, { $set: { price: newPrice } });
+      await Product.findByIdAndUpdate({ _id: offerValidProductId }, { $set: { offerPercentage: newOffer } });
+      await Offer.deleteOne({ _id: req.params.id });
+      const offerdata = await Offer.find();
+      if (offerdata.length > 0) {
+        res.render("adminOfferList", { data: offerdata, text: "" });
+      } else {
+        res.render("adminOfferList", { data: offerdata, text: "All offers have been deleted" });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  
+
+
+
+  const handleexpiredoffers = async () => {
+    console.log("hajaajajajajha");
+    try {
+      const now = new Date();
+      const expiredOffers = await Offer.find({ expiryDate: { $lt: now }, status: "Active" }).populate("product");
+  
+      for (const offer of expiredOffers) {
+        offer.status = "Expired";
+        await offer.save();
+  
+        const product = await Product.findById(offer.product);
+       product.price= product.offerPrice 
+        product.offerPercentage = 0; 
+        await product.save();
+      }
+  
+      console.log("Expired offers handled:", expiredOffers.length);
+    } catch (error) {
+      console.error("Error handling expired offers:", error.message);
+    }
+  };
+  
+  
+  
   app.get('/handleexpiredoffers', handleexpiredoffers);
+  
+  
   
 module.exports = {
     offerLoad,
@@ -151,6 +222,8 @@ module.exports = {
     addproductoffer,
     categoryoffercreate,
     addcategoryoffer,
-    handleexpiredoffers
+    handleexpiredoffers,
+    deleteCategoryOffer,
+    deleteProductOffer,
 
 }

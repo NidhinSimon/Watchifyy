@@ -50,7 +50,11 @@ const productSchema = new Schema({
       offerPercentage:{
         type:Number,
         default:0
-      }
+      },
+      isActiveOffer: {
+        type: Boolean,
+        default: false
+      },
 
 })
 module.exports = mongoose.model('Product', productSchema)

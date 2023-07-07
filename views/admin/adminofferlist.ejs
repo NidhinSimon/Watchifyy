@@ -20,6 +20,10 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="/main/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" integrity="sha512-UflW8sVSRo9G16n+eUXeZmp+3XAs8F4WwSdKgk03bTd3D54Jp/pZZVg4/1wxx3FA5N9pnhCI0osfmD5OTqDc9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js" integrity="sha512-8OmfBmECYVLckHU9l1B2+JtzDlFGyM/9OW+DqRGb8xHHQ21uBG2DD/ZoCRz6JS3vqEKdRUf6CrsIGz5hWxjeig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -262,50 +266,72 @@
       overflow: hidden;
   }
   </style>
-    <div class="container-fluid mt-5">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="d-flex justify-content-between mb-3">
-              <button class="createButton">
-                <a href="/productOfferCreate">Create Product Offer</a>
-              </button>
-              <button class="createButton">
-                <a href="/categoryoffercreate">Create Category Offer</a>
-              </button>
-            </div>
-            
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>SL.NO</th>
-                    <th>OFFER NAME</th>
-                    <th>OFFER PERCENTAGE</th>
-                    <th>OFFER VALID PRODUCT</th>
-                    <th>OFFER VALID CATEGORY</th>
-                    
-                  </tr>
-                </thead>
-                <tbody>
-                  <% data.forEach(function(x, i) { %>
-                  <tr>
-                    <td><%= i + 1 %></td>
-                    <td><%= x.name %></td>
-                    <td><%= x.percentage %></td>
-                    <td><%= x.product %></td>
-                    <td><%= x.category %></td>
-                   
-                  </tr>
-                  <% }); %>
-                </tbody>
-              </table>
-            </div>
-            
-            <h1 class="text-center text-danger">
-              <%= text %>
-            </h1>
-          </div>
+   <div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="d-flex justify-content-between mb-3">
+          <button class="createButton">
+            <a href="/productOfferCreate">Create Product Offer</a>
+          </button>
+          <button class="createButton">
+            <a href="/categoryoffercreate">Create Category Offer</a>
+          </button>
         </div>
+        
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>OFFER NAME</th>
+                <th>OFFER PERCENTAGE</th>
+                <th>OFFER VALID PRODUCT</th>
+                <th>OFFER VALID CATEGORY</th>
+                <th>ACTION</th>
+                <th>EXPIRY DATE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach(function(x, i) { %>
+              <tr>
+                <td class="ellipsis" data-toggle="tooltip" data-placement="top" title="<%= x.name %>"><%= x.name %></td>
+                <td class="ellipsis" data-toggle="tooltip" data-placement="top" title="<%= x.percentage %>"><%= x.percentage %></td>
+                <td class="ellipsis" data-toggle="tooltip" data-placement="top" title="<%= x.product %>"><%= x.product %></td>
+                <td class="ellipsis" data-toggle="tooltip" data-placement="top" title="<%= x.category %>"><%= x.category %></td>
+                <td>
+                  <% if (x.product) { %>
+                    <button class="buttons my-2">
+                      <a href="/productOfferDelete/<%= x._id %>">DELETE</a>
+                    </button>
+                  <% } else if (x.category) { %>
+                    <button class="buttons my-2">
+                      <a href="/categoryOfferDelete/<%= x._id %>">DELETE</a>
+                    </button>
+                  <% } %>
+                </td>
+                <td class="ellipsis" data-toggle="tooltip" data-placement="top" title="<%= x.expiryDate %>"><%= x.expiryDate %></td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        
+        <h1 class="text-center text-danger">
+          <%= text %>
+        </h1>
       </div>
-      
+    </div>
+  </div>
+
+  
+
+
+  <style>
+    .ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; /* Adjust the maximum width as needed */
+}
+
+  </style>
       

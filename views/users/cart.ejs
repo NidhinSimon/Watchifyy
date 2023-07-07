@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,6 +43,7 @@
     font-size: 14px;
 	}
 </style> -->
+
 <body class="animsition">
 
 
@@ -146,485 +146,331 @@
 
 
 						<!-- breadcrumb -->
-						<style>
-							body {
-								font-family: "Poppins", Arial, sans-serif;
-								font-weight: 500;
-							}
-					
-							.container {
-								max-width: 1200px;
-								margin: 0 auto;
-								padding: 20px;
-							}
-					
-							.bread-crumb {
-								margin-bottom: 30px;
-							}
-					
-							.bread-crumb a {
-								color: #000000;
-								text-decoration: none;
-							}
-					
-							.bread-crumb a:hover {
-								color: #ff0000;
-							}
-					
-							.h-custom {
-								background-color: #ffffff;
-							}
-					
-							.card-registration {
-								border-radius: 15px;
-							}
-					
-							.card-body {
-								padding: 0;
-							}
-					
-							.text-black {
-								color: #000000;
-							}
-					
-							.text-muted {
-								color: #808080;
-							}
-					
-							.mb-0 {
-								margin-bottom: 0;
-							}
-					
-							.text-red {
-								color: red;
-							}
-					
-							.btn-primary {
-								color: #ffffff;
-								background-color: #007bff;
-								border-color: #007bff;
-								transition: background-color 0.3s ease;
-							}
-					
-							.btn-primary:hover {
-								background-color: #0056b3;
-							}
-					
-							.btn-primary:focus,
-							.btn-primary.focus {
-								box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.5);
-							}
-					
-							.bg-grey {
-								background-color: #f8f9fa;
-							}
-					
-							.fw-bold {
-								font-weight: bold;
-							}
-					
-							.mt-2 {
-								margin-top: 20px;
-							}
-					
-							.pt-1 {
-								padding-top: 10px;
-							}
-					
-							.my-4 {
-								margin-top: 40px;
-								margin-bottom: 40px;
-							}
-					
-							.text-uppercase {
-								text-transform: uppercase;
-							}
-					
-							.fw-normal {
-								font-weight: normal;
-							}
-					
-							.btn-lg {
-								padding: 0.5rem 1rem;
-								font-size: 1.25rem;
-								line-height: 1.5;
-								border-radius: 0.3rem;
-							}
-					
-							.btn-block {
-								display: block;
-								width: 100%;
-							}
-					
-							.disabled {
-								pointer-events: none;
-								opacity: 0.65;
-							}
-					
-							.disabled:hover {
-								background-color: #007bff;
-							}
-						</style>
-					</head>
-					
-					<body>
-						<div class="container">
-							<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-								<a href="/" class="stext-109 cl8 hov-cl1 trans-04">
-									Home
-									<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-								</a>
-					
-								<span class="stext-109 cl4">
-									Shopping Cart
-								</span>
-							</div>
-						</div>
-					
-						<section class="h-100 h-custom">
-							<div class="container py-5 h-100">
-								<div class="row d-flex justify-content-center align-items-center h-100">
-									<div class="col-12">
-										<br><br><br>
-										<div class="card card-registration card-registration-2" style="border-radius: 15px;">
-											<div class="card-body p-0">
-												<div class="row g-0">
-													<div class="col-lg-8">
-														<div class="p-5">
-															<div class="d-flex justify-content-between align-items-center mb-5">
-																<h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-																<h6 class="mb-0 text-muted">
-																	<%= length %> items
-																</h6>
-															</div>
-															<hr class="my-4">
-															<% if (length) { %>
-															<% cartProducts.forEach(function(product) { %>
-															<form action="/loadcheckout" method="post">
-																<div class="row mb-4 d-flex justify-content-between align-items-center">
-																	<div class="col-md-2 col-lg-2 col-xl-2">
-																		<img src="/uploads/<%= product.images[0] %>"
-																			class="img-fluid rounded-3" style="width: auto;height: auto;">
-																	</div>
-																	<div class="col-md-3 col-lg-3 col-xl-3">
-																		<h6 class="text-black mb-0">
-																			<%= product.productName %>
-																		</h6>
-																		<br>
-																		<% if (product.stock === 0) { %>
-																		<h6 class="mb-0 text-red">Out of stock</h6>
-																		<% } %>
-																	</div>
-																	<h6 class="mb-0">&nbsp;&nbsp;<%= product.price %></h6>
-																	<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-																		<a class="btn btn-primary text-white"
-																			onclick="this.parentNode.querySelector('input[type=number]').stepDown();validateData('<%= product._id %>');updateCartQuantity('<%= product._id %>', this.parentNode.querySelector('input[type=number]').value);">
-																			&nbsp;-&nbsp;
-																		</a>
-																		&nbsp;&nbsp;
-																		<div class="form-outline">
-																			<% const cartItem = user.cart.find(item => item.productId === product._id); %>
-																			<input style="width: 5rem;" class="form-control" type="number"
-																				id="<%= product._id %>" min="1" name="quantity"
-																				pattern="<%= product._id %>"
-																				max="<%= product.stock %>"
-																				value="<%= cartItem ? cartItem.quantity : product.quantity %>"
-																				onchange="updateCartQuantity('<%= product._id %>', this.value);validateData('<%= product._id %>')"
-																				readonly />
-																			<span id="price_text_<%= product._id %>" hidden>
-																				<%= product.price %>
-																			</span>
-																		</div>
-																		&nbsp;&nbsp;
-																		<a class="btn btn-primary text-white"
-																			onclick="this.parentNode.querySelector('input[type=number]').stepUp();validateData('<%= product._id %>');updateCartQuantity('<%= product._id %>', this.parentNode.querySelector('input[type=number]').value);">
-																			&nbsp;+&nbsp;
-																		</a>
-																		<div class="form-outline">
-																			<div class="fs-lg text-accent pt-2 price">
-																				<div id="get">
-																					<p id="actual_price_<%= product._id %>" hidden>
-																						<%= product.price %>
-																					</p>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1"></div>
-																	<div class="col-md-1 col-lg-1 col-xl-1 text-end">
-																		<button style="border:none;background-color:white;"
-																			onclick="removeCartProduct('<%= product._id %>')">
-																			<a href="" class="text-muted">
-																				<i class="fa fa-trash-o"
-																					style="font-size:36px;color:rgb(190, 0, 0)"></i>
-																			</a>
-																		</button>
-																	</div>
-																</div>
-															<% }) %>
-															<% } else { %>
-															<img src="/uploads/c.png" alt="" style="width: 10vw; height: 10vh;">
-															<span>CART IS EMPTY</span>
-															<% } %>
-															<hr class="my-4">
-															<div class="pt-5">
-																<h6 class="mb-0">
-																	<a href="/" class="text-body">
-																		<i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop
-																	</a>
-																</h6>
-															</div>
-														</div>
-													</div>
-													<div class="col-lg-4 bg-grey">
-														<div class="p-5">
-															<h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-															<hr class="my-4">
-															<div class="d-flex justify-content-between mb-4">
-																<h5 class="text-uppercase">Items: <%= length %></h5>
-																<h3 id="subtotal" class="fw-normal subtotal-text"><%= subtotal %></h3>
-															</div>
-															<h5 class="text-uppercase mb-3">SHIPPING FREE</h5>
-															<hr class="my-4">
-															<div class="d-flex justify-content-between mb-5">
-																<h5 class="text-uppercase">Total price</h5>
-																<h2 id="sub" class="fw-normal total-price-text"><%= subtotal %></h2>
-															</div>
-															<% if (!subtotal) { %>
-															<button type="button" class="btn btn-primary btn-lg btn-block disabled">Checkout</button>
-															<% } else { %>
-															<button type="submit" class="btn btn-primary btn-lg btn-block">Checkout</button>
-															</form>
-															<% } %>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+
+						</head>
+
+						<body>
+							<div class="container">
+								<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+									<a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+										Home
+										<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+									</a>
+
+									<span class="stext-109 cl4">
+										Shopping Cart
+									</span>
 								</div>
 							</div>
-						</section>
-						
-						<style>
-							.remove-item {
-								color: #ff0000;
-								cursor: pointer;
-								text-decoration: none;
-							}
-						
-							.remove-item:hover {
-								text-decoration: underline;
-							}
-						
-							.remove-button {
-								color: #ffffff;
-								background-color: #ff0000;
-								cursor: pointer;
-								padding: 10px 20px;
-								border-radius: 5px;
-								transition: background-color 0.3s ease;
-							}
-						
-							.remove-button:hover {
-								background-color: #cc0000;
-							}
-						
-							/* Responsive Styles */
-							@media (max-width: 992px) {
-								.card-registration {
-									border-radius: 0;
-								}
-						
-								.card-registration-2 .row.g-0 .col-lg-8 {
-									padding-right: 0;
-								}
-						
-								.card-registration-2 .row.g-0 .col-lg-4 {
-									padding-left: 0;
-								}
-							}
-						</style>
-						
-					</div>
-					
-					<style>
-						* {
-							font-family: 'Poppins', sans-serif;
-						}
-					
-						.text-black {
-							color: #000000 !important;
-						}
-					
-						.text-muted {
-							color: #6c757d !important;
-						}
-					
-						.text-red {
-							color: red !important;
-						}
-					
-						.bg-grey {
-							background-color: #f8f9fa !important;
-						}
-					
-						.btn-primary {
-							color: #ffffff !important;
-							background-color: #007bff !important;
-							border-color: #007bff !important;
-						}
-					
-						.btn-primary:hover {
-							background-color: #0056b3 !important;
-						}
-					
-						.btn-primary:focus,
-						.btn-primary.focus {
-							box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.5) !important;
-						}
-					</style>
+							<section class="h-100 h-custom">
+								<div class="container py-5 h-100">
+								  <div class="row d-flex justify-content-center align-items-center h-100">
+									<div class="col-12">
+									  <br><br><br>
+									  <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+										<div class="card-body p-0">
+										  <div class="row g-0">
+											<div class="col-lg-8">
+											  <div class="p-5">
+												<div class="d-flex justify-content-between align-items-center mb-5">
+												  <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+												  <h6 class="mb-0 text-muted"><%= length %> items</h6>
+												</div>
+												<hr class="my-4">
+												<% if (length) { %>
+												  <% cartProducts.forEach(function(product) { %>
+													<form action="/loadcheckout" method="post">
+													  <div class="row mb-4 d-flex justify-content-between align-items-center">
+														<div class="col-md-2 col-lg-2 col-xl-2">
+														  <img src="/uploads/<%= product.images[0] %>" class="img-fluid rounded-3" style="width: auto;height: auto;">
+														</div>
+														<div class="col-md-6 col-lg-6 col-xl-6">
+														  <h6 class="text-black mb-0"><%= product.productName %></h6>
+														  <br>
+														  <% if (product.stock === 0) { %>
+															<h6 class="mb-0 text-red">Out of stock</h6>
+														  <% } %>
+														</div>
+														<div class="col-md-4 col-lg-4 col-xl-4 d-flex">
+														  <div class="btn-group" role="group">
+															<button class="btn btn-primary" onclick="this.parentNode.querySelector('input[type=number]').stepDown(); validateData('<%= product._id %>'); updateCartQuantity('<%= product._id %>', this.parentNode.querySelector('input[type=number]').value);">-</button>
+															<input style="width: 5rem;" class="form-control" type="number" id="<%= product._id %>" min="1" name="quantity" pattern="<%= product._id %>" max="<%= product.stock %>" value="<%= product.quantity %>" onchange="updateCartQuantity('<%= product._id %>', this.value); validateData('<%= product._id %>');" readonly />
+															<button class="btn btn-primary" onclick="this.parentNode.querySelector('input[type=number]').stepUp(); validateData('<%= product._id %>'); updateCartQuantity('<%= product._id %>', this.parentNode.querySelector('input[type=number]').value);">+</button>
+														  </div>
+														  <button class="btn btn-danger ms-2" onclick="removeCartProduct('<%= product._id %>')"><i class="fa fa-trash-o"></i></button>
+														</div>
+													  </div>
+													</form>
+												  <% }) %>
+												<% } else { %>
+												  <img src="/uploads/empty-cart.gif" alt="" style="width: 23vw;height: 23vh;">
+												  <span>CART IS EMPTY</span>
+												<% } %>
+												<hr class="my-4">
+												<div class="pt-5">
+												  <h6 class="mb-0">
+													<a href="/" class="text-body">
+													  <i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop
+													</a>
+												  </h6>
+												</div>
+											  </div>
+											</div>
+											<div class="col-lg-4 bg-grey">
+											  <% if (length) { %>
+												<div class="p-5">
+												  <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+												  <hr class="my-4">
+												  <div class="d-flex justify-content-between mb-4">
+													<h5 class="text-uppercase">Items: <%= length %></h5>
+													<h3 id="subtotal" class="fw-normal subtotal-text"><%= subtotal %></h3>
+												  </div>
+												  <h5 class="text-uppercase mb-3">SHIPPING FREE</h5>
+												  <hr class="my-4">
+												  <div class="d-flex justify-content-between mb-5">
+													<h5 class="text-uppercase">Total price</h5>
+													<h2 id="sub" class="fw-normal total-price-text"><%= subtotal %></h2>
+												  </div>
+												  <% if (!subtotal) { %>
+													<button type="button" class="btn btn-primary btn-lg btn-block disabled">Checkout</button>
+												  <% } else { %>
+													<form action="/loadcheckout" method="post">
+													  <button type="submit" class="btn btn-primary btn-lg btn-block">Checkout</button>
+													</form>
+												  <% } %>
+												</div>
+											  <% } %>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </section>
+							  
+							  
 
-						<!-- Footer -->
-						
-						<script>
-							async function removeCartProduct(cartProductId) {
-								try {
-									const response = await fetch('/removeproduct/' + cartProductId, {
-										method: 'DELETE',
+
+							</div>
+
+							<style>
+
+								
+								.remove-item {
+									color: #ff0000;
+									cursor: pointer;
+									text-decoration: none;
+								}
+
+								.remove-item:hover {
+									text-decoration: underline;
+								}
+
+								.remove-button {
+									color: #ffffff;
+									background-color: #ff0000;
+									cursor: pointer;
+									padding: 10px 20px;
+									border-radius: 5px;
+									transition: background-color 0.3s ease;
+								}
+
+								.remove-button:hover {
+									background-color: #cc0000;
+								}
+
+								/* Responsive Styles */
+								@media (max-width: 992px) {
+									.card-registration {
+										border-radius: 0;
+									}
+
+									.card-registration-2 .row.g-0 .col-lg-8 {
+										padding-right: 0;
+									}
+
+									.card-registration-2 .row.g-0 .col-lg-4 {
+										padding-left: 0;
+									}
+								}
+
+								* {
+									font-family: 'Poppins', sans-serif;
+								}
+
+								.text-black {
+									color: #000000 !important;
+								}
+
+								.text-muted {
+									color: #6c757d !important;
+								}
+
+								.text-red {
+									color: red !important;
+								}
+
+								.bg-grey {
+									background-color: #f8f9fa !important;
+								}
+
+								.btn-primary {
+									color: #ffffff !important;
+									background-color: #007bff !important;
+									border-color: #007bff !important;
+								}
+
+								.btn-primary:hover {
+									background-color: #0056b3 !important;
+								}
+
+								.btn-primary:focus,
+								.btn-primary.focus {
+									box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.5) !important;
+								}
+							</style>
+
+							<!-- Footer -->
+
+							<script>
+								async function removeCartProduct(cartProductId) {
+									try {
+										const response = await fetch('/removeproduct/' + cartProductId, {
+											method: 'DELETE',
+											headers: {
+												'Content-Type': 'application/json'
+											}
+										});
+										const data = await response.json();
+										if (data === 'success') {
+											window.location.reload();
+										}
+									} catch (error) {
+										console.log(error);
+									}
+								}
+
+
+
+
+								function validateData(id) {
+									const element = document.getElementById(id);
+									const priceText = document.getElementById('price_text_' + id);
+									const price = document.getElementById('actual_price_' + id);
+									const subtotal = document.getElementsByClassName('subtotal-text')[0];
+									const total = document.getElementsByClassName('total-price-text')[0];
+
+									if (Number(element.value) > Number(element.max)) {
+										element.value = element.max;
+									}
+
+									const oldPrice = parseFloat(priceText.innerHTML);
+									const newPrice = parseFloat(price.innerHTML) * parseFloat(element.value);
+									const diff = newPrice - oldPrice;
+
+									priceText.innerHTML = newPrice.toFixed(2);
+									subtotal.innerHTML = (parseFloat(subtotal.innerHTML) + diff).toFixed(2);
+									total.innerHTML = (parseFloat(total.innerHTML) + diff).toFixed(2);
+								}
+
+
+								async function proceedTocheckout() {
+									const quantity = Object.values(document.getElementsByName('quantity')).map((cartProduct) => (
+										{
+
+											cartProductid: cartProduct.id,
+											quantity: cartProduct.value
+										}
+									))
+
+									let response = await fetch('/loadcheckout', {
+										method: 'post',
+										headers: { 'Content-Type': 'application/json', },
+										body: JSON.stringify(quantity)
+									});
+
+								}
+
+								function updateCartQuantity(productId, quantity) {
+									fetch(`/cart/update/${productId}`, {
+										method: 'POST',
+										body: JSON.stringify({ quantity }),
 										headers: {
 											'Content-Type': 'application/json'
 										}
-									});
-									const data = await response.json();
-									if (data === 'success') {
-										window.location.reload();
-									}
-								} catch (error) {
-									console.log(error);
+									})
+										.then(response => {
+
+											if (!response.success) {
+												throw new Error('Failed to update cart quantity');
+											}
+											return response.json();
+										})
+										.then(data => {
+											// Update the UI to reflect the new cart data
+											// For example, update the quantity displayed next to the product
+											const quantityInput = document.querySelector(`input[name=quantity][pattern=${productId}]`);
+											quantityInput.value = data.quantity;
+										})
+										.catch(error => {
+											console.error(error);
+										});
 								}
-							}
 
 
 
-
-							function validateData(id) {
-  const element = document.getElementById(id);
-  const priceText = document.getElementById('price_text_' + id);
-  const price = document.getElementById('actual_price_' + id);
-  const subtotal = document.getElementsByClassName('subtotal-text')[0];
-  const total = document.getElementsByClassName('total-price-text')[0];
-
-  if (Number(element.value) > Number(element.max)) {
-    element.value = element.max;
-  }
-
-  const oldPrice = parseFloat(priceText.innerHTML);
-  const newPrice = parseFloat(price.innerHTML) * parseFloat(element.value);
-  const diff = newPrice - oldPrice;
-
-  priceText.innerHTML = newPrice.toFixed(2);
-  subtotal.innerHTML = (parseFloat(subtotal.innerHTML) + diff).toFixed(2);
-  total.innerHTML = (parseFloat(total.innerHTML) + diff).toFixed(2);
-}
+							</script>
 
 
-							async function proceedTocheckout() {
-								const quantity = Object.values(document.getElementsByName('quantity')).map((cartProduct) => (
-									{
+							</script>
 
-										cartProductid: cartProduct.id,
-										quantity: cartProduct.value
-									}
-								))
+							<!-- Back to top -->
+							<div class="btn-back-to-top" id="myBtn">
+								<span class="symbol-btn-back-to-top">
+									<i class="zmdi zmdi-chevron-up"></i>
+								</span>
+							</div>
 
-								let response = await fetch('/loadcheckout', {
-									method: 'post',
-									headers: { 'Content-Type': 'application/json', },
-									body: JSON.stringify(quantity)
-								});
-
-							}
-
-							function updateCartQuantity(productId, quantity) {
-								fetch(`/cart/update/${productId}`, {
-									method: 'POST',
-									body: JSON.stringify({ quantity }),
-									headers: {
-										'Content-Type': 'application/json'
-									}
-								})
-									.then(response => {
-										
-										if (!response.success) {
-											throw new Error('Failed to update cart quantity');
-										}
-										return response.json();
-									})
-									.then(data => {
-										// Update the UI to reflect the new cart data
-										// For example, update the quantity displayed next to the product
-										const quantityInput = document.querySelector(`input[name=quantity][pattern=${productId}]`);
-										quantityInput.value = data.quantity;
-									})
-									.catch(error => {
-										console.error(error);
+							<!--===============================================================================================-->
+							<script src="/cartstyle/vendor/jquery/jquery-3.2.1.min.js"></script>
+							<!--===============================================================================================-->
+							<script src="/cartstyle/vendor/animsition/js/animsition.min.js"></script>
+							<!--===============================================================================================-->
+							<script src="/cartstyle/vendor/bootstrap/js/popper.js"></script>
+							<script src="/cartstyle/vendor/bootstrap/js/bootstrap.min.js"></script>
+							<!--===============================================================================================-->
+							<script src="/cartstyle/vendor/select2/select2.min.js"></script>
+							<script>
+								$(".js-select2").each(function () {
+									$(this).select2({
+										minimumResultsForSearch: 20,
+										dropdownParent: $(this).next('.dropDownSelect2')
 									});
-							}
-
-
-
-						</script>
-
-
-						</script>
-
-						<!-- Back to top -->
-						<div class="btn-back-to-top" id="myBtn">
-							<span class="symbol-btn-back-to-top">
-								<i class="zmdi zmdi-chevron-up"></i>
-							</span>
-						</div>
-
-						<!--===============================================================================================-->
-						<script src="/cartstyle/vendor/jquery/jquery-3.2.1.min.js"></script>
-						<!--===============================================================================================-->
-						<script src="/cartstyle/vendor/animsition/js/animsition.min.js"></script>
-						<!--===============================================================================================-->
-						<script src="/cartstyle/vendor/bootstrap/js/popper.js"></script>
-						<script src="/cartstyle/vendor/bootstrap/js/bootstrap.min.js"></script>
-						<!--===============================================================================================-->
-						<script src="/cartstyle/vendor/select2/select2.min.js"></script>
-						<script>
-							$(".js-select2").each(function () {
-								$(this).select2({
-									minimumResultsForSearch: 20,
-									dropdownParent: $(this).next('.dropDownSelect2')
-								});
-							})
-						</script>
-						<!--===============================================================================================-->
-						<script src="/cartstyle/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-						<!--===============================================================================================-->
-						<script src="/cartstyle/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-						<script>
-							$('.js-pscroll').each(function () {
-								$(this).css('position', 'relative');
-								$(this).css('overflow', 'hidden');
-								var ps = new PerfectScrollbar(this, {
-									wheelSpeed: 1,
-									scrollingThreshold: 1000,
-									wheelPropagation: false,
-								});
-
-								$(window).on('resize', function () {
-									ps.update();
 								})
-							});
-						</script>
-						<!--===============================================================================================-->
-						<script src="/cartstyle/js/main.js"></script>
+							</script>
+							<!--===============================================================================================-->
+							<script src="/cartstyle/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+							<!--===============================================================================================-->
+							<script src="/cartstyle/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+							<script>
+								$('.js-pscroll').each(function () {
+									$(this).css('position', 'relative');
+									$(this).css('overflow', 'hidden');
+									var ps = new PerfectScrollbar(this, {
+										wheelSpeed: 1,
+										scrollingThreshold: 1000,
+										wheelPropagation: false,
+									});
 
-</body>
+									$(window).on('resize', function () {
+										ps.update();
+									})
+								});
+							</script>
+							<!--===============================================================================================-->
+							<script src="/cartstyle/js/main.js"></script>
+
+						</body>
 
 </html>

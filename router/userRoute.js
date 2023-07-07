@@ -119,6 +119,7 @@ user_route.get('/products',userController.productssort)
 
 user_route.get('/invoice/:orderId',userController.generateInvoicePDF)
 
+user_route.get('/shop',userController.loadallproducts)
 // Route to generate and download the invoice PDF
 
 
@@ -156,6 +157,8 @@ user_route.post("/api/payment/verify", (req, res) => {
     response = { "signatureIsValid": "true" }
   res.send(response);
 });
+
+
 
 
 module.exports = user_route;

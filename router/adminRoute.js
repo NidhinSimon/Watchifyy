@@ -74,9 +74,12 @@ admin_route.post("/productOfferCreate", Offercontroller.addproductoffer);
 admin_route.get('/categoryoffercreate', Offercontroller.categoryoffercreate)
 admin_route.post('/categoryoffercreate', Offercontroller.addcategoryoffer)
 
+admin_route.get('/handleexpiredoffers',Offercontroller.handleexpiredoffers)
 
 
 
+admin_route.get("/productOfferDelete/:id",  Offercontroller.deleteProductOffer);
+admin_route.get("/categoryOfferDelete/:id", Offercontroller.deleteCategoryOffer);
 
 
 admin_route.get('/cancelrequests',adminController.cancelrequests)

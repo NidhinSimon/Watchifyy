@@ -262,22 +262,22 @@
 
 
 
-let numbers=[7,5,6,8,3]
-let g=Math.min(...numbers)
-let s=Math.max(...numbers)
+// let numbers=[7,5,6,8,3]
+// let g=Math.min(...numbers)
+// let s=Math.max(...numbers)
 
-function gcd(a, b) {
-  {
-    let temp = b;
-    b = a % b;;
-    a = temp;
-  }
+// function gcd(a, b) {
+//   {
+//     let temp = b;
+//     b = a % b;;
+//     a = temp;
+//   }
 
-  return a;
+//   return a;
   
-}
-let result=gcd(g,s)
-console.log(result);
+// }
+// let result=gcd(g,s)
+// console.log(result);
 
 
 
