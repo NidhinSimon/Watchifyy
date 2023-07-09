@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ALL PRODUCTS</title>
+
+    <!-- Google Font -->
+    <link href="/products/https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="/products/https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+
+
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+
+
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/products/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/products/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/products/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/products/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/products/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/products/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/products/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/products/css/style.css" type="text/css">
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-**********" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-**********" crossorigin="anonymous"></script>
+
+
+
+
+
+</head>
+
+
+
+
+<style>
+    /* Import Poppins font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+
+    .product__item__text h6 a {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        color: #999999;
+    }
+</style>
+
+
+<body>
+<style>
+
+*{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #999999;
+   }
+</style>
+
+
+      
+
+
+<style>
+    .wrap-menu-desktop {
+      position: fixed;
+      z-index: 1100;
+      background-color: transparent;
+      background-color: white;
+      width: 100%;
+      /* height: 84px; */
+      top: 0px;
+      left: 0px;
+      -webkit-transition: height 0.3s, background-color 0.3s;
+      -o-transition: height 0.3s, background-color 0.3s;
+      -moz-transition: height 0.3s, background-color 0.3s;
+      transition: height 0.3s, background-color 0.3s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add the box shadow */
+    }
+    </style>
+    
+
+    <% if(typeof user !="undefined" ){ %> <%-include('userlogged') %> <%}else{%>
+        <%-include('usernotlogged') %>
+         <%}%>
+    <!-- Page Preloder -->
+   
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Begin -->
+    <!-- <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+
+    <style>
+ .panel-filter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-heading {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-dropdown {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.btn-dropdown.active {
+  background-color: #e9e9e9;
+}
+
+.btn-dropdown i {
+  margin-left: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 8px 0;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  color: #555;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+    </style>
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Section Begin -->
+    <section class="shop spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="shop__sidebar">
+                        <div class="sidebar__categories">
+                            <div class="section-title">
+                                <h4>Categories</h4>
+                            </div>
+                            <div class="categories__accordion">
+                                <div class="accordion" id="accordionExample">
+                                  <div class="card">
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                      <div class="card-body">
+                                        <ul>
+                                           <a href="/shop" style="color: inherit;"> - ALL</a>
+                                          <% categories.forEach(category => { %>
+                                           
+                                            <li><a href="/shop?category=<%= category._id %>"><%= category.category %></a>
+                                            </li>
+                                          <% }) %>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              
+                              
+                        </div>
+                      
+                        <div class="panel-filter">
+                            <div class="filter-heading">Sort By</div>
+                            <div class="dropdown">
+                              <button class="btn btn-dropdown <%= sortOption === 'default' ? 'default' : 'active' %>">
+                                <% if (sortOption === 'default') { %>
+                                  Default
+                                <% } else if (sortOption === 'lowToHigh') { %>
+                                  Price: Low to High <i class="fas fa-long-arrow-alt-up"></i>
+                                <% } else if (sortOption === 'highToLow') { %>
+                                  Price: High to Low <i class="fas fa-long-arrow-alt-down"></i>
+                                <% } %>
+                                <i class="fas fa-chevron-down"></i>
+                              </button>
+                              <div class="dropdown-content">
+                                <a href="#" class="sort-option <%= sortOption === 'default' ? 'active' : '' %>" data-sort="default">Default</a>
+                                <a href="#" class="sort-option <%= sortOption === 'lowToHigh' ? 'active' : '' %>" data-sort="lowToHigh">Price: Low to High <i class="fas fa-long-arrow-alt-up"></i></a>
+                                <a href="#" class="sort-option <%= sortOption === 'highToLow' ? 'active' : '' %>" data-sort="highToLow">Price: High to Low <i class="fas fa-long-arrow-alt-down"></i></a>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        <!-- <div class="sidebar__sizes">
+                            <div class="section-title">
+                                <h4>Shop by size</h4>
+                            </div>
+                            <div class="size__list">
+                                <label for="xxs">
+                                    xxs
+                                    <input type="checkbox" id="xxs">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="xs">
+                                    xs
+                                    <input type="checkbox" id="xs">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="xss">
+                                    xs-s
+                                    <input type="checkbox" id="xss">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="s">
+                                    s
+                                    <input type="checkbox" id="s">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="m">
+                                    m
+                                    <input type="checkbox" id="m">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="ml">
+                                    m-l
+                                    <input type="checkbox" id="ml">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="l">
+                                    l
+                                    <input type="checkbox" id="l">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="xl">
+                                    xl
+                                    <input type="checkbox" id="xl">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div> -->
+                        <!-- <div class="sidebar__color">
+                            <div class="section-title">
+                                <h4>Shop by size</h4>
+                            </div>
+                            <div class="size__list color__list">
+                                <label for="black">
+                                    Blacks
+                                    <input type="checkbox" id="black">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="whites">
+                                    Whites
+                                    <input type="checkbox" id="whites">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="reds">
+                                    Reds
+                                    <input type="checkbox" id="reds">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="greys">
+                                    Greys
+                                    <input type="checkbox" id="greys">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="blues">
+                                    Blues
+                                    <input type="checkbox" id="blues">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="beige">
+                                    Beige Tones
+                                    <input type="checkbox" id="beige">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="greens">
+                                    Greens
+                                    <input type="checkbox" id="greens">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="yellows">
+                                    Yellows
+                                    <input type="checkbox" id="yellows">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9">
+                    <div class="row">
+                        <% productData.forEach(function(x, i) { %>
+                        <div class="col-lg-4 col-md-6"  onclick="window.location.href='/productdetail/<%= x._id %>'">
+                            
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="/uploads/<%= x.images[2] %>">
+                                    <div class="label new">New</div>
+                                    <ul class="product__hover">
+                                        <li><a href="/uploads/<%= x.images[2] %>" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                        <!-- <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li> -->
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#"><%= x.productName %></a></h6>
+                                    <!-- <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div> -->
+                                    <div class="product__price">₹ <%= x.price %> </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <% }); %>
+                  
+                    
+                        <div class="col-lg-12 text-center">
+                            <div class="pagination__option">
+                              <% for (let i = 1; i <= totalPages; i++) { %>
+                                <% if (i === currentPage) { %>
+                                  <a href="#" class="active"><%= i %></a>
+                                <% } else { %>
+                                  <a href="?page=<%= i %>"><%= i %></a>
+                                <% } %>
+                              <% } %>
+                              <% if (currentPage < totalPages) { %>
+                                <a href="?page=<%= currentPage + 1 %>"><i class="fa fa-angle-right"></i></a>
+                              <% } %>
+                            </div>
+                          </div>
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shop Section End -->
+
+    <!-- Instagram Begin -->
+   
+    <!-- Instagram End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-7">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <img src="uploads/logo finalll.png" alt="" style="
+                            height: 58px;
+                            width: 145px;
+                        ">
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        cilisis.</p>
+                        <div class="footer__payment">
+                            <a href="#"><img src="/products/img/payment/payment-1.png" alt=""></a>
+                            <a href="#"><img src="/products/img/payment/payment-2.png" alt=""></a>
+                            <a href="#"><img src="/products/img/payment/payment-3.png" alt=""></a>
+                            <a href="#"><img src="/products/img/payment/payment-4.png" alt=""></a>
+                            <a href="#"><img src="/products/img/payment/payment-5.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-5">
+                    <div class="footer__widget">
+                        <h6>Quick links</h6>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Blogs</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="footer__widget">
+                        <h6>Account</h6>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Orders Tracking</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Wishlist</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8 col-sm-8">
+                    <div class="footer__newslatter">
+                        <h6>NEWSLETTER</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Email">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+   const sortOptions = document.querySelectorAll('.sort-option');
+  sortOptions.forEach(option => {
+    option.addEventListener('click', (event) => {
+      event.preventDefault();
+      const selectedSort = event.target.getAttribute('data-sort');
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('sort', selectedSort);
+      window.location.href = currentUrl.href;
+    });
+  });
+    </script>
+    <!-- Search End -->
+
+    <!-- Js Plugins -->
+    <script src="/products/js/jquery-3.3.1.min.js"></script>
+    <script src="/products/js/bootstrap.min.js"></script>
+    <script src="/products/js/jquery.magnific-popup.min.js"></script>
+    <script src="/products/js/jquery-ui.min.js"></script>
+    <script src="/products/js/mixitup.min.js"></script>
+    <script src="/products/js/jquery.countdown.min.js"></script>
+    <script src="/products/js/jquery.slicknav.js"></script>
+    <script src="/products/js/owl.carousel.min.js"></script>
+    <script src="/products/js/jquery.nicescroll.min.js"></script>
+    <script src="/products/js/main.js"></script>
+</body>
+
+</html>
