@@ -345,7 +345,7 @@
           <thead>
             <tr class="text-dark">
               <th scope="col" class="text-center">Name</th>
-              <th scope="col" class="text-center">Images</th>
+             
               <th scope="col" class="text-center">Action</th>
             </tr>
           </thead>
@@ -357,9 +357,7 @@
                     <%= x.category %>
                   </span>
                 </td>
-                <td class="text-center">
-                  <img src="/uploads/<%= x.Image %>" alt="" width="200">
-                </td>
+                
                 <td class="text-center action-icons">
                   <a href="/admin/category/edit/<%= x._id %>" class="btn btn-primary edit-btn">
                     <i class="bi bi-pencil-fill"></i> Edit

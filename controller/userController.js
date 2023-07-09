@@ -11,7 +11,7 @@ const moment = require("moment");
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path')
-const Offer=require('../model/offerModel')
+const Offer = require('../model/offerModel')
 
 
 
@@ -146,7 +146,7 @@ const sendotp = async (req, res) => {
     }
   } catch (error) {
     res.status(500).send('Error sending OTP');
-    
+
   }
 };
 
@@ -319,9 +319,9 @@ const loadHome = async (req, res) => {
       const user = new ObjectId(req.session.user)
 
       const userdata = await User.findById(user)
-      console.log("data",categoryData);
+      console.log("data", categoryData);
 
-      res.render("userHome", { data: categoryData, product: productData, user: user, userdata:userdata });
+      res.render("userHome", { data: categoryData, product: productData, user: user, userdata: userdata });
 
     }
     else {
@@ -330,7 +330,7 @@ const loadHome = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
- console.log("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+
   }
 };
 
@@ -339,97 +339,95 @@ const loadHome = async (req, res) => {
 
 const categorydetails = async (req, res) => {
   try {
-      const user = new ObjectId(req.session.user);
-      const userdata = await User.findById(user);
-      const sortOption = req.query.sort || 'default';
-      const currentPage = parseInt(req.query.page) || 1;
-      const pageSize = 8; // Number of products per page
-      const id = req.params.id;
-      const categoryData = await Category.find();
-      const totalProducts = await Products.countDocuments({
-        isDeleted: false,
-        category: id
-      });
-      const totalPages = Math.ceil(totalProducts / pageSize);
-      const skip = (currentPage - 1) * pageSize;
-      let sortQuery = {};
-  
-      if (sortOption === 'lowToHigh') {
-        sortQuery = { price: 1 };
-      } else if (sortOption === 'highToLow') {
-        sortQuery = { price: -1 };
-      }
-  
-      const searchKeyword = req.query.search || '';
-  
-      const pipeline = [
-        {
-          $match: {
-            isDeleted: false,
-            category: new ObjectId(id),
-            productName: { $regex: searchKeyword, $options: 'i' }
-          }
-        },
-        {
-          $lookup: {
-            from: "categories",
-            localField: "category",
-            foreignField: "_id",
-            as: "category"
-          }
-        },
-        {
-          $unwind: "$category"
+    const user = new ObjectId(req.session.user);
+    const userdata = await User.findById(user);
+    const sortOption = req.query.sort || 'default';
+    const currentPage = parseInt(req.query.page) || 1;
+    const pageSize = 8; // Number of products per page
+    const id = req.params.id;
+    const categoryData = await Category.find();
+    const totalProducts = await Products.countDocuments({
+      isDeleted: false,
+      category: id
+    });
+    const totalPages = Math.ceil(totalProducts / pageSize);
+    const skip = (currentPage - 1) * pageSize;
+    let sortQuery = {};
+
+    if (sortOption === 'lowToHigh') {
+      sortQuery = { price: 1 };
+    } else if (sortOption === 'highToLow') {
+      sortQuery = { price: -1 };
+    }
+
+    const searchKeyword = req.query.search || '';
+
+    const pipeline = [
+      {
+        $match: {
+          isDeleted: false,
+          category: new ObjectId(id),
+          productName: { $regex: searchKeyword, $options: 'i' }
         }
-      ];
-  
-      if (Object.keys(sortQuery).length > 0) {
-        pipeline.push({ $sort: sortQuery });
-      }
-  
-      pipeline.push(
-        { $skip: skip },
-        { $limit: pageSize }
-      );
-  
-      const productData = await Products.aggregate(pipeline);
-  
-
-      if(req.session.user)
+      },
       {
-        const usersession = req.session.user;
-        const userdata = await User.findById(usersession);
-        const user = await User.findById(req.session.user);
-        
-
-        res.render('products', {
-          catdetails: productData,
-          user: user,
-          userdata: userdata,
-          sortOption,
-          currentPage,
-          totalPages,
-          data: categoryData,
-          searchKeyword
-        });
-    
-      }
-      else
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category"
+        }
+      },
       {
-        res.render('products', {
-          catdetails: productData,
-          sortOption,
-          currentPage,
-          totalPages,
-          data: categoryData,
-          searchKeyword
-        });
-    
+        $unwind: "$category"
       }
-     
-    
-    
-   
+    ];
+
+    if (Object.keys(sortQuery).length > 0) {
+      pipeline.push({ $sort: sortQuery });
+    }
+
+    pipeline.push(
+      { $skip: skip },
+      { $limit: pageSize }
+    );
+
+    const productData = await Products.aggregate(pipeline);
+
+
+    if (req.session.user) {
+      const usersession = req.session.user;
+      const userdata = await User.findById(usersession);
+      const user = await User.findById(req.session.user);
+
+
+      res.render('products', {
+        catdetails: productData,
+        user: user,
+        userdata: userdata,
+        sortOption,
+        currentPage,
+        totalPages,
+        data: categoryData,
+        searchKeyword
+      });
+
+    }
+    else {
+      res.render('products', {
+        catdetails: productData,
+        sortOption,
+        currentPage,
+        totalPages,
+        data: categoryData,
+        searchKeyword
+      });
+
+    }
+
+
+
+
   } catch (error) {
     console.log(error.message);
     res.render('error');
@@ -444,21 +442,19 @@ const productdetails = async (req, res) => {
     const productid = req.params.id
     const productdetail = await Products.findById({ _id: productid })
     const Related = await Products.aggregate([
-      { $match: { isDeleted: false } }, 
-      { $sample: { size: 4 } } 
+      { $match: { isDeleted: false } },
+      { $sample: { size: 4 } }
     ]);
-    if(req.session.user)
-    {
+    if (req.session.user) {
       const usersession = req.session.user;
       const userdata = await User.findById(usersession);
       const user = await User.findById(req.session.user);
-      res.render('product-detail', { prodetail: productdetail, user, userdata,Related })
+      res.render('product-detail', { prodetail: productdetail, user, userdata, Related })
     }
-    else
-    {
-      res.render('product-detail', { prodetail: productdetail,Related })
+    else {
+      res.render('product-detail', { prodetail: productdetail, Related })
     }
-   
+
   } catch (error) {
     console.log(error.message)
   }
@@ -579,8 +575,8 @@ const addToCart = async (req, res) => {
 
 const loadallproducts = async (req, res) => {
   try {
-  
-    const categoryData=await Category.find()
+
+    const categoryData = await Category.find()
     const page = parseInt(req.query.page) || 1;
     const limit = 12;
     const skip = (page - 1) * limit;
@@ -618,8 +614,7 @@ const loadallproducts = async (req, res) => {
         .skip(skip)
         .limit(limit);
     }
-    if(req.session.user)
-    {
+    if (req.session.user) {
       const usersession = req.session.user;
       const userdata = await User.findById(usersession);
       const user = await User.findById(req.session.user);
@@ -630,24 +625,23 @@ const loadallproducts = async (req, res) => {
         currentPage: page,
         sortOption,
         selectedCategory: categoryId,
-        categories:categoryData,
-  userdata,
-  user
+        categories: categoryData,
+        userdata,
+        user
       });
-    }else
-    {
+    } else {
       res.render('allproducts', {
         productData,
         totalPages,
         currentPage: page,
         sortOption,
         selectedCategory: categoryId,
-        categories:categoryData,
- 
+        categories: categoryData,
+
       });
     }
 
-   
+
   } catch (error) {
     console.log(error.message);
     res.render('error');
@@ -715,7 +709,7 @@ const removefromWishlist = async (req, res) => {
       { $pull: { wishlist: productId } },
       { new: true }
     );
-    console.log("perfeeeeect okkkkkkkkkkkk",updatedUser);
+    console.log("perfeeeeect okkkkkkkkkkkk", updatedUser);
 
     if (!updatedUser) {
       throw new Error("Error removing the product from the wishlist!");
@@ -763,7 +757,7 @@ const sendResetMail = async (email, token) => {
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER, 
+      from: process.env.EMAIL_USER,
       to: email,
       subject: 'Reset Password',
       html: `<p>Hello,</p>
@@ -886,8 +880,8 @@ const coupon = async (req, res, next) => {
         const amount = (total * offerPrice) / 100;
         const gtotal = total - amount;
         res.json({ offerPrice, gtotal });
-        
-       
+
+
       }
     } else {
       res.json("fail");
@@ -977,7 +971,7 @@ const placeOrder = async (req, res) => {
     const userId = req.session.user;
     user = await User.findById(userId);
 
-    
+
     const addressId = req.body.addressId;
     const address = user.address;
 
@@ -1009,7 +1003,7 @@ const placeOrder = async (req, res) => {
     let total = subtotal;
     let remainingAmount = total;
 
- 
+
     if (req.body.coupon) {
       const couponCode = req.body.coupon;
       const appliedCoupon = await Coupon.findOne({ code: couponCode });
@@ -1042,7 +1036,7 @@ const placeOrder = async (req, res) => {
       status: "processing",
       payment_method: String(payment),
       addressId: addressId,
-      address: address, 
+      address: address,
       subtotal: subtotal,
       total: total,
       remainingAmount: remainingAmount,
@@ -1180,12 +1174,12 @@ const cancelOrder = async (req, res) => {
   try {
     const id = req.query.id;
     const orderData = await Order.findById({ _id: id }).lean();
-    
+
     if (orderData.status === "Cancelled" || orderData.status === "Returned") {
       res.redirect("/order");
       return;
     }
-  
+
 
     if (orderData.status == "Approved") {
       const userWallet = await User.findOne({ _id: orderData.userId });
@@ -1247,45 +1241,45 @@ const updateCartQuantity = async (req, res) => {
 };
 
 
-const walletupdate=async(req,res)=>{
-//   try {
-//     console.log("walllet update route");
-//     const { amount } = req.body;
-
-  
-//  await User.findOne({ _id: req.user.id }, (err, user) => {
-//     if (err) {
-      
-//       return res.json({ success: false, message: "Error occurred while deducting amount from the wallet." });
-//     }
-
-//     if (!user) {
-     
-//       return res.json({ success: false, message: "User not found." });
-//     }
-
-//     if (user.wallet >= amount) {
-     
-//       user.wallet -= amount;
+const walletupdate = async (req, res) => {
+  //   try {
+  //     console.log("walllet update route");
+  //     const { amount } = req.body;
 
 
-//       user.save((err) => {
-//         if (err) {
-          
-//           return res.json({ success: false, message: "Error occurred while deducting amount from the wallet." });
-//         }
+  //  await User.findOne({ _id: req.user.id }, (err, user) => {
+  //     if (err) {
 
-//         return res.json({ success: true, message: "Amount deducted from the wallet successfully." });
-//       });
-//     } else {
-      
-//       return res.json({ success: false, message: "Insufficient balance in the wallet." });
-//     }
-//   });
-//   } catch (error) {
-//     console.log(error.message);
-//     res.render('error')
-//   }
+  //       return res.json({ success: false, message: "Error occurred while deducting amount from the wallet." });
+  //     }
+
+  //     if (!user) {
+
+  //       return res.json({ success: false, message: "User not found." });
+  //     }
+
+  //     if (user.wallet >= amount) {
+
+  //       user.wallet -= amount;
+
+
+  //       user.save((err) => {
+  //         if (err) {
+
+  //           return res.json({ success: false, message: "Error occurred while deducting amount from the wallet." });
+  //         }
+
+  //         return res.json({ success: true, message: "Amount deducted from the wallet successfully." });
+  //       });
+  //     } else {
+
+  //       return res.json({ success: false, message: "Insufficient balance in the wallet." });
+  //     }
+  //   });
+  //   } catch (error) {
+  //     console.log(error.message);
+  //     res.render('error')
+  //   }
 }
 
 const addnewaddress = async (req, res) => {
@@ -1597,7 +1591,7 @@ const sortedProductList = async (req, res) => {
 };
 
 
-const productssort=async(req,res)=>{
+const productssort = async (req, res) => {
 
   const sortParam = req.query.sort; // Get the sorting parameter from the query string
 
@@ -1605,22 +1599,22 @@ const productssort=async(req,res)=>{
     let sortQuery = {};
 
     if (sortParam === 'lowToHigh') {
-     
+
       sortQuery = { price: 1 };
     } else if (sortParam === 'highToLow') {
-     
+
       sortQuery = { price: -1 };
     } else {
 
       return res.status(400).json({ error: 'Invalid sorting parameter' });
     }
 
-    
+
     const products = await Products.find().sort(sortQuery).exec();
 
     return res.json(products);
   } catch (error) {
-   
+
     return res.status(500).json({ error: 'An error occurred' });
   }
 }

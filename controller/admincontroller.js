@@ -33,7 +33,7 @@ const approvecancel = async (req, res) => {
       { new: true }
     );
 
-    if (cancelRequest.status === "Approved" && cancelRequest.payment_method!=="1") {
+    if (cancelRequest.status === "Approved" && cancelRequest.payment_method !== "1") {
       const userWallet = await User.findOne({ _id: cancelRequest.userId });
 
       if (userWallet) {
@@ -46,7 +46,7 @@ const approvecancel = async (req, res) => {
         // For example, display an error message or take appropriate action
       }
 
-     
+
 
       res.redirect("/cancelrequests");
     } else {
@@ -58,7 +58,7 @@ const approvecancel = async (req, res) => {
   }
 };
 
-const rejectcancel=async(req,res)=>{
+const rejectcancel = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -271,7 +271,7 @@ const verifyadmin = async (req, res) => {
 const cancelrequests = async (req, res) => {
   try {
     const cancelRequests = await Order.find({ status: "Pending" }).lean();
-    res.render("cancelrequests", { cancelRequests }); 
+    res.render("cancelrequests", { cancelRequests });
   } catch (error) {
     console.log(error.message);
     res.render('error')
@@ -513,7 +513,7 @@ const updateStatus = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.sendStatus(500);
-    
+
   }
 };
 
@@ -540,6 +540,6 @@ module.exports = {
   cancelrequests,
   approvecancel,
   rejectcancel,
- 
+
 
 }

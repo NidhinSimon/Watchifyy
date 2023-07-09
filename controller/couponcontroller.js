@@ -69,7 +69,7 @@ const updateCouponStatus = async (req, res) => {
     const filter = { _id: couponId };
     const update = { $set: { status: statusvalue } };
     await Coupon.updateOne(filter, update);
-    res.sendStatus(200); 
+    res.sendStatus(200);
   } catch (error) {
     console.log(error.message);
     res.sendStatus(500);
