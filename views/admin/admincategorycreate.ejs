@@ -62,30 +62,54 @@
   </div>
   
   <script>
-    function validateForm() {
-      var percentage = parseInt(document.getElementById("percentage").value);
-  
-     
-      if (percentage > 70) {
-        document.getElementById("percentageError").textContent = "Percentage should not be greater than 70.";
-        return false;
-      }
-  
+  const percentageField = document.getElementById("percentage");
+const percentageError = document.getElementById("percentageError");
 
-      if (percentage < 0) {
-        document.getElementById("percentageError").textContent = "Percentage should not be negative.";
-        return false;
-      }
-  
-      
-      var name = document.getElementById("name").value;
-      if (name.toLowerCase().includes("itself")) {
-        document.getElementById("nameError").textContent = "Offer name should not contain 'itself'.";
-        return false;
-      }
-  
-      return true;
-    }
+percentageField.addEventListener("input", function() {
+  const percentage = parseInt(percentageField.value, 10);
+
+  if (isNaN(percentage) || percentage < 0 || percentage > 70) {
+    percentageError.textContent = "Please enter a valid percentage between 0 and 70.";
+  } else {
+    percentageError.textContent = "";
+  }
+});
+
+const nameField = document.getElementById("name");
+const nameError = document.getElementById("nameError");
+
+nameField.addEventListener("input", function() {
+  const name = nameField.value.toLowerCase();
+
+  if (name.includes("itself")) {
+    nameError.textContent = "Offer name should not contain 'itself'.";
+  } else {
+    nameError.textContent = "";
+  }
+});
+
+function validateForm() {
+  const percentage = parseInt(document.getElementById("percentage").value);
+
+  if (percentage > 70) {
+    document.getElementById("percentageError").textContent = "Percentage should not be greater than 70.";
+    return false;
+  }
+
+  if (percentage < 0) {
+    document.getElementById("percentageError").textContent = "Percentage should not be negative.";
+    return false;
+  }
+
+  const name = document.getElementById("name").value.toLowerCase();
+  if (name.includes("itself")) {
+    document.getElementById("nameError").textContent = "Offer name should not contain 'itself'.";
+    return false;
+  }
+
+  return true;
+}
+
   </script>
   
   
