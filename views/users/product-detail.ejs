@@ -287,14 +287,14 @@ box-shadow: 0 0 10px rgba( 0, 0, 0,.1)
                         <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
                         <div class="slick3 gallery-lb ">
-                          <div class="item-slick3" data-thumb="/uploads/<%= prodetail.images[0] %>">
+                          <div class="item-slick3" data-thumb="/uploads/<%= prodetail.images[2] %>">
                             <div class="wrap-pic-w pos-relative">
-                              <a href="/uploads/<%= prodetail.images[0] %>" data-lightbox="product-gallery">
-                                <img src="/uploads/<%= prodetail.images[0] %>" alt="IMG-PRODUCT"
-                                  data-zoom-image="/uploads/<%= prodetail.images[0] %>" />
+                              <a href="/uploads/<%= prodetail.images[2] %>" data-lightbox="product-gallery">
+                                <img src="/uploads/<%= prodetail.images[2] %>" alt="IMG-PRODUCT"
+                                  data-zoom-image="/uploads/<%= prodetail.images[2] %>" />
                               </a>
                               <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                href="/uploads/<%= prodetail.images[0] %>">
+                                href="/uploads/<%= prodetail.images[2] %>">
                                 <i class="fa fa-expand"></i>
                               </a>
                             </div>
@@ -312,13 +312,13 @@ box-shadow: 0 0 10px rgba( 0, 0, 0,.1)
                             </div>
                           </div>
 
-                          <div class="item-slick3" data-thumb="/uploads/<%= prodetail.images[2] %>">
+                          <div class="item-slick3" data-thumb="/uploads/<%= prodetail.images[0] %>">
                             <div class="wrap-pic-w pos-relative">
-                              <img src="/uploads/<%= prodetail.images[2] %>" alt="IMG-PRODUCT"
-                                data-zoom-image="/uploads/<%= prodetail.images[2] %>" />
+                              <img src="/uploads/<%= prodetail.images[0] %>" alt="IMG-PRODUCT"
+                                data-zoom-image="/uploads/<%= prodetail.images[0] %>" />
 
                               <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                href="/uploads/<%= prodetail.images[2] %>">
+                                href="/uploads/<%= prodetail.images[0] %>">
                                 <i class="fa fa-expand"></i>
                               </a>
                             </div>
@@ -381,7 +381,7 @@ box-shadow: 0 0 10px rgba( 0, 0, 0,.1)
                           <a href="#"
                             class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
                             data-tooltip="Add to Wishlist">
-                            <i class="zmdi zmdi-favorite"></i>
+                            <!-- <i class="zmdi zmdi-favorite"></i> -->
                           </a>
                         </div>
 
@@ -567,8 +567,65 @@ box-shadow: 0 0 10px rgba( 0, 0, 0,.1)
             </section>
 
             <!-- Related Products -->
-     
+          
 
+            <section class="sec-relate-product bg0 p-t-45 p-b-105">
+             
+              <div class="container">
+                <div class="p-b-45">
+                  <h3 class="ltext-106 cl5 txt-center">
+                    Related Products
+                  </h3>
+                </div>
+          
+                <!-- Slide2 -->
+                <div class="wrap-slick2">
+                 
+                  <div class="slick2">
+                    <% Related.forEach(function(x, i) { %>
+                   
+                    <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15" onclick="window.location.href='/productdetail/<%= x._id %>'">
+
+                      <!-- Block2 -->
+                      <div class="block2">
+                        
+                        <div class="block2-pic hov-img0">
+                          <img src="/uploads/<%= x.images[2] %>" alt="IMG-PRODUCT">
+          
+                          
+                        </div>
+          
+                        <div class="block2-txt flex-w flex-t p-t-14">
+                          <div class="block2-txt-child1 flex-col-l ">
+                            <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                              <%= x.productName %>
+                            </a>
+          
+                            <span class="stext-105 cl3">
+                              <%= x.price %>
+                            </span>
+                          </div>
+          
+                          <div class="block2-txt-child2 flex-r p-t-3">
+                            <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                            
+                            </a>
+                          </div>
+                        </div>
+                       
+                      </div>
+
+                    </div>
+          
+                    <% }); %>
+                  </div>
+                 
+                </div>
+               
+              </div>
+            
+            </section>
+          
             <!-- Footer -->
             <footer class="bg3 p-t-75 p-b-32">
               <div class="container">

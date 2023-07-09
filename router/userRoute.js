@@ -49,8 +49,8 @@ user_route.post('/checkout-address', userController.addAddressCheckout);
 user_route.get('/login', userController.loadlogin);
 user_route.post('/login', userController.verifyLogin)
 user_route.get('/logout', userController.logout)
-user_route.get('/login/catdetail/:id', userController.categorydetails)
-user_route.get('/login/productdetail/:id', userController.productdetails)
+user_route.get('/catdetail/:id', userController.categorydetails)
+user_route.get('/productdetail/:id', userController.productdetails)
 
 user_route.delete('/removeproduct/:id', userauth.userLogin, userController.removeCartProduct);
 

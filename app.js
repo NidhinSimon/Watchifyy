@@ -52,6 +52,9 @@ app.use(morgan('tiny'
 
 ));
 
+
+
+
 cron.schedule('0 0 * * *', () => {
   handleexpiredoffers()
 });

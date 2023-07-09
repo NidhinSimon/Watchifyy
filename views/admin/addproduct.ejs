@@ -371,8 +371,8 @@
               <i class="fas fa-cloud-upload-alt"></i> Choose Image
             </label>
             <input type="file" id="image-upload" name="image" accept="image/*" multiple onchange="showSelectedImage(event)">
+          
             <div id="selected-images-preview" class="image-preview"></div>
-            <span class="field-error" id="image-error"></span>
           </div>
           
           
@@ -499,13 +499,6 @@
         }
       
         function showSelectedImage(event) {
-          var selectedImage = document.getElementById("selected-image");
-          selectedImage.src = URL.createObjectURL(event.target.files[0]);
-        }
-
-
-
-        function showSelectedImage(event) {
   const previewContainer = document.getElementById('selected-images-preview');
   previewContainer.innerHTML = '';
 
@@ -519,27 +512,30 @@
       imgElement.src = event.target.result;
       imgElement.classList.add('selected-image');
       previewContainer.appendChild(imgElement);
-    }
+    };
 
     reader.readAsDataURL(file);
   }
 }
 
+
       </script>
     <style>
-      .image-preview {
-        display: flex;
-        align-items: center;
-        overflow-x: auto;
-        margin-bottom: 10px;
-      }
-    
-      .image-preview .selected-image {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        margin-right: 10px;
-      }
+     .image-preview {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  margin-bottom: 10px;
+  flex-direction: row-reverse; /* Change the order of the images */
+}
+
+.image-preview .selected-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
     </style>
     
       
@@ -1084,6 +1080,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/main/js/material-dashboard.min.js?v=3.0.0"></script>
+  <%- include('../layouts/adminmenu') %>
 </body>
 
 </html>

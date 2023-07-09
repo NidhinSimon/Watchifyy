@@ -11,6 +11,7 @@ const app=express()
 
 cron.schedule('0 0 * * *', () => {
     handleexpiredoffers()
+    handleExpiredCategoryOffers();
   });
 
 const offerLoad = async (req, res) => {
@@ -54,12 +55,6 @@ const addproductoffer = async (req, res) => {
   
         const duration = req.body.duration;
         const expiryDate = moment().add(duration, 'days').toDate();
-
-
-       
-
-// Example output: July 15th, 2023
-
   
         await Product.findByIdAndUpdate(
           { _id: product },
@@ -188,6 +183,38 @@ const deleteCategoryOffer = async (req, res) => {
 
 
 
+  const handleExpiredCategoryOffers = async () => {
+    console.log("Handling expired category offers...");
+    try {
+      const now = new Date();
+      const expiredOffers = await Offer.find({
+        expiryDate: { $lt: now },
+        status: "Active",
+        category: { $exists: true },
+      });
+    
+      for (const offer of expiredOffers) {
+        offer.status = "Expired";
+        await offer.save();
+    
+        const category = offer.category;
+        const products = await Product.find({ category: category });
+    
+        products.forEach(async (product) => {
+          product.price = product.offerPrice;
+          product.offerPercentage = 0;
+          await product.save();
+        });
+      }
+    
+      console.log("Expired category offers handled:", expiredOffers.length);
+    } catch (error) {
+      console.error("Error handling expired category offers:", error.message);
+    }
+  };
+
+
+
   const handleexpiredoffers = async () => {
     console.log("hajaajajajajha");
     try {
@@ -214,7 +241,7 @@ const deleteCategoryOffer = async (req, res) => {
   
   app.get('/handleexpiredoffers', handleexpiredoffers);
   
-  
+  app.get('/handleexpiredcategoryoffers', handleExpiredCategoryOffers);
   
 module.exports = {
     offerLoad,

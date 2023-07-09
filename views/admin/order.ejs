@@ -34,6 +34,12 @@
 	<link rel="stylesheet" type="text/css" href="/cartstyle/css/main.css">
 	<!--===============================================================================================-->
 
+<!-- Add the necessary CSS link for DataTables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
+<!-- Add the necessary JavaScript CDN links for DataTables -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
 
   <meta charset="UTF-8">
@@ -82,178 +88,54 @@
 
 
 </head>
-<style>
-  .navbar-vertical.navbar-expand-xs .navbar-collapse {
-  display: block;
-  overflow: auto;
-  height: calc(100vh - 360px);
-  overflow: hidden;
-}
-</style>
-
-
-     
-<body class="g-sidenav-show  bg-gray-200">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
-    <div class="sidenav-header">
-      <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="/main/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold text-white">HELLO NIDHIN</span>
-      </a>
-    </div>
-    <hr class="horizontal light mt-0 mb-2">
-    <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link text-white " href="/adminHome">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">dashboard</i>
-            </div>
-            <span class="nav-link-text ms-1">Dashboard</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white  " href="/admin/users">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <span class="material-icons">
-                    people_outline
-                    </span>
-            </div>
-            <span class="nav-link-text ms-1">USERS</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="/admin/category">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <span class="material-icons">
-                    category
-                    </span>
-            </div>
-            <span class="nav-link-text ms-1">CATEGORY</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="/admin/products"">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <span class="material-icons">
-                    inventory
-                    </span>
-            </div>
-            <span class="nav-link-text ms-1">PRODUCT</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="/coupons">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <span class="material-icons">
-                    local_offer
-                    </span>
-                    
-            </div>
-            <span class="nav-link-text ms-1">COUPONS</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="/orders">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <span class="material-icons">
-                    local_shipping
-                    </span>
-            </div>
-            <span class="nav-link-text ms-1 active bg-gradient-primary">ORDERS</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="/banner">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <span class="material-icons">
-                    local_shipping
-                    </span>
-            </div>
-            <span class="nav-link-text ms-1">BANNER</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="/offer">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <span class="material-icons">
-                    local_shipping
-                    </span>
-            </div>
-            <span class="nav-link-text ms-1">OFFER</span>
-          </a>
-        </li>
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
-        </li>
-       
-        <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/sign-in.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">login</i>
-            </div>
-            <span class="nav-link-text ms-1">Sign In</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/sign-up.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">assignment</i>
-            </div>
-            <span class="nav-link-text ms-1"></span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  
-  </aside>
+<%- include('../layouts/adminmenu') %>
  
-   
-      <div class="card">
-        <div class="card-header">Orders</div>
-        <div class="card-body" style="
-        margin-left: 274px;
-    ">
-          <div class="table-responsive">
-            <table  class="table">
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Date</th>
-                  <th>Payment Method</th>
-                  <th>Status</th>
-                  <th>Order Price</th>
-                  <th>Address</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% order.forEach(function(order) { %>
-                <tr>
-                  <td><%= order.orderId %></td>
-                  <td><%= order.date.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'}) %> <%= order.date.toLocaleTimeString('en-US', {hour: 'numeric', minute:'numeric'}) %></td>
-                  <td>
-                    <span class="text-warning"><%= order.payment_method %></span>
-                  </td>
-                  <td>
-                    <select onchange="changestatus(event, '<%= order._id %>')">
-                      <option value="Placed" <%= order.status === 'Placed' ? 'selected' : '' %>>Placed</option>
-                      <option value="Shipping" <%= order.status === 'Shipping' ? 'selected' : '' %>>Shipping</option>
-                      <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
-                      <option value="Cancelled" <%= order.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
-                    </select>
-                  </td>
-                  <td><%= order.total ? order.total : order.subtotal %></td>
-                  <td><%= order.addressId %></td>
-                </tr>
-                <td> <a href="/view-product?id=<%=order._id%>" class="btn btn-sm btn-success">View</a> </td>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        </div>
+  <div class="card">
+    <div class="card-header">Orders</div>
+    <div class="card-body" style="margin-left: 274px;">
+      <div class="table-responsive table-responsive-sm">
+        <table id="orderTable" class="table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Date</th>
+              <th>Payment Method</th>
+              <th>Status</th>
+              <th>Order Price</th>
+              <th>Address</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% order.forEach(function(order) { %>
+            <tr>
+              <td><%= order.orderId %></td>
+              <td><%= order.date.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'}) %> <%= order.date.toLocaleTimeString('en-US', {hour: 'numeric', minute:'numeric'}) %></td>
+              <td>
+                <span class="text-warning"><%= order.payment_method %></span>
+              </td>
+              <td>
+                <select onchange="changestatus(event, '<%= order._id %>')">
+                  <option value="Placed" <%= order.status === 'Placed' ? 'selected' : '' %>>Placed</option>
+                  <option value="Shipping" <%= order.status === 'Shipping' ? 'selected' : '' %>>Shipping</option>
+                  <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+                  <option value="Cancelled" <%= order.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+                </select>
+              </td>
+              <td><%= order.total ? order.total : order.subtotal %></td>
+              <td><%= order.addressId %></td>
+              <td>
+                <a href="/view-product?id=<%= order._id %>" class="btn btn-sm btn-success">View</a>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
       </div>
-   
+    </div>
+  </div>
+  
+  
   
     <script>
       function changestatus(event, orderId) {
@@ -277,10 +159,17 @@
 
   <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/sp-2.1.2/datatables.min.js"></script>
   <script>
+    $(document).ready(function() {
+  // Initialize DataTables
+  $('#orderTable').DataTable();
+});
+
+  </script>
+  <!-- <script>
     $(document).ready( function () {
       $('#myTable').DataTable();
     } );
-    </script>
+    </script> -->
 
 <script>
   function changestatus(event, id) {
@@ -325,6 +214,49 @@
       });
     });
   </script>
+
+
+<script src="/main/js/core/popper.min.js"></script>
+<script src="/main/js/core/bootstrap.min.js"></script>
+<script src="/main/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/main/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="/main/js/plugins/chartjs.min.js"></script>
+
+<script>
+  var win = navigator.platform.indexOf('Win') > -1;
+  if (win && document.querySelector('#sidenav-scrollbar')) {
+    var options = {
+      damping: '0.5'
+    }
+    Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+  }
+</script>
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="/main/js/material-dashboard.min.js?v=3.0.0"></script>
+</body>
+
+</html>  <script src="/main/js/core/popper.min.js"></script>
+<script src="/main/js/core/bootstrap.min.js"></script>
+<script src="/main/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/main/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="/main/js/plugins/chartjs.min.js"></script>
+
+<script>
+var win = navigator.platform.indexOf('Win') > -1;
+if (win && document.querySelector('#sidenav-scrollbar')) {
+  var options = {
+    damping: '0.5'
+  }
+  Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+}
+</script>
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="/main/js/material-dashboard.min.js?v=3.0.0"></script>
+
 
 
 </body>

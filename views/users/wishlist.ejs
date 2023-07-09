@@ -141,8 +141,25 @@
                         >
                           <i class="icon-cart-plus"></i> Add to Cart
                         </button>
+
                       </div>
                     </td>
+                    <td class="column-4">
+                      <div class="btn-group" role="group" aria-label="Action buttons">
+                       
+                        <button
+																						style="border:none;background-color:white;"
+																						onclick="removeWishlist('<%= item._id %>')">
+																						<a href="" class="text-muted">
+																							<i class="fa fa-trash-o"
+																								style="font-size:36px;color:rgb(190, 0, 0)"></i>
+																						</a>
+																					</button>
+                      </div>
+                    </td>
+                    
+                    
+                    
                   </tr>
                   <% }) %>
                 </table>
@@ -394,21 +411,33 @@
       });
     </script>
     <script>
-      const removeWishlist = async (productId, index) => {
-        const response = await fetch("/removewishlist", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            productId: productId,
-            index: index,
-          }),
-        })
-          .then((res) => res.json())
-          .then((res) => window.location.reload())
-          .catch((error) => console.error(error));
-      };
+    const removeWishlist = async (productId, index) => {
+  try {
+    const response = await fetch("/removefromwishlist", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: productId,
+        index: index,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // If the response was successful, reload the page
+      window.location.reload();
+    } else {
+      // Handle the error response
+      console.error(data.message);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
       const addToCart = async (productId) => {
         try {

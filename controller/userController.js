@@ -314,7 +314,7 @@ const loadHome = async (req, res) => {
   try {
     const categoryData = await Category.find({ isDeleted: false });
     const productData = await Products.find({ isDeleted: false });
-// console.log("cat", categoryData, "prod",productData)
+
     if (req.session.user) {
       const user = new ObjectId(req.session.user)
 
@@ -330,7 +330,7 @@ const loadHome = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    res.render('error')
+ console.log("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
   }
 };
 
@@ -339,73 +339,97 @@ const loadHome = async (req, res) => {
 
 const categorydetails = async (req, res) => {
   try {
-   
-    const user = new ObjectId(req.session.user);
-    const userdata = await User.findById(user);
-    const sortOption = req.query.sort || 'default';
-    const currentPage = parseInt(req.query.page) || 1;
-    const pageSize = 8; // Number of products per page
-    const id = req.params.id;
-    const categoryData = await Category.find();
-    const totalProducts = await Products.countDocuments({
-      isDeleted: false,
-      category: id
-    });
-    const totalPages = Math.ceil(totalProducts / pageSize);
-    const skip = (currentPage - 1) * pageSize;
-    let sortQuery = {};
-
-    if (sortOption === 'lowToHigh') {
-      sortQuery = { price: 1 };
-    } else if (sortOption === 'highToLow') {
-      sortQuery = { price: -1 };
-    }
-
-    const searchKeyword = req.query.search || '';
-
-    const pipeline = [
-      {
-        $match: {
-          isDeleted: false,
-          category: new ObjectId(id),
-          productName: { $regex: searchKeyword, $options: 'i' }
-        }
-      },
-      {
-        $lookup: {
-          from: "categories",
-          localField: "category",
-          foreignField: "_id",
-          as: "category"
-        }
-      },
-      {
-        $unwind: "$category"
+      const user = new ObjectId(req.session.user);
+      const userdata = await User.findById(user);
+      const sortOption = req.query.sort || 'default';
+      const currentPage = parseInt(req.query.page) || 1;
+      const pageSize = 8; // Number of products per page
+      const id = req.params.id;
+      const categoryData = await Category.find();
+      const totalProducts = await Products.countDocuments({
+        isDeleted: false,
+        category: id
+      });
+      const totalPages = Math.ceil(totalProducts / pageSize);
+      const skip = (currentPage - 1) * pageSize;
+      let sortQuery = {};
+  
+      if (sortOption === 'lowToHigh') {
+        sortQuery = { price: 1 };
+      } else if (sortOption === 'highToLow') {
+        sortQuery = { price: -1 };
       }
-    ];
+  
+      const searchKeyword = req.query.search || '';
+  
+      const pipeline = [
+        {
+          $match: {
+            isDeleted: false,
+            category: new ObjectId(id),
+            productName: { $regex: searchKeyword, $options: 'i' }
+          }
+        },
+        {
+          $lookup: {
+            from: "categories",
+            localField: "category",
+            foreignField: "_id",
+            as: "category"
+          }
+        },
+        {
+          $unwind: "$category"
+        }
+      ];
+  
+      if (Object.keys(sortQuery).length > 0) {
+        pipeline.push({ $sort: sortQuery });
+      }
+  
+      pipeline.push(
+        { $skip: skip },
+        { $limit: pageSize }
+      );
+  
+      const productData = await Products.aggregate(pipeline);
+  
 
-    if (Object.keys(sortQuery).length > 0) {
-      pipeline.push({ $sort: sortQuery });
-    }
+      if(req.session.user)
+      {
+        const usersession = req.session.user;
+        const userdata = await User.findById(usersession);
+        const user = await User.findById(req.session.user);
+        
 
-    pipeline.push(
-      { $skip: skip },
-      { $limit: pageSize }
-    );
-
-    const productData = await Products.aggregate(pipeline);
-
-    res.render('products', {
-      catdetails: productData,
-      user: user,
-      userdata: userdata,
-      sortOption,
-      currentPage,
-      totalPages,
-      data: categoryData,
-      searchKeyword
-    });
-
+        res.render('products', {
+          catdetails: productData,
+          user: user,
+          userdata: userdata,
+          sortOption,
+          currentPage,
+          totalPages,
+          data: categoryData,
+          searchKeyword
+        });
+    
+      }
+      else
+      {
+        res.render('products', {
+          catdetails: productData,
+          sortOption,
+          currentPage,
+          totalPages,
+          data: categoryData,
+          searchKeyword
+        });
+    
+      }
+     
+    
+    
+   
   } catch (error) {
     console.log(error.message);
     res.render('error');
@@ -416,11 +440,25 @@ const categorydetails = async (req, res) => {
 
 const productdetails = async (req, res) => {
   try {
-    const usersession = req.session.user
-    const userData = await User.findById(usersession);
+
     const productid = req.params.id
     const productdetail = await Products.findById({ _id: productid })
-    res.render('product-detail', { prodetail: productdetail, user: User, userdata: userData })
+    const Related = await Products.aggregate([
+      { $match: { isDeleted: false } }, 
+      { $sample: { size: 4 } } 
+    ]);
+    if(req.session.user)
+    {
+      const usersession = req.session.user;
+      const userdata = await User.findById(usersession);
+      const user = await User.findById(req.session.user);
+      res.render('product-detail', { prodetail: productdetail, user, userdata,Related })
+    }
+    else
+    {
+      res.render('product-detail', { prodetail: productdetail,Related })
+    }
+   
   } catch (error) {
     console.log(error.message)
   }
@@ -541,6 +579,7 @@ const addToCart = async (req, res) => {
 
 const loadallproducts = async (req, res) => {
   try {
+  
     const categoryData=await Category.find()
     const page = parseInt(req.query.page) || 1;
     const limit = 12;
@@ -579,15 +618,36 @@ const loadallproducts = async (req, res) => {
         .skip(skip)
         .limit(limit);
     }
+    if(req.session.user)
+    {
+      const usersession = req.session.user;
+      const userdata = await User.findById(usersession);
+      const user = await User.findById(req.session.user);
 
-    res.render('allproducts', {
-      productData,
-      totalPages,
-      currentPage: page,
-      sortOption,
-      selectedCategory: categoryId,
-      categories:categoryData
-    });
+      res.render('allproducts', {
+        productData,
+        totalPages,
+        currentPage: page,
+        sortOption,
+        selectedCategory: categoryId,
+        categories:categoryData,
+  userdata,
+  user
+      });
+    }else
+    {
+      res.render('allproducts', {
+        productData,
+        totalPages,
+        currentPage: page,
+        sortOption,
+        selectedCategory: categoryId,
+        categories:categoryData,
+ 
+      });
+    }
+
+   
   } catch (error) {
     console.log(error.message);
     res.render('error');
@@ -647,28 +707,31 @@ const addWishlist = async (req, res) => {
 };
 const removefromWishlist = async (req, res) => {
   try {
+    console.log(".oooooooooooooooooooooooooooooo");
     const { productId, index } = req.body;
     const userId = req.session.user;
     const updatedUser = await User.findByIdAndUpdate(
-      { _id: userId },
+      userId,
       { $pull: { wishlist: productId } },
       { new: true }
     );
+    console.log("perfeeeeect okkkkkkkkkkkk",updatedUser);
+
     if (!updatedUser) {
       throw new Error("Error removing the product from the wishlist!");
     }
+
     const wishlistProducts = updatedUser.wishlist;
-    res.json({
+    res.status(200).json({
       wishlistProducts,
       message: "Product removed from the wishlist",
     });
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     res.status(500).json({ message: "Server error" });
-    res.render('error')
   }
+};
 
-}
 
 const generateResetToken = () => {
   const token = crypto.randomBytes(20).toString('hex');
@@ -965,7 +1028,7 @@ const placeOrder = async (req, res) => {
         remainingAmount = 0;
         const updatedWalletBalance = walletBalance - total;
         user.wallet = updatedWalletBalance;
-        await user.save(); // Update the user's wallet balance in the database
+        await user.save();
       } else {
         return res.status(400).json({ error: "Insufficient wallet balance." });
       }
